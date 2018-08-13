@@ -15,12 +15,12 @@ public class HeloController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Debug.Log("transform.up.z is " + transform.up.z);
-        Vector3 flattenedTilt = transform.forward * transform.up.z * tiltDriftEffect +
-            transform.right * transform.up.x * tiltDriftEffect;
+        Vector3 flattenedTilt = Vector3.forward * transform.up.z * tiltDriftEffect +
+                                       Vector3.right * transform.up.x * tiltDriftEffect;
         flattenedTilt.y = 0;
         rb.velocity = flattenedTilt;
-        //transform.Rotate(Vector3.forward, Input.GetAxis("Horizontal") * Time.deltaTime * -rotationSpeed);
+        transform.Rotate(Vector3.forward, Input.GetAxis("Horizontal") * Time.deltaTime * -rotationSpeed);
         transform.Rotate(Vector3.right, Input.GetAxis("Vertical") * Time.deltaTime * rotationSpeed);
-        transform.Rotate(Vector3.up, Input.GetAxis("Swivel") * Time.deltaTime * rotationSpeed);
+        transform.Rotate(Vector3.up, Input.GetAxis("Swivel") * Time.deltaTime * rotationSpeed, Space.World);
 	}
 }
