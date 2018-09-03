@@ -7,8 +7,15 @@ public class HeloController : MonoBehaviour {
     public float rotationSpeed = 15.0f;
     public float tiltDriftEffect = 30.0f;
     private Rigidbody rb;
-	// Use this for initialization
-	void Start () {
+    public static HeloController instance;
+    // Use this for initialization
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
+    void Start () {
         rb = gameObject.GetComponent<Rigidbody>();
 	}
 	
@@ -29,5 +36,15 @@ public class HeloController : MonoBehaviour {
         transform.Rotate(Vector3.right, Input.GetAxis("Vertical") * Time.deltaTime * rotationSpeed);
         transform.Rotate(Vector3.up, Input.GetAxis("Swivel") * Time.deltaTime * rotationSpeed, Space.World);
 
-	}
+    }
+
+    private void FixedUpdate()
+    {
+        if (Input.GetButton("Fire1"))
+        {
+            //transform.rotation = Quaternion.identity;
+            Quaternion levelOrientation = Quaternion.AngleAxis(transform.rotation.eulerAngles.y, Vector3.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, levelOrientation, 0.05f);
+        }
+    }
 }
