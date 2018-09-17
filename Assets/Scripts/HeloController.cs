@@ -7,6 +7,7 @@ public class HeloController : MonoBehaviour
 
     public float rotationSpeed = 15.0f;
     public float tiltDriftEffect = 30.0f;
+    public float liftSpeed = 1.0f;
     private Rigidbody rb;
     public static HeloController instance;
     private float uprightTiltFactor = 0.15f;
@@ -14,12 +15,16 @@ public class HeloController : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        TakeInstance();
     }
 
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
+    }
+
+    public void TakeInstance() {
+        instance = this;
     }
 
     // Update is called once per frame
@@ -31,11 +36,11 @@ public class HeloController : MonoBehaviour
         flattenedTilt.y = 0.0f;
         if (Input.GetButton("Ascend"))
         {
-            flattenedTilt.y += 1.0f;
+            flattenedTilt.y += liftSpeed;
         }
         else if (Input.GetButton("Descend"))
         {
-            flattenedTilt.y -= 1.0f;
+            flattenedTilt.y -= liftSpeed;
         }
 
         rb.velocity = flattenedTilt;
