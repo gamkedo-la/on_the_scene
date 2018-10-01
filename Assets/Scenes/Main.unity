@@ -211,6 +211,7 @@ GameObject:
   - component: {fileID: 49305954}
   - component: {fileID: 49305953}
   - component: {fileID: 49305958}
+  - component: {fileID: 49305959}
   m_Layer: 0
   m_Name: helo-zippy
   m_TagString: Untagged
@@ -320,6 +321,28 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 2
+--- !u!114 &49305959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 49305952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/Choppers/ChopperSmall
+  PlayEvent: 1
+  StopEvent: 2
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 1
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &75705002
 GameObject:
   m_ObjectHideFlags: 0
@@ -5818,8 +5841,8 @@ GameObject:
   m_Component:
   - component: {fileID: 470045272}
   - component: {fileID: 470045275}
-  - component: {fileID: 470045274}
   - component: {fileID: 470045273}
+  - component: {fileID: 470045274}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -5856,13 +5879,18 @@ MonoBehaviour:
   - {fileID: 510673742}
   - {fileID: 637123187}
   timeForStoryLock: 20
---- !u!81 &470045274
-AudioListener:
+--- !u!114 &470045274
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 470045271}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ListenerNumber: 0
 --- !u!20 &470045275
 Camera:
   m_ObjectHideFlags: 0
@@ -6810,8 +6838,8 @@ GameObject:
   m_Component:
   - component: {fileID: 685830486}
   - component: {fileID: 685830485}
-  - component: {fileID: 685830484}
   - component: {fileID: 685830483}
+  - component: {fileID: 685830484}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -6835,13 +6863,18 @@ MonoBehaviour:
   - {fileID: 510673742}
   - {fileID: 637123187}
   timeForStoryLock: 20
---- !u!81 &685830484
-AudioListener:
+--- !u!114 &685830484
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 685830482}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ListenerNumber: 0
 --- !u!20 &685830485
 Camera:
   m_ObjectHideFlags: 0
@@ -13379,8 +13412,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1499763182}
   - component: {fileID: 1499763185}
-  - component: {fileID: 1499763184}
   - component: {fileID: 1499763183}
+  - component: {fileID: 1499763184}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -13417,13 +13450,18 @@ MonoBehaviour:
   - {fileID: 510673742}
   - {fileID: 637123187}
   timeForStoryLock: 20
---- !u!81 &1499763184
-AudioListener:
+--- !u!114 &1499763184
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1499763181}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ListenerNumber: 0
 --- !u!20 &1499763185
 Camera:
   m_ObjectHideFlags: 0
@@ -13701,6 +13739,7 @@ GameObject:
   - component: {fileID: 1727909986}
   - component: {fileID: 1727909985}
   - component: {fileID: 1727909984}
+  - component: {fileID: 1727909990}
   m_Layer: 0
   m_Name: helo-transport
   m_TagString: Untagged
@@ -13812,6 +13851,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1727909990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1727909983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/Choppers/ChopperSmall
+  PlayEvent: 1
+  StopEvent: 2
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &1734061166
 GameObject:
   m_ObjectHideFlags: 0
