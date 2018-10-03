@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.01.10.00">
-    <object class="Bank" id="{b41a8eb8-6784-441c-8b2c-2c902017f54a}">
-        <property name="name">
-            <value>Choppers</value>
-        </property>
+    <object class="MasterBank" id="{1d8e33b3-424e-457e-b387-e9b0c71412cd}">
         <relationship name="folder">
             <destination>{0d05237f-4534-4550-9f9a-3a1cd7454b27}</destination>
         </relationship>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.01.10.00">
-    <object class="AudioFile" id="{53dac674-eca1-49bf-b7b2-61db4d3704e0}">
+    <object class="AudioFile" id="{18598b32-f822-4206-a78e-5d03c7ce5560}">
         <property name="assetPath">
-            <value>ChopperSmall.ogg</value>
+            <value>ChopperLarge.ogg</value>
         </property>
         <property name="frequencyInKHz">
             <value>44.0999985</value>
@@ -11,10 +11,10 @@
             <value>2</value>
         </property>
         <property name="length">
-            <value>8</value>
+            <value>4</value>
         </property>
         <relationship name="masterAssetFolder">
-            <destination>{3271d7e9-182d-4a74-8131-5a95fde30471}</destination>
+            <destination>{85cfaff4-0dd2-4799-8676-4568346cb1b6}</destination>
         </relationship>
     </object>
 </objects>

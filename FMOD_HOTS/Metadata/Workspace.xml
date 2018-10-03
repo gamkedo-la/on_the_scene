@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.01.10.00">
     <object class="Workspace" id="{5774a3bb-7f15-49be-b171-d8d03d3fe00b}">
+        <property name="builtBanksOutputDirectory"/>
         <relationship name="masterEventFolder">
-            <destination>{ddd4d4c8-1d8d-4f45-a3ce-34af0af9f6fb}</destination>
+            <destination>{d4ed93ff-6191-4b5f-85e7-6e67b43e1600}</destination>
         </relationship>
         <relationship name="masterTagFolder">
-            <destination>{084eea35-5854-406d-8749-f57d869a00fa}</destination>
+            <destination>{7afcda23-2ebb-4b8c-9d2a-f19316f441e7}</destination>
         </relationship>
         <relationship name="masterEffectPresetFolder">
-            <destination>{ee863637-3655-4070-8c2a-f906a87b45ff}</destination>
+            <destination>{b863d095-12ed-458e-a98e-e9c808366e4e}</destination>
         </relationship>
         <relationship name="masterParameterPresetFolder">
-            <destination>{e60006c4-a1d2-41e5-b0bc-cb0ba6ae259f}</destination>
+            <destination>{d01990bc-6c28-44dc-a3bd-531b3b1c22a3}</destination>
         </relationship>
         <relationship name="masterBankFolder">
-            <destination>{0655e254-95c5-4920-a789-619ef8886ee6}</destination>
+            <destination>{0d05237f-4534-4550-9f9a-3a1cd7454b27}</destination>
         </relationship>
         <relationship name="masterAssetFolder">
-            <destination>{3271d7e9-182d-4a74-8131-5a95fde30471}</destination>
+            <destination>{85cfaff4-0dd2-4799-8676-4568346cb1b6}</destination>
         </relationship>
         <relationship name="mixer">
-            <destination>{72bffee8-d6f6-4390-9f70-de34c245203c}</destination>
+            <destination>{5b5f178e-437e-4d6d-85af-a90d893098bd}</destination>
         </relationship>
         <relationship name="platforms">
             <destination>{be2a587a-0096-47f3-b8a0-75a62d3ddff6}</destination>
+            <destination>{0366413b-2de9-4746-863a-0e7e2b57aa83}</destination>
         </relationship>
     </object>
 </objects>
