@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class WaypointFollower : MonoBehaviour
 {
-
-    public WayPointData[] waypoints;
-    public bool reachedDestination = false;
-    private int seekingWayPoint = 0;
     CarMover carMover;
     Vector3 pointAt;
+
+    public WayPointData[] waypoints;
+    
+    public bool reachedDestination = false;
+
+    private int seekingWayPoint = 0;
+    private WayPointData targetWayPoint;
+    
 
     // Use this for initialization
     void Start()
