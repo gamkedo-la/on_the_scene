@@ -6,7 +6,7 @@ public class WaypointFollower : MonoBehaviour
 {
 
     public WayPointData[] waypoints;
-    public bool reachedDesitnation = false;
+    public bool reachedDestination = false;
     private int seekingWayPoint = 0;
     CarMover carMover;
     Vector3 pointAt;
@@ -24,16 +24,17 @@ public class WaypointFollower : MonoBehaviour
     {
         carMover.TurnTowards(pointAt);
 
-        if (reachedDesitnation)
+        if (reachedDestination)
         {
             seekingWayPoint += 1;
             if (seekingWayPoint >= waypoints.Length)
             {
                 seekingWayPoint = 0;
+                //Debug.Log("Reached waypoint");
             }
             WayPointData nextWP = waypoints[seekingWayPoint];
             pointAt = nextWP.transform.position;
-            reachedDesitnation = false;
+            reachedDestination = false;
         }
     }
 }

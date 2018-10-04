@@ -12,7 +12,7 @@ public class WayPointData : MonoBehaviour
 
         if (car != null)
         {
-            car.reachedDesitnation = true;
+            car.reachedDestination = true;
         }
     }
 }
