@@ -23,16 +23,12 @@ public class MissionNode : MonoBehaviour {
 		if (canAcceptMission && !missionAccepted && playerHasAcceptedMission) {
 			missionAccepted = true;
 			meshRenderer.enabled = false;
-			Debug.Log("Player has accepted the mission!");
-			Debug.Log("MISSION: " + missionTitle);
-			Debug.Log("GOAL: " + missionDescription);
 			MissionController.SetActiveMission(this);
 		}
 	}
 
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.CompareTag("Player")) {
-			Debug.Log("Player touched the node!");
 			canAcceptMission = true;
 			MissionController.ShowMissionAcceptPanel(missionTitle, missionDescription);
 		}
@@ -40,7 +36,6 @@ public class MissionNode : MonoBehaviour {
 
 	void OnTriggerExit(Collider other) {
 		if (other.gameObject.CompareTag("Player")) {
-			Debug.Log("Player stopped touching the node!");
 			canAcceptMission = false;
 			MissionController.HideMissionAcceptPanel();
 		}
