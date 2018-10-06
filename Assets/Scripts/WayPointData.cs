@@ -5,16 +5,11 @@ using UnityEngine;
 public class WayPointData : MonoBehaviour
 {
 
-    public float closeEnoughToArrive = 0.5f; // when distance is <=, consider destination reached
-    
-    void OnTriggerEnter(Collider other)
+    public WayPointData[] nextWaypoints;
+
+
+    public WayPointData SelectRandomWaypoint ()
     {
-
-        WaypointFollower car = other.gameObject.GetComponent<WaypointFollower>();
-
-        if (car != null)
-        {
-            car.reachedDestination = true;
-        }
+        return nextWaypoints[Random.Range(0,nextWaypoints.Length)];
     }
 }

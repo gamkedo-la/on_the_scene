@@ -9,19 +9,23 @@ public class CarMover : MonoBehaviour
     private Vector3 targetVector3; //approach every frame
 
     private Rigidbody rb;
+    private WaypointFollower follower;
     
     // Public params
     public float carSpeed = 3.0f;
-    public float closeEnoughToSlowDown = 1.0f;
     
     //Internal vars
     private float speedScaleToTurnSharp = 1.0f;
+
+    private float lastDist = 0;
 
     // Use this for initialization
     void Start()
     {
         targetRotation = transform.rotation; // no target initially
         rb = GetComponent<Rigidbody>();
+        follower = GetComponent<WaypointFollower>();
+
     }
 
     // Update is called once per frame
@@ -31,12 +35,18 @@ public class CarMover : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 3.0f);
         
         float distToWayPoint = Vector3.Distance(transform.position, targetVector3);
-        if (distToWayPoint < closeEnoughToSlowDown)
-        {
-            speedScaleToTurnSharp = distToWayPoint / closeEnoughToSlowDown;
-        } else { speedScaleToTurnSharp = 1.0f; }
+
+        //Debug.Log("Distance from waypoint:" + distToWayPoint);
+
+        if (Mathf.Sign(lastDist - distToWayPoint) == -1 && distToWayPoint < 10) {
+
+            follower.NextWaypoint();
+        }
+
 
         rb.velocity = (transform.forward * carSpeed * speedScaleToTurnSharp);
+
+        lastDist = distToWayPoint;
     }
 
     public void TurnTowards(Vector3 pointAt)
