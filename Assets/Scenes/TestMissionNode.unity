@@ -440,7 +440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604f346c986c744b883505f97ceeaad9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  closeEnoughToArrive: 0.5
+  nextWaypoints: []
 --- !u!1001 &137808111
 Prefab:
   m_ObjectHideFlags: 0
@@ -1203,7 +1203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604f346c986c744b883505f97ceeaad9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  closeEnoughToArrive: 0.5
+  nextWaypoints: []
 --- !u!1 &455344847
 GameObject:
   m_ObjectHideFlags: 0
@@ -6155,7 +6155,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carSpeed: 3
-  closeEnoughToSlowDown: 1
 --- !u!1 &513053115
 GameObject:
   m_ObjectHideFlags: 0
@@ -6520,6 +6519,46 @@ Transform:
   m_Children: []
   m_Father: {fileID: 192458935}
   m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &630232225
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 630232227}
+  - component: {fileID: 630232226}
+  m_Layer: 0
+  m_Name: MissionController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &630232226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 630232225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 419d6ae906102ab428832f94c194fbd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &630232227
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 630232225}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.52895117, y: 1.8720737, z: -0.62762886}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &637123185
 GameObject:
@@ -6906,7 +6945,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604f346c986c744b883505f97ceeaad9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  closeEnoughToArrive: 0.5
+  nextWaypoints: []
 --- !u!1 &685830482
 GameObject:
   m_ObjectHideFlags: 0
@@ -12333,7 +12372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604f346c986c744b883505f97ceeaad9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  closeEnoughToArrive: 0.5
+  nextWaypoints: []
 --- !u!1 &1022024216
 GameObject:
   m_ObjectHideFlags: 0
@@ -12361,7 +12400,7 @@ Transform:
   m_Children:
   - {fileID: 860398061}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1045311266
 GameObject:
@@ -12843,7 +12882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604f346c986c744b883505f97ceeaad9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  closeEnoughToArrive: 0.5
+  nextWaypoints: []
 --- !u!1 &1152809687
 GameObject:
   m_ObjectHideFlags: 0
@@ -13780,7 +13819,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604f346c986c744b883505f97ceeaad9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  closeEnoughToArrive: 0.5
+  nextWaypoints: []
 --- !u!1 &1494629043
 GameObject:
   m_ObjectHideFlags: 0
@@ -14497,7 +14536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604f346c986c744b883505f97ceeaad9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  closeEnoughToArrive: 0.5
+  nextWaypoints: []
 --- !u!1 &1769659270
 GameObject:
   m_ObjectHideFlags: 0
