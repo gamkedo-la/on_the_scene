@@ -13,32 +13,32 @@ public class WaypointFollower : MonoBehaviour
 
     private int seekingWayPoint = 0;
     private WayPointData targetWayPoint;
+
+    WayPointData currentWaypoint;
     
 
     // Use this for initialization
     void Start()
     {
         carMover = GetComponent<CarMover>();
-        WayPointData nextWP = waypoints[seekingWayPoint];
-        pointAt = nextWP.transform.position;
+        currentWaypoint = waypoints[seekingWayPoint];
+
+        pointAt = currentWaypoint.transform.position;
+        carMover.TurnTowards(pointAt);
     }
 
     // Update is called once per frame
     void Update()
     {
+
         carMover.TurnTowards(pointAt);
 
-        if (reachedDestination)
-        {
-            seekingWayPoint += 1;
-            if (seekingWayPoint >= waypoints.Length)
-            {
-                seekingWayPoint = 0;
-                //Debug.Log("Reached waypoint");
-            }
-            WayPointData nextWP = waypoints[seekingWayPoint];
-            pointAt = nextWP.transform.position;
-            reachedDestination = false;
-        }
+    }
+
+    public void NextWaypoint()
+    {
+        currentWaypoint = currentWaypoint.SelectRandomWaypoint();
+        pointAt = currentWaypoint.transform.position;
+
     }
 }
