@@ -34,19 +34,20 @@ public class CarMover : MonoBehaviour
 
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 3.0f);
         
-        float distToWayPoint = Vector3.Distance(transform.position, targetVector3);
+        float distToWaypoint = Vector3.Distance(transform.position, targetVector3);
 
-        //Debug.Log("Distance from waypoint:" + distToWayPoint);
+        //Debug.Log("Distance from waypoint:" + distToWaypoint);
 
-        if (Mathf.Sign(lastDist - distToWayPoint) == -1 && distToWayPoint < 10) {
+        if (Mathf.Sign(lastDist - distToWaypoint) == -1 && distToWaypoint < 10) {
 
             follower.NextWaypoint();
+
         }
 
 
         rb.velocity = (transform.forward * carSpeed * speedScaleToTurnSharp);
 
-        lastDist = distToWayPoint;
+        lastDist = distToWaypoint;
     }
 
     public void TurnTowards(Vector3 pointAt)

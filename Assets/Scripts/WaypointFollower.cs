@@ -7,21 +7,21 @@ public class WaypointFollower : MonoBehaviour
     CarMover carMover;
     Vector3 pointAt;
 
-    public WayPointData[] waypoints;
+    public Waypoint[] waypoints;
     
     public bool reachedDestination = false;
 
-    private int seekingWayPoint = 0;
-    private WayPointData targetWayPoint;
+    private int seekingWaypoint = 0;
+    private Waypoint targetWaypoint;
 
-    WayPointData currentWaypoint;
+    Waypoint currentWaypoint;
     
 
     // Use this for initialization
     void Start()
     {
         carMover = GetComponent<CarMover>();
-        currentWaypoint = waypoints[seekingWayPoint];
+        currentWaypoint = waypoints[seekingWaypoint];
 
         pointAt = currentWaypoint.transform.position;
         carMover.TurnTowards(pointAt);
