@@ -19,7 +19,8 @@ public class MissionNode : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		bool playerHasAcceptedMission = Input.GetKeyDown(KeyCode.Space);
+		// bool playerHasAcceptedMission = Input.GetKeyDown(KeyCode.Space);
+		bool playerHasAcceptedMission = Input.GetAxis("Jump") > 0f;
 		if (canAcceptMission && !missionAccepted && playerHasAcceptedMission) {
 			missionAccepted = true;
 			meshRenderer.enabled = false;
