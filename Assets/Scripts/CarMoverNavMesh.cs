@@ -44,16 +44,23 @@ public class CarMoverNavMesh : MonoBehaviour {
 
 	void NextWaypoint() {
 
-		Debug.Log("Next");
-		_destination = _destination.SelectRandomWaypoint();
+		if (_destination.nextWaypoints.Length != 0) {
+			_destination = _destination.SelectRandomWaypoint();
+		}
 
 		lastDist = 0; // we consider that we just passed the point, hence the 0
 
 		navMeshAgent.SetDestination(_destination.transform.position);
 
 		// Leaving this here because more functionalities could be added
-		if (_destination.stopHere) {
+		if (_destination.stopHere || _destination.nextWaypoints.Length == 0) {
 			navMeshAgent.autoBraking = true;
 		} else { navMeshAgent.autoBraking = false;}
+
+		//Check at what speed we should be aiming for heading to the next Waypoint
+		//Note: does not immediately change speed, only sets max speed which is then handled by the NavMeshAgent
+		if (_destination.recommendedSpeed != 0) {
+			navMeshAgent.speed = _destination.recommendedSpeed;
+		}
 	}
 }
