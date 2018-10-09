@@ -17,6 +17,7 @@ MonoBehaviour:
   - pbForceConvex
   - pbMeshesAreAssets
   - pbIconGUI
+  - pbEnableBackfaceSelection
   m_Int_keys:
   - pbDefaultEditLevel
   - pbDefaultSelectionMode
@@ -25,6 +26,7 @@ MonoBehaviour:
   - pbShadowCastingMode
   - pbDefaultStaticFlags
   - pbVertexColorTool
+  - pb_GIWorkflowMode
   m_Float_keys:
   - pbEditorScroll.x
   - pbEditorScroll.y
@@ -34,8 +36,8 @@ MonoBehaviour:
   m_Color_keys: []
   m_Material_keys:
   - pbDefaultMaterial
-  m_Bool_values: 0100000001
-  m_Int_values: 04000000020000000000000002000000020000000000000000000000
+  m_Bool_values: 010000000000
+  m_Int_values: 0000000002000000000000000200000002000000000000000000000000000000
   m_Float_values:
   - 0
   - 0

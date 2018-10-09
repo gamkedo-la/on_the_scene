@@ -9,7 +9,7 @@ public class Waypoint : MonoBehaviour {
     [SerializeField]
     public bool stopHere; //could find a way to properly encapsulate this ;/
 
-    public float recommendedSpeed = 0;
+    public float recommendedSpeed = 0; //max speed that we should be going from this point to the next
 
 
     public Waypoint SelectRandomWaypoint ()
