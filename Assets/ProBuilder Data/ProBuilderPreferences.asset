@@ -11,6 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 680703436, guid: 4f0627da958b4bb78c260446066f065f, type: 3}
   m_Name: ProBuilderPreferences
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
   m_Bool_keys: []
   m_Int_keys: []
   m_Float_keys: []
@@ -21,5 +22,40 @@ MonoBehaviour:
   m_Int_values: 
   m_Float_values: []
   m_String_values: []
+=======
+  m_Bool_keys:
+  - pbStripProBuilderOnBuild
+  - pbDisableAutoUV2Generation
+  - pbForceConvex
+  - pbMeshesAreAssets
+  - pbIconGUI
+  - pbEnableBackfaceSelection
+  m_Int_keys:
+  - pbDefaultEditLevel
+  - pbDefaultSelectionMode
+  - pbHandleAlignment
+  - pbDefaultCollider
+  - pbShadowCastingMode
+  - pbDefaultStaticFlags
+  - pbVertexColorTool
+  - pb_GIWorkflowMode
+  m_Float_keys:
+  - pbEditorScroll.x
+  - pbEditorScroll.y
+  m_String_keys:
+  - pbCurrentMaterialPalette
+  - pb_VertexColorPalette::lastAssignedColorPalette
+  m_Color_keys: []
+  m_Material_keys:
+  - pbDefaultMaterial
+  m_Bool_values: 010000000000
+  m_Int_values: 0000000002000000000000000200000002000000000000000000000000000000
+  m_Float_values:
+  - 0
+  - 0
+  m_String_values:
+  - Assets/ProBuilder Data/Default Material Palette.asset
+  - Assets/ProBuilder Data/Default Color Palette.asset
+>>>>>>> 2d983666250f73fb8a93bf477e22c8d1ccd0bf29
   m_Color_values: []
   m_Material_values: []
