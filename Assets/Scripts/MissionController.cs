@@ -17,6 +17,7 @@ public class MissionController : MonoBehaviour {
     private GameObject currentMissionPanel;
     private Text currentMissionDescription;
 	
+    private MissionNode[] allMissionNodes;
 	private MissionNode activeMission;
 
     public float secondsToShowMissionStart = 3.0f;
@@ -31,6 +32,7 @@ public class MissionController : MonoBehaviour {
 
 	void Start () {
 		instance.SetMissionPanelObjects();
+		instance.GetMissionNodes();
         HideMissionAcceptPanel();
         HideMissionStartPanel();
         HideCurrentMissionPanel();
@@ -48,6 +50,10 @@ public class MissionController : MonoBehaviour {
         instance.currentMissionPanel = GameObject.Find("CurrentMissionPanel");
         instance.currentMissionDescription = GameObject.Find("CurrentMissionDescription").GetComponent<Text>();
 	}
+
+    void GetMissionNodes() {
+        instance.allMissionNodes = GameObject.FindObjectsOfType<MissionNode>();
+    }
 
     public static void HideMissionAcceptPanel () {
         instance.missionAcceptPanel.SetActive(false);
@@ -82,7 +88,32 @@ public class MissionController : MonoBehaviour {
 		instance.activeMission = mission;
 		HideMissionAcceptPanel();
         instance.StartCoroutine(instance.HandleMissionStart());
+        instance.DisableOtherMissionNodes();
 	}
+
+    public static void CompleteMission() {
+        instance.activeMission.HandleMissionComplete();
+        instance.EnableAllMissionNodes();
+    }
+
+    public static void HandleMissionFailed() {
+        instance.activeMission.HandleMissionFailed();
+        instance.EnableAllMissionNodes();
+    }
+
+    void DisableOtherMissionNodes() {
+        for (int i = 0; i < instance.allMissionNodes.Length; i++) {
+            if (instance.allMissionNodes[i] != instance.activeMission) {
+                instance.allMissionNodes[i].gameObject.SetActive(false);
+            }
+        }
+    }
+
+    void EnableAllMissionNodes() {
+        for (int i = 0; i < instance.allMissionNodes.Length; i++) {
+            instance.allMissionNodes[i].gameObject.SetActive(true);
+        }
+    }
 
     IEnumerator HandleMissionStart() {
         ShowMissionStartPanel();
