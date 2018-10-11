@@ -11,17 +11,21 @@ public class MissionNode : MonoBehaviour {
 	private bool missionAccepted;
 	private bool canAcceptMission;
 	private bool missionComplete;
+	private bool isExpandingBaseParticle;
+
 	private MeshRenderer meshRenderer;
 	private GameObject missionParticles;
 	private GameObject baseParticles;
-	private Vector3 baseScale;
+	private Vector3 initialBaseScale;
+	private float baseExpandRate = 0.2f;
+	private float maxBaseSize = 10;
 
 	void Start () {
 		meshRenderer = gameObject.GetComponent<MeshRenderer>();
 		missionParticles = this.gameObject.transform.GetChild(0).gameObject;
 		int baseParticleIndex = missionParticles.transform.childCount - 1;
 		baseParticles = missionParticles.transform.GetChild(baseParticleIndex).gameObject;
-		baseScale = baseParticles.transform.localScale;
+		initialBaseScale = baseParticles.transform.localScale;
 	}
 
 	// Update is called once per frame
@@ -30,9 +34,11 @@ public class MissionNode : MonoBehaviour {
 		if (canAcceptMission && !missionAccepted && playerHasAcceptedMission) {
 			missionAccepted = true;
 			meshRenderer.enabled = false;
-			// missionParticles.SetActive(false);
-			StartCoroutine(ExpandBaseParticle());
+			isExpandingBaseParticle = true;
 			MissionController.SetActiveMission(this);
+		}
+		if (isExpandingBaseParticle) {
+			ExpandBaseParticle();
 		}
 	}
 
@@ -50,17 +56,22 @@ public class MissionNode : MonoBehaviour {
 		}
 	}
 
-    IEnumerator ExpandBaseParticle() {
-		baseParticles.transform.localScale += new Vector3(1f, 1f, 0f);
-		yield return new WaitForSeconds(0.10f);
-		baseParticles.transform.localScale += new Vector3(1f, 1f, 0f);
-		yield return new WaitForSeconds(0.10f);
-		baseParticles.transform.localScale += new Vector3(1f, 1f, 0f);
-		yield return new WaitForSeconds(0.10f);
-		baseParticles.transform.localScale += new Vector3(1f, 1f, 0f);
-		yield return new WaitForSeconds(0.10f);
-		baseParticles.transform.localScale = baseScale;
+    void ExpandBaseParticle() {
+		if (baseParticles.transform.localScale.x < maxBaseSize) {
+			baseParticles.transform.localScale += new Vector3(baseExpandRate, baseExpandRate, 0f);
+		} else {
+			isExpandingBaseParticle = false;
+			HideMissionParticles();
+		}
+    }
+
+	void HideMissionParticles() {
 		missionParticles.SetActive(false);
+        baseParticles.transform.localScale = initialBaseScale;
+	}
+
+    void ShowMissionParticles() {
+        missionParticles.SetActive(true);
     }
 
 	public void HandleMissionComplete() {
