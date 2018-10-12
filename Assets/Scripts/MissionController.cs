@@ -10,9 +10,12 @@ public class MissionController : MonoBehaviour {
     private Text missionAcceptTitle;
     private Text missionAcceptDescription;
 
-    private GameObject missionStartPanel;
-    private Text missionStartType;
-    private Text missionStartTitle;
+    private GameObject missionStatusPanel;
+    private Text missionStatusType;
+    private Text missionStatusTitle;
+
+    private GameObject missionFailedPanel;
+    private Text missionFailedText;
 
     private GameObject currentMissionPanel;
     private Text currentMissionDescription;
@@ -20,7 +23,12 @@ public class MissionController : MonoBehaviour {
     private MissionNode[] allMissionNodes;
 	private MissionNode activeMission;
 
-    public float secondsToShowMissionStart = 3.0f;
+    private Color missionStartColor = new Color32(255, 255, 66, 255);
+    private Color missionCompleteColor = new Color32(66, 255, 106, 255);
+    private Color missionFailedColor = new Color32(255, 79, 66, 255);
+
+    private float secondsToShowMissionStatus = 3.0f;
+    public static bool showingFailedMessage = false;
 
     void Awake () {
         if (!instance) {
@@ -34,18 +42,31 @@ public class MissionController : MonoBehaviour {
 		instance.SetMissionPanelObjects();
 		instance.GetMissionNodes();
         HideMissionAcceptPanel();
-        HideMissionStartPanel();
+        HideMissionStatusPanel();
         HideCurrentMissionPanel();
+        HideMissionFailedPanel();
 	}
+
+    void Update () {
+        if (showingFailedMessage && Input.GetKeyDown(KeyCode.C)) {
+            instance.StartCoroutine(instance.RetryMission());
+        }
+        if (showingFailedMessage && Input.GetKeyDown(KeyCode.X)) {
+            instance.AbortMission();
+        }
+    }
 
 	void SetMissionPanelObjects () {
         instance.missionAcceptPanel = GameObject.Find("MissionAcceptPanel");
         instance.missionAcceptTitle = GameObject.Find("MissionTitle").GetComponent<Text>();
         instance.missionAcceptDescription = GameObject.Find("MissionDescription").GetComponent<Text>();
 
-        instance.missionStartPanel = GameObject.Find("MissionStartPanel");
-        instance.missionStartType = GameObject.Find("MissionStartType").GetComponent<Text>();
-        instance.missionStartTitle = GameObject.Find("MissionStartTitle").GetComponent<Text>();
+        instance.missionStatusPanel = GameObject.Find("MissionStatusPanel");
+        instance.missionStatusType = GameObject.Find("MissionTypeText").GetComponent<Text>();
+        instance.missionStatusTitle = GameObject.Find("MissionTitleText").GetComponent<Text>();
+
+        instance.missionFailedPanel = GameObject.Find("MissionFailedPanel");
+        instance.missionFailedText = GameObject.Find("MissionFailedText").GetComponent<Text>();
 
         instance.currentMissionPanel = GameObject.Find("CurrentMissionPanel");
         instance.currentMissionDescription = GameObject.Find("CurrentMissionDescription").GetComponent<Text>();
@@ -65,14 +86,15 @@ public class MissionController : MonoBehaviour {
         instance.missionAcceptPanel.SetActive(true);
 	}
 
-    public static void HideMissionStartPanel() {
-        instance.missionStartPanel.SetActive(false);
+    public static void HideMissionStatusPanel() {
+        instance.missionStatusPanel.SetActive(false);
     }
 
-    public static void ShowMissionStartPanel () {
-        instance.missionStartPanel.SetActive(true);
-        instance.missionStartType.text = instance.activeMission.type.ToString() + " Mission Started";
-        instance.missionStartTitle.text = instance.activeMission.missionTitle;
+    public static void ShowMissionStatusPanel (string typeText, Color32 typeColor) {
+        instance.missionStatusPanel.SetActive(true);
+        instance.missionStatusType.text = instance.activeMission.type.ToString() + " " + typeText;
+        instance.missionStatusType.color = typeColor;
+        instance.missionStatusTitle.text = instance.activeMission.missionTitle;
     }
 
     public static void HideCurrentMissionPanel () {
@@ -84,6 +106,16 @@ public class MissionController : MonoBehaviour {
         instance.currentMissionDescription.text = instance.activeMission.missionDescription;
     }
 
+    public static void HideMissionFailedPanel() {
+        instance.missionFailedPanel.SetActive(false);
+        showingFailedMessage = false;
+    }
+
+    public static void ShowMissionFailedPanel(string missionFailedText) {
+        instance.missionFailedPanel.SetActive(true);
+        instance.missionFailedText.text = missionFailedText;
+    }
+
 	public static void SetActiveMission (MissionNode mission) {
 		instance.activeMission = mission;
 		HideMissionAcceptPanel();
@@ -91,14 +123,14 @@ public class MissionController : MonoBehaviour {
         instance.DisableOtherMissionNodes();
 	}
 
-    public static void CompleteMission() {
-        instance.activeMission.HandleMissionComplete();
-        instance.EnableAllMissionNodes();
+    public static void HandleMissionComplete() {
+        HideCurrentMissionPanel();
+        instance.StartCoroutine(instance.ShowMissionCompleteMessage());
     }
 
     public static void HandleMissionFailed() {
-        instance.activeMission.HandleMissionFailed();
-        instance.EnableAllMissionNodes();
+        HideCurrentMissionPanel();
+        instance.ShowMissionFailedMessage();
     }
 
     void DisableOtherMissionNodes() {
@@ -116,9 +148,36 @@ public class MissionController : MonoBehaviour {
     }
 
     IEnumerator HandleMissionStart() {
-        ShowMissionStartPanel();
-        yield return new WaitForSeconds(secondsToShowMissionStart);
-        HideMissionStartPanel();
+        ShowMissionStatusPanel("Mission Start", instance.missionStartColor);
+        yield return new WaitForSeconds(secondsToShowMissionStatus);
+        HideMissionStatusPanel();
         ShowCurrentMissionPanel();
+    }
+
+    IEnumerator ShowMissionCompleteMessage() {
+        ShowMissionStatusPanel("Mission Complete", instance.missionCompleteColor);
+        yield return new WaitForSeconds(secondsToShowMissionStatus);
+        HideMissionStatusPanel();
+        instance.EnableAllMissionNodes();
+        instance.activeMission.HandleMissionComplete();
+    }
+
+    void ShowMissionFailedMessage() {
+        ShowMissionStatusPanel("Mission Failed", instance.missionFailedColor);
+        ShowMissionFailedPanel("You dropped a puppy! D:<");
+        showingFailedMessage = true;
+    }
+
+    IEnumerator RetryMission() {
+        yield return new WaitForSeconds(0.1f);
+        HideMissionFailedPanel();
+        instance.StartCoroutine(instance.HandleMissionStart());
+    }
+
+    void AbortMission() {
+        HideMissionFailedPanel();
+        HideMissionStatusPanel();
+        instance.EnableAllMissionNodes();
+        instance.activeMission.HandleMissionFailed();
     }
 }

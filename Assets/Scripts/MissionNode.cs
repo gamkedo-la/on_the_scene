@@ -11,6 +11,7 @@ public class MissionNode : MonoBehaviour {
 	private bool missionAccepted;
 	private bool canAcceptMission;
 	private bool missionComplete;
+	private bool missionFailed;
 	private bool isExpandingBaseParticle;
 
 	private MeshRenderer meshRenderer;
@@ -40,6 +41,13 @@ public class MissionNode : MonoBehaviour {
 		if (isExpandingBaseParticle) {
 			ExpandBaseParticle();
 		}
+		// TESTING ONLY -- remove later
+		if (missionAccepted && !MissionController.showingFailedMessage && Input.GetKeyDown(KeyCode.C)) {
+			MissionController.HandleMissionComplete();
+		}
+        if (missionAccepted && !MissionController.showingFailedMessage && Input.GetKeyDown(KeyCode.X)){
+            MissionController.HandleMissionFailed();
+        }
 	}
 
 	void OnTriggerEnter(Collider other) {
@@ -75,11 +83,15 @@ public class MissionNode : MonoBehaviour {
     }
 
 	public void HandleMissionComplete() {
-
+		ShowMissionParticles();
+		missionAccepted = false;
+		missionComplete = true;
 	}
 
 	public void HandleMissionFailed() {
-
+        ShowMissionParticles();
+		missionAccepted = false;
+		missionFailed = true;
 	}
 }
 
