@@ -14,6 +14,7 @@ public class AudioManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         masterBus = FMODUnity.RuntimeManager.GetBus(masterBusString);
+        masterBus.setVolume(0.2f);
 
     }
 
