@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class MissionController : MonoBehaviour {
     private static MissionController instance;
 
+    private GameObject fireworkParticles;
+    private GameObject playerHelicopter;
+
     private GameObject missionAcceptPanel;
     private Text missionAcceptTitle;
     private Text missionAcceptDescription;
@@ -29,6 +32,7 @@ public class MissionController : MonoBehaviour {
 
     private float secondsToShowMissionStatus = 3.0f;
     public static bool showingFailedMessage = false;
+    private bool showingFireworks = true;
 
     void Awake () {
         if (!instance) {
@@ -40,11 +44,14 @@ public class MissionController : MonoBehaviour {
 
 	void Start () {
 		instance.SetMissionPanelObjects();
+        instance.GetFireworkParticles();
 		instance.GetMissionNodes();
+		instance.GetPlayerHelicopter();
         HideMissionAcceptPanel();
         HideMissionStatusPanel();
         HideCurrentMissionPanel();
         HideMissionFailedPanel();
+        HideFireworkParticles();
 	}
 
     void Update () {
@@ -53,6 +60,9 @@ public class MissionController : MonoBehaviour {
         }
         if (showingFailedMessage && Input.GetKeyDown(KeyCode.X)) {
             instance.AbortMission();
+        }
+        if (showingFireworks) {
+            SetFireworkPosition();
         }
     }
 
@@ -74,6 +84,35 @@ public class MissionController : MonoBehaviour {
 
     void GetMissionNodes() {
         instance.allMissionNodes = GameObject.FindObjectsOfType<MissionNode>();
+    }
+
+    void GetFireworkParticles() {
+        instance.fireworkParticles = GameObject.Find("FireworkParticles");
+    }
+
+    void GetPlayerHelicopter() {
+        HeloController[] heloControllers = GameObject.FindObjectsOfType<HeloController>();
+        if (heloControllers.Length > 0) {
+            instance.playerHelicopter = heloControllers[0].gameObject;
+        }
+    }
+
+    void HideFireworkParticles() {
+        showingFireworks = false;
+        instance.fireworkParticles.SetActive(showingFireworks);
+    }
+
+    void ShowFireworkParticles() {
+        showingFireworks = true;
+        instance.fireworkParticles.SetActive(showingFireworks);
+    }
+
+    void SetFireworkPosition() {
+        if (instance.playerHelicopter) {
+            Vector3 helicopterPosition = instance.playerHelicopter.transform.position;
+            Vector3 fireWorksPosition = new Vector3(helicopterPosition.x, helicopterPosition.y - 0.7f, helicopterPosition.z + 2f);
+            instance.fireworkParticles.transform.position = fireWorksPosition;
+        }
     }
 
     public static void HideMissionAcceptPanel () {
@@ -156,10 +195,13 @@ public class MissionController : MonoBehaviour {
 
     IEnumerator ShowMissionCompleteMessage() {
         ShowMissionStatusPanel("Mission Complete", instance.missionCompleteColor);
+        ShowFireworkParticles();
         yield return new WaitForSeconds(secondsToShowMissionStatus);
         HideMissionStatusPanel();
         instance.EnableAllMissionNodes();
         instance.activeMission.HandleMissionComplete();
+        yield return new WaitForSeconds(5f);
+        HideFireworkParticles();
     }
 
     void ShowMissionFailedMessage() {
