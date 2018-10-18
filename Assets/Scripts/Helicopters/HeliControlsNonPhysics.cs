@@ -8,6 +8,7 @@ public class HeliControlsNonPhysics : MonoBehaviour
 	[SerializeField] private GameObject rotorTail = null;
 	[SerializeField] private GameObject wholeHeli = null;
 	[SerializeField] private Transform centerOfMass;
+	[SerializeField] private Transform altitudePoint;
 
 	[Header("Parameters")]
 	[SerializeField] private float speedMax = 3f;
@@ -37,14 +38,15 @@ public class HeliControlsNonPhysics : MonoBehaviour
 	[SerializeField] private float backToNeutralSpeed = 1.5f;
 	[SerializeField] private float deadZone = 10f;
 
-	[Header("Debug")]
-	public float currentThrottle;
-	public float currentRoll;
-	public float currentPitch;
-	public float currentPitchDesiered;
-	public float currentYaw;
-	public float currentYawDesiered;
+	private float currentThrottle = 0;
+	private float currentRoll = 0;
+	private float currentPitch = 0;
+	private float currentPitchDesiered = 0;
+	private float currentYaw = 0;
+	private float currentYawDesiered = 0;
+	private float currentVelocity = 0;
 	private Rigidbody rb;
+	private Vector3 lastPosition;
 
 	void Start( )
 	{
@@ -52,13 +54,23 @@ public class HeliControlsNonPhysics : MonoBehaviour
 		Assert.IsNotNull( rotorTail );
 		Assert.IsNotNull( wholeHeli );
 		Assert.IsNotNull( centerOfMass );
+		Assert.IsNotNull( altitudePoint );
 
 		rb = wholeHeli.GetComponent<Rigidbody>( );
 		Assert.IsNotNull( rb );
 
 		rb.centerOfMass = centerOfMass.localPosition;
+		lastPosition = transform.position;
+	}
 
+	void OnEnable( )
+	{
 		Cursor.lockState = CursorLockMode.Locked;
+	}
+
+	void OnDisable( )
+	{
+		Cursor.lockState = CursorLockMode.None;
 	}
 
 	void Update( )
@@ -69,6 +81,41 @@ public class HeliControlsNonPhysics : MonoBehaviour
 	void FixedUpdate( )
 	{
 		RotateAndMove( );
+	}
+
+	public float GetPitchPercent()
+	{
+		return currentPitch / maxPitch;
+	}
+
+	public float GetYawPercent( )
+	{
+		return currentYaw / maxYaw;
+	}
+
+	public float GetPitchDesieredPercent( )
+	{
+		return currentPitchDesiered / maxPitch;
+	}
+
+	public float GetYawDesieredPercent( )
+	{
+		return currentYawDesiered / maxYaw;
+	}
+
+	public float GetThrottlePercent( )
+	{
+		return currentThrottle / maxThrottle;
+	}
+
+	public float GetVelocity( )
+	{
+		return currentVelocity;
+	}
+
+	public Transform GetAltitudePoint( )
+	{
+		return altitudePoint;
 	}
 
 	private void HandleControls( )
@@ -115,6 +162,10 @@ public class HeliControlsNonPhysics : MonoBehaviour
 
 	private void RotateAndMove( )
 	{
+		// Velocity
+		currentVelocity = Vector3.Distance( transform.position, lastPosition ) / Time.fixedDeltaTime;
+		lastPosition = transform.position;
+
 		// Heli rotation
 		rb.MoveRotation( Quaternion.Euler( currentPitch, 0, currentYaw ) );
 		float yawPercent = currentYaw / maxYaw;
@@ -130,15 +181,17 @@ public class HeliControlsNonPhysics : MonoBehaviour
 		Vector3 moveVector = Vector3.zero;
 
 		// Starting Yaw ans Pitch
-		moveVector.x = -yawPercent * speedMax;
-		moveVector.z = pitchPercent * speedMax;
+		moveVector.x = -yawPercent;
+		moveVector.z = pitchPercent;
+		moveVector = moveVector.normalized;
+		moveVector = Mathf.Abs( yawPercent ) > Mathf.Abs( pitchPercent ) ?
+			moveVector * Mathf.Abs( yawPercent ) : moveVector * Mathf.Abs( pitchPercent );
 
-		// Check if sum of direction is not greater then max speed
 		float horizontalThrottle = currentThrottle;
 		horizontalThrottle = horizontalThrottle < 0 ? 1 : horizontalThrottle; // Always give some speed
 		horizontalThrottle = horizontalThrottle >= 0 && horizontalThrottle < 1 ? 1 : horizontalThrottle;
-		moveVector = moveVector.magnitude > speedMax ? moveVector.normalized * speedMax : moveVector;
-		moveVector = moveVector * horizontalThrottle * Time.fixedDeltaTime;
+		//moveVector = moveVector.magnitude > speedMax ? moveVector.normalized * speedMax : moveVector;
+		moveVector = moveVector * speedMax * horizontalThrottle * Time.fixedDeltaTime;
 
 		// Ascend / descend
 		if ( currentThrottle >= 0 )
