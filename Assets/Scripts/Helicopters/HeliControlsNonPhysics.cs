@@ -6,9 +6,9 @@ public class HeliControlsNonPhysics : MonoBehaviour
 	[Header("Parts")]
 	[SerializeField] private GameObject rotorMain = null;
 	[SerializeField] private GameObject rotorTail = null;
-	[SerializeField] private GameObject wholeHeli = null;
-	[SerializeField] private Transform centerOfMass;
-	[SerializeField] private Transform altitudePoint;
+	[SerializeField] private Rigidbody heliRigidbody = null;
+	[SerializeField] private Transform centerOfMass = null;
+	[SerializeField] private Transform altitudePoint = null;
 
 	[Header("Parameters")]
 	[SerializeField] private float speedMax = 3f;
@@ -17,6 +17,7 @@ public class HeliControlsNonPhysics : MonoBehaviour
 
 	[Header("Throttle")]
 	[SerializeField] private float throttleChangeSpeed = 3f;
+	[SerializeField] private float throttleBackChangeSpeed = 6f;
 	[SerializeField] private float throttleHitDampning = 3f;
 	[SerializeField] private float maxThrottle = 10f;
 
@@ -45,21 +46,19 @@ public class HeliControlsNonPhysics : MonoBehaviour
 	private float currentYaw = 0;
 	private float currentYawDesiered = 0;
 	private float currentVelocity = 0;
-	private Rigidbody rb;
+	private float yawControllerLast = 0;
+	private float pitchControllerLast = 0;
 	private Vector3 lastPosition;
 
 	void Start( )
 	{
 		Assert.IsNotNull( rotorMain );
 		Assert.IsNotNull( rotorTail );
-		Assert.IsNotNull( wholeHeli );
+		Assert.IsNotNull( heliRigidbody );
 		Assert.IsNotNull( centerOfMass );
 		Assert.IsNotNull( altitudePoint );
 
-		rb = wholeHeli.GetComponent<Rigidbody>( );
-		Assert.IsNotNull( rb );
-
-		rb.centerOfMass = centerOfMass.localPosition;
+		heliRigidbody.centerOfMass = centerOfMass.localPosition;
 		lastPosition = transform.position;
 	}
 
@@ -121,43 +120,82 @@ public class HeliControlsNonPhysics : MonoBehaviour
 	private void HandleControls( )
 	{
 		// Throttle
+		float throttleController = -Input.GetAxis( "Throttle" );
+		if (throttleController != 0 )
+		{
+			currentThrottle += throttleController * throttleChangeSpeed * Time.deltaTime;
+			currentThrottle = Mathf.Clamp
+			(
+				currentThrottle,
+				-maxThrottle * Mathf.Abs( throttleController ),
+				maxThrottle * Mathf.Abs( throttleController )
+			);
+		}
+
 		if ( Input.GetKey( KeyCode.W ) )
 			currentThrottle += throttleChangeSpeed * Time.deltaTime;
 		else if ( Input.GetKey( KeyCode.S ) )
 			currentThrottle -= throttleChangeSpeed * Time.deltaTime;
-		else
-			currentThrottle = Mathf.Lerp( currentThrottle, 0, backToNeutralSpeed * Time.deltaTime );
+		else if ( throttleController == 0 )
+		{
+			//currentThrottle = Mathf.Lerp( currentThrottle, 0, backToNeutralSpeed * Time.deltaTime );
+			if ( currentThrottle > 0.1f)
+				currentThrottle -= throttleBackChangeSpeed * Time.deltaTime;
+			else if ( currentThrottle < -0.1f )
+				currentThrottle += throttleBackChangeSpeed * Time.deltaTime;
+			else
+				currentThrottle = 0;
+		}
+
+		currentThrottle = Mathf.Clamp( currentThrottle, -maxThrottle, maxThrottle );
 
 		// Yaw
+		float yawController = -Input.GetAxis( "Yaw" );
+
 		if ( Input.GetAxis( "Mouse X" ) > 0.1f )
-			currentYawDesiered -= yawDesierdChangeSpeed * 1 * Time.deltaTime;
+			currentYawDesiered -= yawDesierdChangeSpeed * Time.deltaTime;
 		else if ( Input.GetAxis( "Mouse X" ) < -0.1f )
-			currentYawDesiered += yawDesierdChangeSpeed * 1 * Time.deltaTime;
+			currentYawDesiered += yawDesierdChangeSpeed * Time.deltaTime;
+		else if ( yawController != 0 )
+			currentYawDesiered = yawController * maxYaw;
+		else if ( yawController == 0 && yawController != yawControllerLast )
+			currentYawDesiered = 0;
+
+		currentYawDesiered = Mathf.Clamp( currentYawDesiered, -maxYaw, maxYaw );
+		float target = currentYawDesiered < deadZone && currentYawDesiered > -deadZone ? 0 : currentYawDesiered; // Dead Zone
+		currentYaw = Mathf.Lerp( currentYaw, target, yawChangeSpeed * Time.deltaTime );
+		yawControllerLast = yawController;
 
 		// Pitch
+		float pitchController = -Input.GetAxis( "Pitch" );
+
 		if ( Input.GetAxis( "Mouse Y" ) > 0.1f )
-			currentPitchDesiered += pitchDesierdChangeSpeed * 1 * Time.deltaTime;
+			currentPitchDesiered += pitchDesierdChangeSpeed * Time.deltaTime;
 		else if ( Input.GetAxis( "Mouse Y" ) < -0.1f )
-			currentPitchDesiered -= pitchDesierdChangeSpeed * 1 * Time.deltaTime;
+			currentPitchDesiered -= pitchDesierdChangeSpeed * Time.deltaTime;
+		else if ( pitchController != 0 )
+			currentPitchDesiered = pitchController * maxYaw;
+		else if ( pitchController == 0 && pitchController != pitchControllerLast )
+			currentPitchDesiered = 0;
+
+		currentPitchDesiered = Mathf.Clamp( currentPitchDesiered, -maxPitch-deadZone, maxPitch+deadZone );
+		target = currentPitchDesiered < deadZone && currentPitchDesiered > -deadZone ? 0 : currentPitchDesiered; // Dead Zone
+		currentPitch = Mathf.Lerp( currentPitch, target, pitchChangeSpeed * Time.deltaTime );
+		pitchControllerLast = pitchController;
 
 		// Roll
+		float rollL = -Input.GetAxis( "RollLeft" );
+		float rollR = Input.GetAxis( "RollRight" );
+		float roll = rollL + rollR;
+
 		/*		if ( Input.GetKey( KeyCode.D ) )
 					currentRoll += 1 * Time.deltaTime;
 				else if ( Input.GetKey( KeyCode.A ) )
 					currentRoll -= 1 * Time.deltaTime;
 				else
 					currentRoll = Mathf.Lerp( currentRoll, 0, backToNeutralSpeed * Time.deltaTime );
-		*/
-		currentRoll = Mathf.Clamp( currentRoll, -maxRoll, maxRoll );
-		currentThrottle = Mathf.Clamp( currentThrottle, -maxThrottle, maxThrottle );
 
-		currentPitchDesiered = Mathf.Clamp( currentPitchDesiered, -maxPitch-deadZone, maxPitch+deadZone );
-		float target = currentPitchDesiered < deadZone && currentPitchDesiered > -deadZone ? 0 : currentPitchDesiered; // Dead Zone
-		currentPitch = Mathf.Lerp( currentPitch, target, pitchChangeSpeed * Time.deltaTime );
-
-		currentYawDesiered = Mathf.Clamp( currentYawDesiered, -maxYaw, maxYaw );
-		target = currentYawDesiered < deadZone && currentYawDesiered > -deadZone ? 0 : currentYawDesiered; // Dead Zone
-		currentYaw = Mathf.Lerp( currentYaw, target, yawChangeSpeed * Time.deltaTime );
+		currentRoll = Mathf.Clamp( currentRoll, -maxRoll, maxRoll );*/
 	}
 
 	private void RotateAndMove( )
@@ -167,7 +205,7 @@ public class HeliControlsNonPhysics : MonoBehaviour
 		lastPosition = transform.position;
 
 		// Heli rotation
-		rb.MoveRotation( Quaternion.Euler( currentPitch, 0, currentYaw ) );
+		heliRigidbody.MoveRotation( Quaternion.Euler( currentPitch, 0, currentYaw ) );
 		float yawPercent = currentYaw / maxYaw;
 		float pitchPercent = currentPitch / maxPitch;
 
@@ -213,7 +251,7 @@ public class HeliControlsNonPhysics : MonoBehaviour
 			moveVector.y = currentThrottle * speedMax * Time.fixedDeltaTime;
 		}
 
-		rb.MovePosition( rb.position + moveVector );
+		heliRigidbody.MovePosition( heliRigidbody.position + moveVector );
 	}
 
 	private void OnCollisionStay( Collision collision )
