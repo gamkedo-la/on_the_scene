@@ -9,13 +9,51 @@ public class Waypoint : MonoBehaviour {
     [SerializeField]
     public bool stopHere; //could find a way to properly encapsulate this ;/
 
+    public bool isInitial; 
+    public bool isTerminal; //will search for nearby initial waypoints and link on startup
+
     public float recommendedSpeed = 0; //max speed that we should be going from this point to the next
 
 
+    public void Start ()
+    {
+        if (isTerminal) {
+            
+            Collider col = GetComponent<SphereCollider>();
+
+            if (col != null) {
+                Waypoint next = SearchForOverlappingWaypoint();
+
+                if (next != null && next.isInitial && next != this) {
+                    nextWaypoints[0] = next;
+                }
+            }
+        }
+    }
+
+    public Waypoint SearchForOverlappingWaypoint ()
+    {
+
+        Collider[] hit = Physics.OverlapSphere(transform.position, 0.5f);
+
+        for (var i = 0; i < hit.Length; i++)
+        {
+            Waypoint other = hit[i].gameObject.GetComponent<Waypoint>();
+            
+            if (other != null && other != this)
+            {
+                return other;
+            }
+        }
+
+        return null;
+    }
+
     public Waypoint SelectRandomWaypoint ()
     {
-        if (nextWaypoints.Length == 0) {return null;}
+        if (nextWaypoints.Length == 0) { return null; }
 
         return nextWaypoints[Random.Range(0,nextWaypoints.Length)];
     }
+
 }

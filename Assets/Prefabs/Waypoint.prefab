@@ -124,5 +124,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba18a8116ab8cc4cb5b5e3aaf967e59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextWaypoints: []
+  nextWaypoints:
+  - {fileID: 0}
   stopHere: 0
+  isInitial: 0
+  isTerminal: 0
+  recommendedSpeed: 0
