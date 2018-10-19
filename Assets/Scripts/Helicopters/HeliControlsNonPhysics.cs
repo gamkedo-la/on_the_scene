@@ -131,14 +131,14 @@ public class HeliControlsNonPhysics : MonoBehaviour
 			);
 		}
 
-		if ( Input.GetKey( KeyCode.W ) || Input.GetKey( KeyCode.UpArrow ) )
-			currentThrottle += throttleChangeSpeed * Time.deltaTime;
-		else if ( Input.GetKey( KeyCode.S ) || Input.GetKey( KeyCode.DownArrow ) )
-			currentThrottle -= throttleChangeSpeed * Time.deltaTime;
+		float throttleKeyboard = Input.GetAxis( "Vertical" );
+		if ( throttleKeyboard != 0 )
+		{
+			currentThrottle += throttleKeyboard * throttleChangeSpeed * Time.deltaTime;
+		}
 		else if ( throttleController == 0 )
 		{
-			//currentThrottle = Mathf.Lerp( currentThrottle, 0, backToNeutralSpeed * Time.deltaTime );
-			if ( currentThrottle > 0.1f)
+			if ( currentThrottle > 0.1f )
 				currentThrottle -= throttleBackChangeSpeed * Time.deltaTime;
 			else if ( currentThrottle < -0.1f )
 				currentThrottle += throttleBackChangeSpeed * Time.deltaTime;
@@ -225,7 +225,7 @@ public class HeliControlsNonPhysics : MonoBehaviour
 		float horizontalThrottle = currentThrottle;
 		horizontalThrottle = horizontalThrottle < 0 ? 1 : horizontalThrottle; // Always give some speed
 		horizontalThrottle = horizontalThrottle >= 0 && horizontalThrottle < 1 ? 1 : horizontalThrottle;
-		//moveVector = moveVector.magnitude > speedMax ? moveVector.normalized * speedMax : moveVector;
+
 		moveVector = moveVector * speedMax * horizontalThrottle * Time.fixedDeltaTime;
 
 		// Rotation
