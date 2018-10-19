@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MissionNode : MonoBehaviour {
+	
 	public MissionType type;
+	public HelicopterType idealHelicopter;
 	public string missionTitle;
 	[TextArea]
 	public string missionDescription;
@@ -53,9 +55,10 @@ public class MissionNode : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.CompareTag("Player")) {
 			canAcceptMission = true;
-			MissionController.ShowMissionAcceptPanel(missionTitle, missionDescription);
+			MissionController.ShowMissionAcceptPanel(missionTitle, missionDescription, idealHelicopter.ToString());
 		}
 	}
+	
 
 	void OnTriggerExit(Collider other) {
 		if (other.gameObject.CompareTag("Player")) {
@@ -96,7 +99,8 @@ public class MissionNode : MonoBehaviour {
 }
 
 public enum MissionType {
-	Delivery,
+	Transport,
 	Rescue,
-	Report
+	Report,
+	Delivery
 }

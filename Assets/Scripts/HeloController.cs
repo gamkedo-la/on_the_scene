@@ -5,6 +5,7 @@ using UnityEngine;
 public class HeloController : MonoBehaviour
 {
 
+    public HelicopterType helicopterType;
     public float rotationSpeed = 15.0f;
     public float tiltDriftEffect = 30.0f;
     public float liftSpeed = 1.0f;
@@ -67,4 +68,10 @@ public class HeloController : MonoBehaviour
         }*/
         transform.rotation = Quaternion.Slerp(transform.rotation, levelOrientation, blend * 0.3f);
     }
+}
+
+public enum HelicopterType {
+    Transport,
+    Rescue,
+    HighSpeed
 }

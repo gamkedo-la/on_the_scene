@@ -12,6 +12,7 @@ public class MissionController : MonoBehaviour {
     private GameObject missionAcceptPanel;
     private Text missionAcceptTitle;
     private Text missionAcceptDescription;
+    private Text idealHelicopterText;
 
     private GameObject missionStatusPanel;
     private Text missionStatusType;
@@ -70,6 +71,7 @@ public class MissionController : MonoBehaviour {
         instance.missionAcceptPanel = GameObject.Find("MissionAcceptPanel");
         instance.missionAcceptTitle = GameObject.Find("MissionTitle").GetComponent<Text>();
         instance.missionAcceptDescription = GameObject.Find("MissionDescription").GetComponent<Text>();
+        instance.idealHelicopterText = GameObject.Find("IdealHelicopterText").GetComponent<Text>();
 
         instance.missionStatusPanel = GameObject.Find("MissionStatusPanel");
         instance.missionStatusType = GameObject.Find("MissionTypeText").GetComponent<Text>();
@@ -119,9 +121,14 @@ public class MissionController : MonoBehaviour {
         instance.missionAcceptPanel.SetActive(false);
 	}
 
-	public static void ShowMissionAcceptPanel (string missionTitle, string missionDescription) {
+	public static void ShowMissionAcceptPanel (string missionTitle, string missionDescription, string idealHelicopterType) {
         instance.missionAcceptTitle.text = missionTitle;
         instance.missionAcceptDescription.text = missionDescription;
+
+        instance.idealHelicopterText.text = "";
+        if (HeloController.instance.helicopterType.ToString() != idealHelicopterType) {
+            instance.idealHelicopterText.text = "A " + idealHelicopterType.ToLower() + " helicopter would be best suited for this mission.";
+        }
         instance.missionAcceptPanel.SetActive(true);
 	}
 
