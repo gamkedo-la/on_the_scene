@@ -21,7 +21,7 @@ public class CameraFollow : MonoBehaviour
 
 	void FixedUpdate( )
 	{
-		Vector3 desiredPosition = target.position + offset;
+		Vector3 desiredPosition = target.position + ( target.rotation * offset );
 
 		float speed = smoothSpeed;
 		if ( Vector3.Distance( target.position, transform.position ) < lastDistance )

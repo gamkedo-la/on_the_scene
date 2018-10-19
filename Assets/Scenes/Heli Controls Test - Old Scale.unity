@@ -215,7 +215,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &4644410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4491,7 +4491,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1801975451}
   smoothSpeed: 0.03125
+  smoothTime: 0.125
   offset: {x: 0, y: 12, z: -20}
+  velocity: {x: 1, y: 1, z: 1}
 --- !u!1 &181829099
 GameObject:
   m_ObjectHideFlags: 0
@@ -42309,8 +42311,7 @@ MonoBehaviour:
   pitchDesierdChangeSpeed: 50
   pitchChangeSpeed: 0.7
   maxPitch: 45
-  rollChangeSpeed: 3
-  maxRoll: 45
+  rollChangeSpeed: 20
   backToNeutralSpeed: 1
   deadZone: 10
 --- !u!54 &1801975449

@@ -33,7 +33,6 @@ public class HeliControlsNonPhysics : MonoBehaviour
 
 	[Header("Roll")]
 	[SerializeField] private float rollChangeSpeed = 3f;
-	[SerializeField] private float maxRoll = 45f;
 
 	[Header("Other")]
 	[SerializeField] private float backToNeutralSpeed = 1.5f;
@@ -132,9 +131,9 @@ public class HeliControlsNonPhysics : MonoBehaviour
 			);
 		}
 
-		if ( Input.GetKey( KeyCode.W ) )
+		if ( Input.GetKey( KeyCode.W ) || Input.GetKey( KeyCode.UpArrow ) )
 			currentThrottle += throttleChangeSpeed * Time.deltaTime;
-		else if ( Input.GetKey( KeyCode.S ) )
+		else if ( Input.GetKey( KeyCode.S ) || Input.GetKey( KeyCode.DownArrow ) )
 			currentThrottle -= throttleChangeSpeed * Time.deltaTime;
 		else if ( throttleController == 0 )
 		{
@@ -186,16 +185,14 @@ public class HeliControlsNonPhysics : MonoBehaviour
 		// Roll
 		float rollL = -Input.GetAxis( "RollLeft" );
 		float rollR = Input.GetAxis( "RollRight" );
-		float roll = rollL + rollR;
+		float rollController = rollL + rollR;
+		float rollKeyboard = Input.GetAxis( "Horizontal" );
+		float roll = rollController + rollKeyboard;
+		roll = Mathf.Clamp( roll, -1, 1 );
 
-		/*		if ( Input.GetKey( KeyCode.D ) )
-					currentRoll += 1 * Time.deltaTime;
-				else if ( Input.GetKey( KeyCode.A ) )
-					currentRoll -= 1 * Time.deltaTime;
-				else
-					currentRoll = Mathf.Lerp( currentRoll, 0, backToNeutralSpeed * Time.deltaTime );
-
-		currentRoll = Mathf.Clamp( currentRoll, -maxRoll, maxRoll );*/
+		currentRoll += roll * rollChangeSpeed * Time.deltaTime;
+		currentRoll = currentRoll > 360 ? currentRoll - 360 : currentRoll; // So it's not bigger then 360*
+		currentRoll = currentRoll < -360 ? currentRoll + 360 : currentRoll; // So it's not smaller then -360*
 	}
 
 	private void RotateAndMove( )
@@ -205,7 +202,7 @@ public class HeliControlsNonPhysics : MonoBehaviour
 		lastPosition = transform.position;
 
 		// Heli rotation
-		heliRigidbody.MoveRotation( Quaternion.Euler( currentPitch, 0, currentYaw ) );
+		heliRigidbody.MoveRotation( Quaternion.Euler( currentPitch, currentRoll, currentYaw ) );
 		float yawPercent = currentYaw / maxYaw;
 		float pitchPercent = currentPitch / maxPitch;
 
@@ -230,6 +227,9 @@ public class HeliControlsNonPhysics : MonoBehaviour
 		horizontalThrottle = horizontalThrottle >= 0 && horizontalThrottle < 1 ? 1 : horizontalThrottle;
 		//moveVector = moveVector.magnitude > speedMax ? moveVector.normalized * speedMax : moveVector;
 		moveVector = moveVector * speedMax * horizontalThrottle * Time.fixedDeltaTime;
+
+		// Rotation
+		moveVector = Quaternion.Euler( 0, heliRigidbody.rotation.eulerAngles.y, 0 ) * moveVector;
 
 		// Ascend / descend
 		if ( currentThrottle >= 0 )
