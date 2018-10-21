@@ -176,7 +176,7 @@ public class MissionController : MonoBehaviour {
 
     public static void HandleMissionFailed() {
         HideCurrentMissionPanel();
-        instance.ShowMissionFailedMessage();
+        instance.StartCoroutine(instance.ShowMissionFailedMessage());
     }
 
     void DisableOtherMissionNodes() {
@@ -211,9 +211,10 @@ public class MissionController : MonoBehaviour {
         HideFireworkParticles();
     }
 
-    void ShowMissionFailedMessage() {
+    IEnumerator ShowMissionFailedMessage() {
         ShowMissionStatusPanel("Mission Failed", instance.missionFailedColor);
         ShowMissionFailedPanel("You dropped a puppy! D:<");
+        yield return new WaitForSeconds(0.25f);
         showingFailedMessage = true;
     }
 

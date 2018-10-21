@@ -58,7 +58,6 @@ public class MissionNode : MonoBehaviour {
 			MissionController.ShowMissionAcceptPanel(missionTitle, missionDescription, idealHelicopter.ToString());
 		}
 	}
-	
 
 	void OnTriggerExit(Collider other) {
 		if (other.gameObject.CompareTag("Player")) {
