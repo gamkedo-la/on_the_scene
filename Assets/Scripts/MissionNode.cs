@@ -23,12 +23,21 @@ public class MissionNode : MonoBehaviour {
 	private float baseExpandRate = 0.2f;
 	private float maxBaseSize = 10;
 
+	private float timeElapsed = 0f;
+	private float bestTime;
+	private string missionTimeKey;
+
 	void Start () {
 		meshRenderer = gameObject.GetComponent<MeshRenderer>();
 		missionParticles = this.gameObject.transform.GetChild(0).gameObject;
+
 		int baseParticleIndex = missionParticles.transform.childCount - 1;
 		baseParticles = missionParticles.transform.GetChild(baseParticleIndex).gameObject;
 		initialBaseScale = baseParticles.transform.localScale;
+
+		missionTimeKey = "BestTime" + missionTitle;
+		bestTime = PlayerPrefs.GetFloat(missionTimeKey, 0);
+		Debug.Log("Best time for " + missionTitle + " is " + bestTime);
 	}
 
 	// Update is called once per frame
@@ -50,6 +59,9 @@ public class MissionNode : MonoBehaviour {
         if (missionAccepted && !MissionController.showingFailedMessage && Input.GetKeyDown(KeyCode.X)){
             MissionController.HandleMissionFailed();
         }
+		if (missionAccepted) {
+			timeElapsed += Time.deltaTime;
+		}
 	}
 
 	void OnTriggerEnter(Collider other) {
@@ -75,6 +87,10 @@ public class MissionNode : MonoBehaviour {
 		}
     }
 
+	public void SetTimeElapsed() {
+		timeElapsed = 0f;
+	}
+
 	void HideMissionParticles() {
 		missionParticles.SetActive(false);
         baseParticles.transform.localScale = initialBaseScale;
@@ -84,10 +100,29 @@ public class MissionNode : MonoBehaviour {
         missionParticles.SetActive(true);
     }
 
+	string GetFormattedTime(float timeToFormat) {
+        int seconds = (int)(timeToFormat % 60);
+        int minutes = (int)(timeToFormat / 60) % 60;
+        return string.Format("{0:0}m {1:00}s", minutes, seconds);
+	}
+
 	public void HandleMissionComplete() {
 		ShowMissionParticles();
 		missionAccepted = false;
 		missionComplete = true;
+		Debug.Log("timeElapsed " + timeElapsed);
+
+		string timeElapsedString = GetFormattedTime(timeElapsed);
+		string bestTimeString = GetFormattedTime(bestTime);
+
+		Debug.Log("Formatted time elapsed: " + timeElapsedString);
+		Debug.Log("Formatted best time: " + bestTimeString);
+	
+		if (timeElapsed < bestTime) {
+			PlayerPrefs.SetFloat(missionTimeKey, timeElapsed);
+			PlayerPrefs.Save();
+			bestTime = timeElapsed;
+		}
 	}
 
 	public void HandleMissionFailed() {
