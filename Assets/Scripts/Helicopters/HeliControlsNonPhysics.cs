@@ -29,12 +29,12 @@ public class HeliControlsNonPhysics : MonoBehaviour
 	[SerializeField] private float maxThrottle = 10f;
 
 	[Header("Pitch")]
-	[SerializeField] private float pitchDesierdChangeSpeed = 50f;
+	[SerializeField] private float pitchDesiredChangeSpeed = 50f;
 	[SerializeField] private float pitchChangeSpeed = 0.7f;
 	[SerializeField] private float maxPitch = 45f;
 
 	[Header("Roll")]
-	[SerializeField] private float rollDesierdChangeSpeed = 50f;
+	[SerializeField] private float rollDesiredChangeSpeed = 50f;
 	[SerializeField] private float rollChangeSpeed = 0.7f;
 	[SerializeField] private float maxRoll = 45f;
 
@@ -47,9 +47,9 @@ public class HeliControlsNonPhysics : MonoBehaviour
 	private float currentThrottle = 0;
 	private float currentYaw = 0;
 	private float currentPitch = 0;
-	private float currentPitchDesiered = 0;
+	private float currentPitchDesired = 0;
 	private float currentRoll = 0;
-	private float currentRollDesiered = 0;
+	private float currentRollDesired = 0;
 	private float currentVelocity = 0;
 	private float rollControllerLast = 0;
 	private float pitchControllerLast = 0;
@@ -129,12 +129,12 @@ public class HeliControlsNonPhysics : MonoBehaviour
 
 	public float GetPitchDesieredPercent( )
 	{
-		return currentPitchDesiered / maxPitch;
+		return currentPitchDesired / maxPitch;
 	}
 
 	public float GetRollDesieredPercent( )
 	{
-		return currentRollDesiered / maxRoll;
+		return currentRollDesired / maxRoll;
 	}
 
 	public float GetThrottlePercent( )
@@ -223,16 +223,16 @@ public class HeliControlsNonPhysics : MonoBehaviour
 			rollController = 0; // You will probably have to add a new entry to the Input manager.
 
 		if ( Input.GetAxis( "Mouse X" ) > 0.1f )
-			currentRollDesiered -= rollDesierdChangeSpeed * Time.deltaTime;
+			currentRollDesired -= rollDesiredChangeSpeed * Time.deltaTime;
 		else if ( Input.GetAxis( "Mouse X" ) < -0.1f )
-			currentRollDesiered += rollDesierdChangeSpeed * Time.deltaTime;
+			currentRollDesired += rollDesiredChangeSpeed * Time.deltaTime;
 		else if ( rollController != 0 )
-			currentRollDesiered = rollController * maxRoll;
+			currentRollDesired = rollController * maxRoll;
 		else if ( rollController == 0 && rollController != rollControllerLast )
-			currentRollDesiered = 0;
+			currentRollDesired = 0;
 
-		currentRollDesiered = Mathf.Clamp( currentRollDesiered, -maxRoll, maxRoll );
-		float target = currentRollDesiered < deadZone && currentRollDesiered > -deadZone ? 0 : currentRollDesiered; // Dead Zone
+		currentRollDesired = Mathf.Clamp( currentRollDesired, -maxRoll, maxRoll );
+		float target = currentRollDesired < deadZone && currentRollDesired > -deadZone ? 0 : currentRollDesired; // Dead Zone
 		currentRoll = Mathf.Lerp( currentRoll, target, rollChangeSpeed * Time.deltaTime );
 		rollControllerLast = rollController;
 
@@ -245,16 +245,16 @@ public class HeliControlsNonPhysics : MonoBehaviour
 			pitchController = 0; // Jeremy, please add Pitch Input.GetAxis for PS4
 
 		if ( Input.GetAxis( "Mouse Y" ) > 0.1f )
-			currentPitchDesiered += pitchDesierdChangeSpeed * Time.deltaTime;
+			currentPitchDesired += pitchDesiredChangeSpeed * Time.deltaTime;
 		else if ( Input.GetAxis( "Mouse Y" ) < -0.1f )
-			currentPitchDesiered -= pitchDesierdChangeSpeed * Time.deltaTime;
+			currentPitchDesired -= pitchDesiredChangeSpeed * Time.deltaTime;
 		else if ( pitchController != 0 )
-			currentPitchDesiered = pitchController * maxPitch;
+			currentPitchDesired = pitchController * maxPitch;
 		else if ( pitchController == 0 && pitchController != pitchControllerLast )
-			currentPitchDesiered = 0;
+			currentPitchDesired = 0;
 
-		currentPitchDesiered = Mathf.Clamp( currentPitchDesiered, -maxPitch-deadZone, maxPitch+deadZone );
-		target = currentPitchDesiered < deadZone && currentPitchDesiered > -deadZone ? 0 : currentPitchDesiered; // Dead Zone
+		currentPitchDesired = Mathf.Clamp( currentPitchDesired, -maxPitch-deadZone, maxPitch+deadZone );
+		target = currentPitchDesired < deadZone && currentPitchDesired > -deadZone ? 0 : currentPitchDesired; // Dead Zone
 		currentPitch = Mathf.Lerp( currentPitch, target, pitchChangeSpeed * Time.deltaTime );
 		pitchControllerLast = pitchController;
 
