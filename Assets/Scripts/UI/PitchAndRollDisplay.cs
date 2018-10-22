@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
 
-public class PitchAndYawDisplay : MonoBehaviour
+public class PitchAndRollDisplay : MonoBehaviour
 {
 	[SerializeField] private HeliControlsNonPhysics heli = null;
 	[SerializeField] private RectTransform pitchAndYawDot = null;
@@ -26,7 +26,7 @@ public class PitchAndYawDisplay : MonoBehaviour
 
 	private void UpdateUI( )
 	{
-		float x = -heli.GetYawPercent( );
+		float x = -heli.GetRollPercent( );
 		float y = heli.GetPitchPercent( );
 		pitchAndYawDot.localPosition = new Vector2
 		(
@@ -34,7 +34,7 @@ public class PitchAndYawDisplay : MonoBehaviour
 			pitchAndYawDotStartPos.y + y * maxDelta
 		);
 
-		x = -heli.GetYawDesieredPercent( );
+		x = -heli.GetRollDesieredPercent( );
 		y = heli.GetPitchDesieredPercent( );
 		pitchAndYawDotWhite.localPosition = new Vector2
 		(

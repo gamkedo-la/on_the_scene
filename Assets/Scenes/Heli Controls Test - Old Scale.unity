@@ -240,7 +240,7 @@ Transform:
   m_Children:
   - {fileID: 836146010}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5532879
 GameObject:
@@ -8243,7 +8243,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: "                                                   Throttle\n\n\n                                                   Pitch
-    & Yaw\n\n\n                                                   Roll"
+    & Roll\n\n\n                                                   Yaw"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8288,7 +8288,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 126
+  m_firstOverflowCharacterIndex: 127
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -19244,7 +19244,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!1 &838202921
 GameObject:
@@ -25959,7 +25959,7 @@ GameObject:
   - component: {fileID: 1164118782}
   - component: {fileID: 1164118783}
   m_Layer: 0
-  m_Name: Pitch & Yaw
+  m_Name: Pitch & Roll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36637,7 +36637,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1549950978
 GameObject:
@@ -42615,14 +42615,13 @@ MonoBehaviour:
   throttleBackChangeSpeed: 6
   throttleHitDampning: 3
   maxThrottle: 10
-  yawDesierdChangeSpeed: 50
-  yawChangeSpeed: 0.7
-  maxYaw: 45
   pitchDesierdChangeSpeed: 50
   pitchChangeSpeed: 0.7
   maxPitch: 45
-  rollChangeSpeed: 30
-  backToNeutralSpeed: 1
+  rollDesierdChangeSpeed: 50
+  rollChangeSpeed: 0.7
+  maxRoll: 45
+  yawChangeSpeed: 3
   deadZone: 10
 --- !u!54 &1801975449
 Rigidbody:
@@ -49932,7 +49931,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Yaw
+  m_text: Roll
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -50000,7 +49999,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 0}
-    characterCount: 3
+    characterCount: 4
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
