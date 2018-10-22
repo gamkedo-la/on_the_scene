@@ -1,6 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
 
+enum ConnectedController
+{
+	None,
+	XBox,
+	PS4orOther,
+}
+
 public class HeliControlsNonPhysics : MonoBehaviour
 {
 	[Header("Parts")]
@@ -32,7 +39,7 @@ public class HeliControlsNonPhysics : MonoBehaviour
 	[SerializeField] private float maxRoll = 45f;
 
 	[Header("Yaw")]
-	[SerializeField] private float yawChangeSpeed = 3f;
+	[SerializeField] private float yawChangeSpeed = 30f;
 
 	[Header("Other")]
 	[SerializeField] private float deadZone = 10f;
@@ -46,6 +53,7 @@ public class HeliControlsNonPhysics : MonoBehaviour
 	private float currentVelocity = 0;
 	private float rollControllerLast = 0;
 	private float pitchControllerLast = 0;
+	[SerializeField] private ConnectedController connectedController = ConnectedController.None;
 	private Vector3 lastPosition;
 
 	void Start( )
@@ -77,7 +85,36 @@ public class HeliControlsNonPhysics : MonoBehaviour
 
 	void FixedUpdate( )
 	{
+		CheckConnectedControllers( ); // Or do we only check on start?
 		RotateAndMove( );
+	}
+
+	void OnCollisionStay( Collision collision )
+	{
+		if ( currentThrottle > 0 )
+		{
+			currentThrottle -= throttleHitDampning * 2 * Time.deltaTime;
+			currentThrottle = currentThrottle < 0 ? 0 : currentThrottle;
+		}
+		else
+		{
+			currentThrottle += throttleHitDampning * 2 * Time.deltaTime;
+			currentThrottle = currentThrottle > 0 ? 0 : currentThrottle;
+		}
+	}
+
+	void OnCollisionEnter( Collision collision )
+	{
+		if (currentThrottle > 0)
+		{
+			currentThrottle -= throttleHitDampning;
+			currentThrottle = currentThrottle < 0 ? 0 : currentThrottle;
+		}
+		else
+		{
+			currentThrottle += throttleHitDampning;
+			currentThrottle = currentThrottle > 0 ? 0 : currentThrottle;
+		}
 	}
 
 	public float GetPitchPercent()
@@ -115,8 +152,38 @@ public class HeliControlsNonPhysics : MonoBehaviour
 		return altitudePoint;
 	}
 
+	private void CheckConnectedControllers()
+	{
+		string[] controllers = Input.GetJoystickNames( );
+
+		connectedController = ConnectedController.None;
+		for ( int i = 0; i < controllers.Length; i++ ) // Is there at least one?
+		{
+			if ( controllers[i].Length > 0)
+				connectedController = ConnectedController.PS4orOther; // We got a controller (PS4 or other)
+
+			if ( controllers[i].ToLower( ).Contains( "xbox" ) ) // Is it an XBox controller?
+			{
+				connectedController = ConnectedController.XBox;
+				return;
+			}
+		}
+	}
+
 	private void HandleControls( )
 	{
+		/* Dear Jeremy,
+		* this detects if you have a controller connected
+		* and if it is a XBox one or some other.
+		* Since we only have an XBox one and a PS4 controllers
+		* and this is a club game I say we skip other.
+		* Unless we get physical controllers to test them.
+		* PS: We assume you got only 1 controller attached at a time.
+		*
+		* Can you fill out the code (in 3 places) for PS4 below?
+		*
+		* PLEASE DELETE THIS ONECE IT'S NO LONGER NEEDED TO YOU. */
+
 		// Throttle
 		float throttleController = -Input.GetAxis( "Throttle" );
 		if (throttleController != 0 )
@@ -148,7 +215,12 @@ public class HeliControlsNonPhysics : MonoBehaviour
 		currentThrottle = Mathf.Clamp( currentThrottle, -maxThrottle, maxThrottle );
 
 		// Roll
-		float rollController = -Input.GetAxis( "Roll" );
+		float rollController = 0;
+
+		if ( connectedController == ConnectedController.XBox )
+			rollController = -Input.GetAxis( "Roll" );
+		else // Jeremy, please add Roll Input.GetAxis for PS4.
+			rollController = 0; // You will probably have to add a new entry to the Input manager.
 
 		if ( Input.GetAxis( "Mouse X" ) > 0.1f )
 			currentRollDesiered -= rollDesierdChangeSpeed * Time.deltaTime;
@@ -165,7 +237,12 @@ public class HeliControlsNonPhysics : MonoBehaviour
 		rollControllerLast = rollController;
 
 		// Pitch
-		float pitchController = -Input.GetAxis( "Pitch" );
+		float pitchController = 0;
+
+		if ( connectedController == ConnectedController.XBox )
+			pitchController = -Input.GetAxis( "Pitch" );
+		else
+			pitchController = 0; // Jeremy, please add Pitch Input.GetAxis for PS4
 
 		if ( Input.GetAxis( "Mouse Y" ) > 0.1f )
 			currentPitchDesiered += pitchDesierdChangeSpeed * Time.deltaTime;
@@ -182,8 +259,20 @@ public class HeliControlsNonPhysics : MonoBehaviour
 		pitchControllerLast = pitchController;
 
 		// Yaw
-		float yawL = -Input.GetAxis( "YawLeft" );
-		float yawR = Input.GetAxis( "YawRight" );
+		float yawL = 0;
+		float yawR = 0;
+
+		if ( connectedController == ConnectedController.XBox )
+		{
+			yawL = -Input.GetAxis( "YawLeft" );
+			yawR = Input.GetAxis( "YawRight" );
+		}
+		else
+		{
+			yawL = 0; // Jeremy, please add Yaw Input.GetAxis or Buttons for PS4
+			yawR = 0;
+		}
+
 		float yawController = yawL + yawR;
 		float yawKeyboard = Input.GetAxis( "Horizontal" );
 		float yaw = yawController + yawKeyboard;
@@ -251,33 +340,5 @@ public class HeliControlsNonPhysics : MonoBehaviour
 		}
 
 		heliRigidbody.MovePosition( heliRigidbody.position + moveVector );
-	}
-
-	private void OnCollisionStay( Collision collision )
-	{
-		if ( currentThrottle > 0 )
-		{
-			currentThrottle -= throttleHitDampning * 2 * Time.deltaTime;
-			currentThrottle = currentThrottle < 0 ? 0 : currentThrottle;
-		}
-		else
-		{
-			currentThrottle += throttleHitDampning * 2 * Time.deltaTime;
-			currentThrottle = currentThrottle > 0 ? 0 : currentThrottle;
-		}
-	}
-
-	private void OnCollisionEnter( Collision collision )
-	{
-		if (currentThrottle > 0)
-		{
-			currentThrottle -= throttleHitDampning;
-			currentThrottle = currentThrottle < 0 ? 0 : currentThrottle;
-		}
-		else
-		{
-			currentThrottle += throttleHitDampning;
-			currentThrottle = currentThrottle > 0 ? 0 : currentThrottle;
-		}
 	}
 }

@@ -42621,8 +42621,9 @@ MonoBehaviour:
   rollDesierdChangeSpeed: 50
   rollChangeSpeed: 0.7
   maxRoll: 45
-  yawChangeSpeed: 3
+  yawChangeSpeed: 30
   deadZone: 10
+  connectedController: 0
 --- !u!54 &1801975449
 Rigidbody:
   m_ObjectHideFlags: 0
