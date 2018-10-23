@@ -3,7 +3,7 @@ using UnityEngine.Assertions;
 
 public class PitchAndRollDisplay : MonoBehaviour
 {
-	[SerializeField] private HeliControlsNonPhysics heli = null;
+	[SerializeField] private HeliController heli = null;
 	[SerializeField] private RectTransform pitchAndYawDot = null;
 	[SerializeField] private RectTransform pitchAndYawDotWhite = null;
 	[SerializeField] private float maxDelta = 44f;

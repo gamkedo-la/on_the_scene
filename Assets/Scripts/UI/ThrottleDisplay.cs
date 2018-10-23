@@ -4,7 +4,7 @@ using UnityEngine.Assertions;
 
 public class ThrottleDisplay : MonoBehaviour
 {
-	[SerializeField] private HeliControlsNonPhysics heli = null;
+	[SerializeField] private HeliController heli = null;
 	[SerializeField] private RectTransform throttlDot = null;
 	[SerializeField] private TextMeshProUGUI label = null;
 	[SerializeField] private float maxDelta = 93f;

@@ -4,7 +4,7 @@ using UnityEngine.Assertions;
 
 public class SpeedDisplay : MonoBehaviour
 {
-	[SerializeField] private HeliControlsNonPhysics heli = null;
+	[SerializeField] private HeliController heli = null;
 	[SerializeField] private TextMeshProUGUI label = null;
 
 	void Start( )

@@ -3,7 +3,7 @@ using UnityEngine.Assertions;
 
 public class TutorialMessage : MonoBehaviour
 {
-	[SerializeField] private HeliControlsNonPhysics heli = null;
+	[SerializeField] private HeliController heli = null;
 
 	void Start( )
 	{

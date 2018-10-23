@@ -8,14 +8,18 @@ enum ConnectedController
 	PS4orOther,
 }
 
-public class HeliControlsNonPhysics : MonoBehaviour
+public class HeliController : MonoBehaviour
 {
+	[Header("World Scale")]
+	[Tooltip("If the everything is scaled to 0.1f then put 10 - as in the world is 10x smaller. Used to give real world values for UI and stuff.")]
+	[SerializeField] private float worldScale = 1f;
+
 	[Header("Parts")]
-	[SerializeField] private GameObject rotorMain = null;
-	[SerializeField] private GameObject rotorTail = null;
-	[SerializeField] private Rigidbody heliRigidbody = null;
-	[SerializeField] private Transform centerOfMass = null;
-	[SerializeField] private Transform altitudePoint = null;
+	[SerializeField, Tooltip("The main rotor.")] private GameObject rotorMain = null;
+	[SerializeField, Tooltip("The tail rotor.")] private GameObject rotorTail = null;
+	[SerializeField, Tooltip("Rigidbody attached to the root of the helicopter.")] private Rigidbody heliRigidbody = null;
+	[SerializeField, Tooltip("Point that acts a the center of the helicopter.")] private Transform centerOfMass = null;
+	[SerializeField, Tooltip("Lowest point of the helicopter.")] private Transform altitudePoint = null;
 
 	[Header("Parameters")]
 	[SerializeField] private float speedMax = 6f;
@@ -53,7 +57,7 @@ public class HeliControlsNonPhysics : MonoBehaviour
 	private float currentVelocity = 0;
 	private float rollControllerLast = 0;
 	private float pitchControllerLast = 0;
-	[SerializeField] private ConnectedController connectedController = ConnectedController.None;
+	private ConnectedController connectedController = ConnectedController.None;
 	private Vector3 lastPosition;
 
 	void Start( )
@@ -144,12 +148,17 @@ public class HeliControlsNonPhysics : MonoBehaviour
 
 	public float GetVelocity( )
 	{
-		return currentVelocity;
+		return currentVelocity * worldScale;
 	}
 
 	public Transform GetAltitudePoint( )
 	{
 		return altitudePoint;
+	}
+
+	public float GetWorldScale( )
+	{
+		return worldScale;
 	}
 
 	private void CheckConnectedControllers()
@@ -218,7 +227,7 @@ public class HeliControlsNonPhysics : MonoBehaviour
         {
             currentRollDesired -= rollDesiredChangeSpeed * Time.deltaTime;
         }
-        else if ( Input.GetAxis( "Mouse X" ) < -0.1f ) 
+        else if ( Input.GetAxis( "Mouse X" ) < -0.1f )
         {
             currentRollDesired += rollDesiredChangeSpeed * Time.deltaTime;
         }
@@ -325,7 +334,7 @@ public class HeliControlsNonPhysics : MonoBehaviour
 		horizontalThrottle = horizontalThrottle < 0 ? 1 : horizontalThrottle; // Always give some speed
 		horizontalThrottle = horizontalThrottle >= 0 && horizontalThrottle < 1 ? 1 : horizontalThrottle;
 
-		moveVector = moveVector * speedMax * horizontalThrottle * Time.fixedDeltaTime;
+		moveVector = moveVector * ( speedMax / worldScale ) * horizontalThrottle * Time.fixedDeltaTime;
 
 		// Rotation
 		moveVector = Quaternion.Euler( 0, heliRigidbody.rotation.eulerAngles.y, 0 ) * moveVector;
@@ -342,12 +351,11 @@ public class HeliControlsNonPhysics : MonoBehaviour
 			float throttle = currentThrottle * liftCurve.Evaluate( horizontalPercent );
 
 			// Final vertical movement
-			moveVector.y = ( downDrag + throttle ) * speedMax * Time.fixedDeltaTime;
-
+			moveVector.y = ( downDrag + throttle ) * ( speedMax / worldScale ) * Time.fixedDeltaTime;
 		}
 		else
 		{
-			moveVector.y = currentThrottle * speedMax * Time.fixedDeltaTime;
+			moveVector.y = currentThrottle * ( speedMax / worldScale ) * Time.fixedDeltaTime;
 		}
 
 		heliRigidbody.MovePosition( heliRigidbody.position + moveVector );

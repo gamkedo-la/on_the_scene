@@ -4,11 +4,12 @@ using UnityEngine.Assertions;
 
 public class AltitudeDisplay : MonoBehaviour
 {
-	[SerializeField] private HeliControlsNonPhysics heli = null;
+	[SerializeField] private HeliController heli = null;
 	[SerializeField] private TextMeshProUGUI altitudeToSeaLabel = null;
 	[SerializeField] private TextMeshProUGUI altitudeToGroundLabel = null;
 
 	private Transform altitudePoint = null;
+	private float worldScale = 1f;
 	private RaycastHit hit;
 
 	void Start( )
@@ -18,6 +19,7 @@ public class AltitudeDisplay : MonoBehaviour
 		Assert.IsNotNull( altitudeToGroundLabel );
 
 		altitudePoint = heli.GetAltitudePoint( );
+		worldScale = heli.GetWorldScale( );
 		Assert.IsNotNull( altitudePoint );
 	}
 
@@ -30,7 +32,7 @@ public class AltitudeDisplay : MonoBehaviour
 	{
 		Physics.Raycast( altitudePoint.position, Vector3.down, out hit );
 
-		altitudeToSeaLabel.text = ( (int)( altitudePoint.position.y ) ).ToString( ) + " m";
-		altitudeToGroundLabel.text = ( (int)( hit.distance ) ).ToString( ) + " m";
+		altitudeToSeaLabel.text = ( (int)( altitudePoint.position.y * worldScale ) ).ToString( ) + " m";
+		altitudeToGroundLabel.text = ( (int)( hit.distance * worldScale ) ).ToString( ) + " m";
 	}
 }
