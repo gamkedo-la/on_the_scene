@@ -172,18 +172,6 @@ public class HeliControlsNonPhysics : MonoBehaviour
 
 	private void HandleControls( )
 	{
-		/* Dear Jeremy,
-		* this detects if you have a controller connected
-		* and if it is a XBox one or some other.
-		* Since we only have an XBox one and a PS4 controllers
-		* and this is a club game I say we skip other.
-		* Unless we get physical controllers to test them.
-		* PS: We assume you got only 1 controller attached at a time.
-		*
-		* Can you fill out the code (in 3 places) for PS4 below?
-		*
-		* PLEASE DELETE THIS ONECE IT'S NO LONGER NEEDED TO YOU. */
-
 		// Throttle
 		float throttleController = -Input.GetAxis( "Throttle" );
 		if (throttleController != 0 )
@@ -218,18 +206,30 @@ public class HeliControlsNonPhysics : MonoBehaviour
 		float rollController = 0;
 
 		if ( connectedController == ConnectedController.XBox )
-			rollController = -Input.GetAxis( "Roll" );
-		else // Jeremy, please add Roll Input.GetAxis for PS4.
-			rollController = 0; // You will probably have to add a new entry to the Input manager.
+        {
+            rollController = -Input.GetAxis("Roll");
+        }
+        else
+        {
+            rollController = -Input.GetAxis("RollPS4");
+        }
 
-		if ( Input.GetAxis( "Mouse X" ) > 0.1f )
-			currentRollDesired -= rollDesiredChangeSpeed * Time.deltaTime;
-		else if ( Input.GetAxis( "Mouse X" ) < -0.1f )
-			currentRollDesired += rollDesiredChangeSpeed * Time.deltaTime;
+        if ( Input.GetAxis( "Mouse X" ) > 0.1f )
+        {
+            currentRollDesired -= rollDesiredChangeSpeed * Time.deltaTime;
+        }
+        else if ( Input.GetAxis( "Mouse X" ) < -0.1f ) 
+        {
+            currentRollDesired += rollDesiredChangeSpeed * Time.deltaTime;
+        }
 		else if ( rollController != 0 )
-			currentRollDesired = rollController * maxRoll;
+        {
+            currentRollDesired = rollController * maxRoll;
+        }
 		else if ( rollController == 0 && rollController != rollControllerLast )
-			currentRollDesired = 0;
+        {
+            currentRollDesired = 0;
+        }
 
 		currentRollDesired = Mathf.Clamp( currentRollDesired, -maxRoll, maxRoll );
 		float target = currentRollDesired < deadZone && currentRollDesired > -deadZone ? 0 : currentRollDesired; // Dead Zone
@@ -240,18 +240,29 @@ public class HeliControlsNonPhysics : MonoBehaviour
 		float pitchController = 0;
 
 		if ( connectedController == ConnectedController.XBox )
-			pitchController = -Input.GetAxis( "Pitch" );
-		else
-			pitchController = 0; // Jeremy, please add Pitch Input.GetAxis for PS4
+        {
+            pitchController = -Input.GetAxis("Pitch");
+        }
+        else {
+            pitchController = -Input.GetAxis("PitchPS4");
+        }
 
-		if ( Input.GetAxis( "Mouse Y" ) > 0.1f )
-			currentPitchDesired += pitchDesiredChangeSpeed * Time.deltaTime;
-		else if ( Input.GetAxis( "Mouse Y" ) < -0.1f )
-			currentPitchDesired -= pitchDesiredChangeSpeed * Time.deltaTime;
+        if ( Input.GetAxis( "Mouse Y" ) > 0.1f )
+        {
+            currentPitchDesired += pitchDesiredChangeSpeed * Time.deltaTime;
+        }
+        else if ( Input.GetAxis( "Mouse Y" ) < -0.1f )
+        {
+            currentPitchDesired -= pitchDesiredChangeSpeed * Time.deltaTime;
+        }
 		else if ( pitchController != 0 )
-			currentPitchDesired = pitchController * maxPitch;
+        {
+            currentPitchDesired = pitchController * maxPitch;
+        }
 		else if ( pitchController == 0 && pitchController != pitchControllerLast )
-			currentPitchDesired = 0;
+        {
+            currentPitchDesired = 0;
+        }
 
 		currentPitchDesired = Mathf.Clamp( currentPitchDesired, -maxPitch-deadZone, maxPitch+deadZone );
 		target = currentPitchDesired < deadZone && currentPitchDesired > -deadZone ? 0 : currentPitchDesired; // Dead Zone
