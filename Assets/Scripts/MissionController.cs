@@ -13,6 +13,7 @@ public class MissionController : MonoBehaviour {
     private Text missionAcceptTitle;
     private Text missionAcceptDescription;
     private Text idealHelicopterText;
+    private Text bestTimeText;
 
     private GameObject missionStatusPanel;
     private Text missionStatusType;
@@ -70,6 +71,7 @@ public class MissionController : MonoBehaviour {
 	void SetMissionPanelObjects () {
         instance.missionAcceptPanel = GameObject.Find("MissionAcceptPanel");
         instance.missionAcceptTitle = GameObject.Find("MissionTitle").GetComponent<Text>();
+        instance.bestTimeText = GameObject.Find("BestTime").GetComponent<Text>();
         instance.missionAcceptDescription = GameObject.Find("MissionDescription").GetComponent<Text>();
         instance.idealHelicopterText = GameObject.Find("IdealHelicopterText").GetComponent<Text>();
 
@@ -121,7 +123,7 @@ public class MissionController : MonoBehaviour {
         instance.missionAcceptPanel.SetActive(false);
 	}
 
-	public static void ShowMissionAcceptPanel (string missionTitle, string missionDescription, string idealHelicopterType) {
+	public static void ShowMissionAcceptPanel (string missionTitle, string bestTime, string missionDescription, string idealHelicopterType) {
         instance.missionAcceptTitle.text = missionTitle;
         instance.missionAcceptDescription.text = missionDescription;
 
@@ -129,6 +131,7 @@ public class MissionController : MonoBehaviour {
         if (HeloController.instance.helicopterType.ToString() != idealHelicopterType) {
             instance.idealHelicopterText.text = "A " + idealHelicopterType.ToLower() + " helicopter would be best suited for this mission.";
         }
+        instance.bestTimeText.text = "Best Time: " + bestTime;
         instance.missionAcceptPanel.SetActive(true);
 	}
 
@@ -194,6 +197,7 @@ public class MissionController : MonoBehaviour {
     }
 
     IEnumerator HandleMissionStart() {
+        instance.activeMission.SetTimeElapsed();
         ShowMissionStatusPanel("Mission Start", instance.missionStartColor);
         yield return new WaitForSeconds(secondsToShowMissionStatus);
         HideMissionStatusPanel();
@@ -203,10 +207,14 @@ public class MissionController : MonoBehaviour {
     IEnumerator ShowMissionCompleteMessage() {
         ShowMissionStatusPanel("Mission Complete", instance.missionCompleteColor);
         ShowFireworkParticles();
+
+        instance.activeMission.HandleMissionComplete();
+        instance.activeMission.CheckTimeElapsed();
+
         yield return new WaitForSeconds(secondsToShowMissionStatus);
         HideMissionStatusPanel();
+        
         instance.EnableAllMissionNodes();
-        instance.activeMission.HandleMissionComplete();
         yield return new WaitForSeconds(5f);
         HideFireworkParticles();
     }
