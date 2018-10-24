@@ -14,6 +14,8 @@ public class CameraFollow : MonoBehaviour
 	{
 		Assert.IsNotNull( target );
 
+		gameObject.transform.parent = null;
+
 		transform.position = target.position + offset;
 		normalDistance = Vector3.Distance( target.position, transform.position );
 		lastDistance = normalDistance;
@@ -34,5 +36,4 @@ public class CameraFollow : MonoBehaviour
 
 		transform.LookAt( target );
 	}
-
 }
