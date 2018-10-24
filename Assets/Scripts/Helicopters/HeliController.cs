@@ -10,6 +10,8 @@ enum ConnectedController
 
 public class HeliController : MonoBehaviour
 {
+	[HideInInspector] public static HeliController instance;
+
 	[Header("World Scale")]
 	[Tooltip("If the everything is scaled to 0.1f then put 10 - as in the world is 10x smaller. Used to give real world values for UI and stuff.")]
 	[SerializeField] private float worldScale = 1f;
@@ -72,6 +74,11 @@ public class HeliController : MonoBehaviour
 		lastPosition = transform.position;
 	}
 
+	void Awake( )
+	{
+		TakeInstance( );
+	}
+
 	void OnEnable( )
 	{
 		Cursor.lockState = CursorLockMode.Locked;
@@ -119,6 +126,11 @@ public class HeliController : MonoBehaviour
 			currentThrottle += throttleHitDampning;
 			currentThrottle = currentThrottle > 0 ? 0 : currentThrottle;
 		}
+	}
+
+	public void TakeInstance( )
+	{
+		instance = this;
 	}
 
 	public float GetPitchPercent()
