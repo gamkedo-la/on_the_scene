@@ -22,6 +22,11 @@ public class MissionController : MonoBehaviour {
     private GameObject missionFailedPanel;
     private Text missionFailedText;
 
+    private GameObject timeToCompletePanel;
+    private Text completedTimeText;
+    private Text bestTimeCompletedText;
+    private Text newBestTimeText;
+
     private GameObject currentMissionPanel;
     private Text currentMissionDescription;
 	
@@ -54,6 +59,7 @@ public class MissionController : MonoBehaviour {
         HideCurrentMissionPanel();
         HideMissionFailedPanel();
         HideFireworkParticles();
+        HideTimeToCompletePanel();
 	}
 
     void Update () {
@@ -81,6 +87,11 @@ public class MissionController : MonoBehaviour {
 
         instance.missionFailedPanel = GameObject.Find("MissionFailedPanel");
         instance.missionFailedText = GameObject.Find("MissionFailedText").GetComponent<Text>();
+
+        instance.timeToCompletePanel = GameObject.Find("TimeToCompletePanel");
+        instance.completedTimeText = GameObject.Find("CompletedTimeText").GetComponent<Text>();
+        instance.bestTimeCompletedText = GameObject.Find("BestTimeCompleted").GetComponent<Text>();
+        instance.newBestTimeText = GameObject.Find("NewBestTime").GetComponent<Text>();
 
         instance.currentMissionPanel = GameObject.Find("CurrentMissionPanel");
         instance.currentMissionDescription = GameObject.Find("CurrentMissionDescription").GetComponent<Text>();
@@ -155,6 +166,20 @@ public class MissionController : MonoBehaviour {
         instance.currentMissionDescription.text = instance.activeMission.missionDescription;
     }
 
+    public static void HideTimeToCompletePanel() {
+        instance.timeToCompletePanel.SetActive(false);
+    }
+
+    public static void ShowTimeToCompletePanel() {
+        instance.timeToCompletePanel.SetActive(true);
+        instance.completedTimeText.text = "Time to Complete:\n" + instance.activeMission.GetCompletedTimeString();
+        instance.bestTimeCompletedText.text = "Previous Best:\n" + instance.activeMission.GetBestTimeString();
+        instance.newBestTimeText.text = "";
+        if (instance.activeMission.HasNewBestTime()) {
+            instance.newBestTimeText.text = "New Best Time!";
+        }
+    }
+
     public static void HideMissionFailedPanel() {
         instance.missionFailedPanel.SetActive(false);
         showingFailedMessage = false;
@@ -209,10 +234,14 @@ public class MissionController : MonoBehaviour {
         ShowFireworkParticles();
 
         instance.activeMission.HandleMissionComplete();
+        
+        ShowTimeToCompletePanel();
+
         instance.activeMission.CheckTimeElapsed();
 
         yield return new WaitForSeconds(secondsToShowMissionStatus);
         HideMissionStatusPanel();
+        HideTimeToCompletePanel();
         
         instance.EnableAllMissionNodes();
         yield return new WaitForSeconds(5f);

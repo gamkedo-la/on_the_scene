@@ -66,7 +66,7 @@ public class MissionNode : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.CompareTag("Player")) {
 			canAcceptMission = true;
-			string bestTimeString = GetBestTime();
+			string bestTimeString = GetBestTimeString();
 			MissionController.ShowMissionAcceptPanel(missionTitle, bestTimeString, missionDescription, idealHelicopter.ToString());
 		}
 	}
@@ -109,13 +109,20 @@ public class MissionNode : MonoBehaviour {
         return string.Format("{0:0}m {1:00}s", minutes, seconds);
 	}
 
-	public string GetBestTime() {
+	public string GetBestTimeString() {
 		return GetFormattedTime(bestTime);
 	}
 
-    public string GetCompletedTime() {
+    public string GetCompletedTimeString() {
         return GetFormattedTime(timeElapsed);
     }
+
+	public bool HasNewBestTime() {
+		if (bestTime < 1f) {
+			return true;
+		}
+        return timeElapsed < bestTime;
+	}
 
 	public void HandleMissionComplete() {
 		ShowMissionParticles();
@@ -128,7 +135,7 @@ public class MissionNode : MonoBehaviour {
 		string timeElapsedString = GetFormattedTime(timeElapsed);
 		string bestTimeString = GetFormattedTime(bestTime);
 	
-		if (timeElapsed < bestTime) {
+		if (timeElapsed < bestTime || bestTime < 1f) {
 			PlayerPrefs.SetFloat(missionTimeKey, timeElapsed);
 			PlayerPrefs.Save();
 			bestTime = timeElapsed;
