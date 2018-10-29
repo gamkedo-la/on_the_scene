@@ -2223,11 +2223,11 @@ MonoBehaviour:
   throttleBackChangeSpeed: 6
   throttleHitDampning: 3
   maxThrottle: 10
-  pitchDesiredChangeSpeed: 50
-  pitchChangeSpeed: 0.7
+  pitchDesiredChangeSpeed: 100
+  pitchChangeSpeed: 0.3
   maxPitch: 45
-  rollDesiredChangeSpeed: 50
-  rollChangeSpeed: 0.7
+  rollDesiredChangeSpeed: 100
+  rollChangeSpeed: 0.3
   maxRoll: 45
   yawChangeSpeed: 30
   deadZone: 10

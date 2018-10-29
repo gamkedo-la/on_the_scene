@@ -35,13 +35,13 @@ public class HeliController : MonoBehaviour
 	[SerializeField] private float maxThrottle = 10f;
 
 	[Header("Pitch")]
-	[SerializeField] private float pitchDesiredChangeSpeed = 50f;
-	[SerializeField] private float pitchChangeSpeed = 0.7f;
+	[SerializeField] private float pitchDesiredChangeSpeed = 100f;
+	[SerializeField] private float pitchChangeSpeed = 0.3f;
 	[SerializeField] private float maxPitch = 45f;
 
 	[Header("Roll")]
-	[SerializeField] private float rollDesiredChangeSpeed = 50f;
-	[SerializeField] private float rollChangeSpeed = 0.7f;
+	[SerializeField] private float rollDesiredChangeSpeed = 100f;
+	[SerializeField] private float rollChangeSpeed = 0.3f;
 	[SerializeField] private float maxRoll = 45f;
 
 	[Header("Yaw")]
