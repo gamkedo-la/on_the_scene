@@ -9,6 +9,7 @@ public class ChopperCameraTracker : MonoBehaviour {
     public Text timeRemainingDisplay;
     public Trackables[] targets;
     public float timeForStoryLock = 20.0f;
+    public Camera targetCamera;
 
     private float numberOfSecondsRemaining = 20.0f;
 	// Use this for initialization
@@ -19,7 +20,13 @@ public class ChopperCameraTracker : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (targetToWatch >= targets.Length) {
+            if (targetCamera.enabled) {
+                targetCamera.enabled = false;
+            }
             return;
+        }
+        if (!targetCamera.enabled) {
+            targetCamera.enabled = true;
         }
         transform.LookAt(targets[targetToWatch].transform);
         RaycastHit rhInfo;
