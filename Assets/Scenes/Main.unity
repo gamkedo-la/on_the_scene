@@ -316,6 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c5f92308124343a992ffc0690977441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  helicopterType: 0
   rotationSpeed: 50
   tiltDriftEffect: 5
   liftSpeed: 1
@@ -1416,6 +1417,7 @@ Transform:
   - {fileID: 1323191624}
   - {fileID: 639421564}
   - {fileID: 513053119}
+  - {fileID: 591664756}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9169,6 +9171,48 @@ Mesh:
   m_MeshMetrics[0]: 1
   m_MeshMetrics[1]: 1
   m_MeshOptimized: 0
+--- !u!1001 &392965368
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 192458935}
+    m_Modifications:
+    - target: {fileID: 4699561622400586, guid: ccda30c8018200342b84ecef70e5f9fa, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 74.44445
+      objectReference: {fileID: 0}
+    - target: {fileID: 4699561622400586, guid: ccda30c8018200342b84ecef70e5f9fa, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.8306741
+      objectReference: {fileID: 0}
+    - target: {fileID: 4699561622400586, guid: ccda30c8018200342b84ecef70e5f9fa, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 75.58889
+      objectReference: {fileID: 0}
+    - target: {fileID: 4699561622400586, guid: ccda30c8018200342b84ecef70e5f9fa, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4699561622400586, guid: ccda30c8018200342b84ecef70e5f9fa, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4699561622400586, guid: ccda30c8018200342b84ecef70e5f9fa, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4699561622400586, guid: ccda30c8018200342b84ecef70e5f9fa, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4699561622400586, guid: ccda30c8018200342b84ecef70e5f9fa, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ccda30c8018200342b84ecef70e5f9fa, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &455344847
 GameObject:
   m_ObjectHideFlags: 0
@@ -13921,6 +13965,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   timeForStoryLock: 20
+  targetCamera: {fileID: 0}
 --- !u!114 &470045274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14731,6 +14776,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 590785265}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &591664756 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4699561622400586, guid: ccda30c8018200342b84ecef70e5f9fa,
+    type: 2}
+  m_PrefabInternal: {fileID: 392965368}
 --- !u!1 &602153141
 GameObject:
   m_ObjectHideFlags: 0
@@ -18638,6 +18688,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   timeForStoryLock: 20
+  targetCamera: {fileID: 0}
 --- !u!114 &685830484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37716,6 +37767,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c5f92308124343a992ffc0690977441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  helicopterType: 0
   rotationSpeed: 30
   tiltDriftEffect: 3
   liftSpeed: 1
@@ -40205,6 +40257,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   timeForStoryLock: 20
+  targetCamera: {fileID: 0}
 --- !u!114 &1499763184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44557,6 +44610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c5f92308124343a992ffc0690977441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  helicopterType: 0
   rotationSpeed: 15
   tiltDriftEffect: 5
   liftSpeed: 0.4
@@ -44881,6 +44935,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c5f92308124343a992ffc0690977441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  helicopterType: 0
   rotationSpeed: 15
   tiltDriftEffect: 15
   liftSpeed: 0.4
