@@ -255,8 +255,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1837433213066374}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10, y: 1, z: 83}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -33, y: 1, z: -27}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
   - {fileID: 4130680475682108}
@@ -267,7 +267,7 @@ Transform:
   - {fileID: 4226960967007312}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &4130680475682108
 Transform:
   m_ObjectHideFlags: 1
@@ -342,7 +342,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1843166623507628}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4, y: 1, z: -7}
+  m_LocalPosition: {x: -3.0000014, y: 1, z: -6.0000005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4134986446399856}
@@ -766,7 +766,8 @@ MonoBehaviour:
   stopHere: 0
   isInitial: 0
   isTerminal: 0
-  recommendedSpeed: 3
+  recommendedSpeed: 5
+  recommendedApproachSpeed: 0
 --- !u!114 &114335943012251546
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -784,6 +785,7 @@ MonoBehaviour:
   isInitial: 0
   isTerminal: 0
   recommendedSpeed: 5
+  recommendedApproachSpeed: 0
 --- !u!114 &114635553446644540
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -801,6 +803,7 @@ MonoBehaviour:
   isInitial: 0
   isTerminal: 1
   recommendedSpeed: 5
+  recommendedApproachSpeed: 0
 --- !u!114 &114662582140553064
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -817,7 +820,8 @@ MonoBehaviour:
   stopHere: 0
   isInitial: 1
   isTerminal: 0
-  recommendedSpeed: 3
+  recommendedSpeed: 5
+  recommendedApproachSpeed: 5
 --- !u!114 &114671113104219078
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1482,6 +1486,7 @@ MonoBehaviour:
   isInitial: 1
   isTerminal: 0
   recommendedSpeed: 5
+  recommendedApproachSpeed: 0
 --- !u!114 &114682561956226122
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1498,7 +1503,8 @@ MonoBehaviour:
   stopHere: 0
   isInitial: 0
   isTerminal: 1
-  recommendedSpeed: 3
+  recommendedSpeed: 5
+  recommendedApproachSpeed: 0
 --- !u!135 &135210584555444510
 SphereCollider:
   m_ObjectHideFlags: 1

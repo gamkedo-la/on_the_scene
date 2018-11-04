@@ -13,6 +13,7 @@ public class Waypoint : MonoBehaviour {
     public bool isTerminal; //will search for nearby initial waypoints and link on startup
 
     public float recommendedSpeed = 0; //max speed that we should be going from this point to the next
+    public float recommendedApproachSpeed = 0; //max speed at which we should approach this point
 
 
     public void Start ()
@@ -26,6 +27,10 @@ public class Waypoint : MonoBehaviour {
 
                 if (next != null && next.isInitial && next != this) {
                     nextWaypoints[0] = next;
+
+                    if (next.recommendedApproachSpeed != 0) {
+                        this.recommendedApproachSpeed = next.recommendedApproachSpeed;
+                    }
                 }
             }
         }

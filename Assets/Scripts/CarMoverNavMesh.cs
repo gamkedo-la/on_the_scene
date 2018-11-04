@@ -17,9 +17,14 @@ public class CarMoverNavMesh : MonoBehaviour {
 	{
 		navMeshAgent = GetComponent<NavMeshAgent>();
 		
+		bool changedSpeed = false;
 		if (_destination != null) {
 			SetDestination(_destination.transform.position);
-			if (_destination.recommendedSpeed != 0) {
+			if(_destination.recommendedApproachSpeed != 0) {
+				navMeshAgent.speed = _destination.recommendedApproachSpeed;
+				changedSpeed = true;
+			}
+			if (_destination.recommendedSpeed != 0 && !changedSpeed) {
 				navMeshAgent.speed = _destination.recommendedSpeed;
 			}
 		}
@@ -47,9 +52,16 @@ public class CarMoverNavMesh : MonoBehaviour {
 	
 
 	void NextWaypoint() {
-
+		
+		//bool changedSpeed = false;
 		// Stuff to do BEFORE we switch
 
+		//Recommended speed the car should go AFTER we cross this waypoint.
+		//This value is overwritten if the destination has a non-zero rec. approach speed
+		if (_destination.recommendedSpeed != 0) {
+			navMeshAgent.speed = _destination.recommendedSpeed;
+			//changedSpeed = true;
+		}
 
 		//Switch happens from here
 		if (_destination.nextWaypoints.Length != 0) {
@@ -62,8 +74,8 @@ public class CarMoverNavMesh : MonoBehaviour {
 
 		//Check at what speed we should be aiming for heading to the next Waypoint
 		//Note: does not immediately change speed, only sets max speed which is then handled by the NavMeshAgent
-		if (_destination.recommendedSpeed != 0) {
-			navMeshAgent.speed = _destination.recommendedSpeed;
+		if (_destination.recommendedApproachSpeed != 0) {
+			navMeshAgent.speed = _destination.recommendedApproachSpeed;
 		}
 
 		lastDist = 0; // we consider that we just passed the point, hence the 0
