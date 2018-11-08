@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4527267533643398}
   - component: {fileID: 95045914465004376}
+  - component: {fileID: 114559263864074790}
   m_Layer: 0
   m_Name: streetlamp
   m_TagString: Untagged
@@ -204,3 +205,14 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114559263864074790
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1356000756394866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d7ffa65d86708643b5b5a865aec1fe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
