@@ -30,6 +30,9 @@ ExportedObj/
 # Visual Studio config files
 .vs
 
+# Probuilder preferences
+Assets/ProBuilder Data/ProBuilderPreferences.asset
+
 # Unity3D generated meta files
 *.pidb.meta
 

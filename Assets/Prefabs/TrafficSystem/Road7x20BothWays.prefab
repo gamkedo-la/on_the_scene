@@ -532,6 +532,7 @@ MonoBehaviour:
   isInitial: 1
   isTerminal: 0
   recommendedSpeed: 8
+  recommendedApproachSpeed: 0
 --- !u!114 &114566256315208692
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -828,6 +829,7 @@ MonoBehaviour:
   isInitial: 0
   isTerminal: 1
   recommendedSpeed: 8
+  recommendedApproachSpeed: 0
 --- !u!114 &114841662495995076
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -845,6 +847,7 @@ MonoBehaviour:
   isInitial: 1
   isTerminal: 0
   recommendedSpeed: 8
+  recommendedApproachSpeed: 0
 --- !u!114 &114885496986633684
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -862,6 +865,7 @@ MonoBehaviour:
   isInitial: 0
   isTerminal: 1
   recommendedSpeed: 8
+  recommendedApproachSpeed: 0
 --- !u!135 &135199608301675404
 SphereCollider:
   m_ObjectHideFlags: 1
