@@ -191,6 +191,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4611371277006414}
+  - component: {fileID: 114886380156120938}
   - component: {fileID: 114830028373035586}
   m_Layer: 0
   m_Name: Helicopter Controller
@@ -2224,10 +2225,10 @@ MonoBehaviour:
   throttleHitDampning: 3
   maxThrottle: 10
   pitchDesiredChangeSpeed: 100
-  pitchChangeSpeed: 0.3
+  pitchChangeSpeed: 1
   maxPitch: 45
   rollDesiredChangeSpeed: 100
-  rollChangeSpeed: 0.3
+  rollChangeSpeed: 1
   maxRoll: 45
   yawChangeSpeed: 30
   deadZone: 10
@@ -2426,6 +2427,17 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &114886380156120938
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1445194953541602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a82a7a7cd348f5849be27a6593b236d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114925959013863476
 MonoBehaviour:
   m_ObjectHideFlags: 1
