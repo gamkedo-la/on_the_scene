@@ -13,7 +13,7 @@ public class TutorialMessage : MonoBehaviour
 	}
 	void Update ()
 	{
-		if ( Input.anyKeyDown )
+		if ( Input.GetKeyDown( KeyCode.Escape ) )
 		{
 			heli.enabled = true;
 			Destroy( gameObject );

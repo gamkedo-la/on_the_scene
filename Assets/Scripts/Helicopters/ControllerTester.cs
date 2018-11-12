@@ -2,20 +2,18 @@
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public class XBoxOneTester : MonoBehaviour
+public class ControllerTester : MonoBehaviour
 {
 	[SerializeField] private TextMeshProUGUI log;
-	[SerializeField] private TextMeshProUGUI logT;
 
 	void Start ()
 	{
 		Assert.IsNotNull( log );
-		Assert.IsNotNull( logT );
 	}
 
 	void Update ()
 	{
-		float throttle = Input.GetAxis( "Vertical" );
+		/*float throttle = Input.GetAxis( "Vertical" );
 
 		float rollL = -Input.GetAxis( "RollLeft" );
 		float rollR = Input.GetAxis( "RollRight" );
@@ -25,10 +23,17 @@ public class XBoxOneTester : MonoBehaviour
 		float yaw = Input.GetAxis( "Yaw" );
 
 		string message = "Throttle: " + throttle + " Pitch: " + pitch + " Yaw: " + yaw + " Roll: " + roll;
-		log.text = message;
+		log.text = message;*/
+		System.Text.StringBuilder s = new System.Text.StringBuilder( );
+		s.Append( "Controller buttons pressed: " );
 
-		/*logT.text = "";
 		for ( int i = 0; i < 20; i++ )
-			logT.text += "Button " + i + "=" + Input.GetKey( "joystick button " + i ) + "| ";*/
+		{
+			bool buttonPressed = Input.GetKey( "joystick button " + i );
+			if ( buttonPressed )
+				s.Append( "joystick button " + i + ", " );
+		}
+
+		log.text = s.ToString( );
 	}
 }
