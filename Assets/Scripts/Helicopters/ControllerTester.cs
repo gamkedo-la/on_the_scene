@@ -25,13 +25,20 @@ public class ControllerTester : MonoBehaviour
 		string message = "Throttle: " + throttle + " Pitch: " + pitch + " Yaw: " + yaw + " Roll: " + roll;
 		log.text = message;*/
 		System.Text.StringBuilder s = new System.Text.StringBuilder( );
-		s.Append( "Controller buttons pressed: " );
+		s.Append( "Controller buttons and/or axis: " );
 
 		for ( int i = 0; i < 20; i++ )
 		{
 			bool buttonPressed = Input.GetKey( "joystick button " + i );
 			if ( buttonPressed )
 				s.Append( "joystick button " + i + ", " );
+		}
+
+		for ( int i = 1; i <= 10; i++ )
+		{
+			float axis = Input.GetAxis( "Axis " + i + ", " );
+			if ( axis != 0 )
+				s.Append( "Axis " + i );
 		}
 
 		log.text = s.ToString( );
