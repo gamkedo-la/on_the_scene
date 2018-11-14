@@ -6405,6 +6405,26 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114799758885088478, guid: 09bcb4be2a6db07469bab060a1632a3f,
+        type: 2}
+      propertyPath: ropeDrag
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114799758885088478, guid: 09bcb4be2a6db07469bab060a1632a3f,
+        type: 2}
+      propertyPath: lowTwistLimit
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 114799758885088478, guid: 09bcb4be2a6db07469bab060a1632a3f,
+        type: 2}
+      propertyPath: highTwistLimit
+      value: -15
+      objectReference: {fileID: 0}
+    - target: {fileID: 114799758885088478, guid: 09bcb4be2a6db07469bab060a1632a3f,
+        type: 2}
+      propertyPath: ropeMass
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09bcb4be2a6db07469bab060a1632a3f, type: 2}
   m_IsPrefabAsset: 0

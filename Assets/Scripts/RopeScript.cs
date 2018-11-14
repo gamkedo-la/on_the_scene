@@ -139,6 +139,10 @@ public class RopeScript : MonoBehaviour
         limit_setter = ph.swing1Limit;
         limit_setter.limit = swing1Limit;
         ph.swing1Limit = limit_setter;
+
+        // hmmm maybe try 
+        // ph.swingLimitSpring.damper = ???
+
         //ph.breakForce = ropeBreakForce; <--------------- TODO
 
         joints[n].transform.position = segmentPos[n];
