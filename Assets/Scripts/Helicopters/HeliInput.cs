@@ -38,6 +38,8 @@ public class HeliInput : MonoBehaviour
 	[Header("Other")]
 	[SerializeField] private float deadZone = 10f;
 
+	private const float analogRestError = 0.1f;
+
 	private float rollControllerLast = 0;
 	private float pitchControllerLast = 0;
 
@@ -80,7 +82,7 @@ public class HeliInput : MonoBehaviour
 		{
 			currentThrottle += throttleKeyboard * throttleChangeSpeed * Time.deltaTime;
 		}
-		else if ( throttleController == 0 )
+		else if ( AlmostEqualZero( throttleController, analogRestError ) )
 		{
 			if ( currentThrottle > 0.1f )
 				currentThrottle -= throttleBackChangeSpeed * Time.deltaTime;
@@ -114,11 +116,11 @@ public class HeliInput : MonoBehaviour
 		{
 			currentRollDesired += rollDesiredChangeSpeed * Time.deltaTime;
 		}
-		else if ( rollController != 0 )
+		else if ( AlmostDifferentThenZero( rollController, analogRestError) ) // != 0
 		{
 			currentRollDesired = rollController * maxRoll;
 		}
-		else if ( rollController == 0 && rollController != rollControllerLast )
+		else if ( AlmostEqualZero( rollController, analogRestError) && rollController != rollControllerLast ) // ==0
 		{
 			currentRollDesired = 0;
 		}
@@ -150,11 +152,11 @@ public class HeliInput : MonoBehaviour
 		{
 			currentPitchDesired -= pitchDesiredChangeSpeed * Time.deltaTime;
 		}
-		else if ( pitchController != 0 )
+		else if ( AlmostDifferentThenZero( pitchController, analogRestError ) )
 		{
 			currentPitchDesired = pitchController * maxPitch;
 		}
-		else if ( pitchController == 0 && pitchController != pitchControllerLast )
+		else if ( AlmostEqualZero( pitchController, analogRestError ) && pitchController != pitchControllerLast )
 		{
 			currentPitchDesired = 0;
 		}
@@ -207,5 +209,25 @@ public class HeliInput : MonoBehaviour
 				return;
 			}
 		}
+	}
+
+	private bool AlmostEqualZero( float f, float precision )
+	{
+		if ( f >= 0 && f <= precision )
+			return true;
+		else if ( f <= 0 && f >= -precision )
+			return true;
+
+		return false;
+	}
+
+	private bool AlmostDifferentThenZero( float f, float precision )
+	{
+		if ( f > 0 && f > precision )
+			return true;
+		else if ( f < 0 && f < -precision )
+			return true;
+
+		return false;
 	}
 }
