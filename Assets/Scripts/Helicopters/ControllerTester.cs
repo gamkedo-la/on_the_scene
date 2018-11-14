@@ -36,9 +36,9 @@ public class ControllerTester : MonoBehaviour
 
 		for ( int i = 1; i <= 10; i++ )
 		{
-			float axis = Input.GetAxis( "Axis " + i + ", " );
+			float axis = Input.GetAxis( "Axis " + i);
 			if ( axis != 0 )
-				s.Append( "Axis " + i );
+				s.Append( "Axis " + i + ", "  );
 		}
 
 		log.text = s.ToString( );
