@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.EventSystems;
 
 enum ConnectedController
 {
@@ -42,6 +43,8 @@ public class HeliInput : MonoBehaviour
 
 	private float rollControllerLast = 0;
 	private float pitchControllerLast = 0;
+	private bool mouseControlOn = false;
+	private bool capsLockOn = false;
 
 	private ConnectedController connectedController = ConnectedController.None;
 
@@ -52,6 +55,7 @@ public class HeliInput : MonoBehaviour
 
 	void Update( )
 	{
+		CheckMouseControls( );
 		HandleThrottleControls( );
 		HandleRollControls( );
 		HandlePitchControls( );
@@ -61,6 +65,32 @@ public class HeliInput : MonoBehaviour
 	void FixedUpdate( )
 	{
 		CheckConnectedControllers( ); // Or do we only check on start?
+	}
+
+	private void CheckMouseControls( )
+	{
+		if ( Input.GetKeyDown( KeyCode.CapsLock ) )
+			capsLockOn = !capsLockOn;
+
+		if ( ( Input.GetMouseButton( 0 ) && !EventSystem.current.IsPointerOverGameObject( ) ) || capsLockOn )
+		{
+			mouseControlOn = true;
+		}
+		else
+		{
+			if ( mouseControlOn ) // We used mouse control but stopped
+			{
+				currentPitchDesired = 0;
+				currentRollDesired = 0;
+			}
+
+			mouseControlOn = false;
+		}
+
+		if ( mouseControlOn )
+			Cursor.lockState = CursorLockMode.Locked;
+		else
+			Cursor.lockState = CursorLockMode.None;
 	}
 
 	private void HandleThrottleControls( )
@@ -108,11 +138,11 @@ public class HeliInput : MonoBehaviour
 			rollController = -Input.GetAxis( "RollPS4" );
 		}
 
-		if ( Input.GetAxis( "Mouse X" ) > 0.1f )
+		if ( Input.GetAxis( "Mouse X" ) > 0.1f && mouseControlOn )
 		{
 			currentRollDesired -= rollDesiredChangeSpeed * Time.deltaTime;
 		}
-		else if ( Input.GetAxis( "Mouse X" ) < -0.1f )
+		else if ( Input.GetAxis( "Mouse X" ) < -0.1f && mouseControlOn )
 		{
 			currentRollDesired += rollDesiredChangeSpeed * Time.deltaTime;
 		}
@@ -144,11 +174,11 @@ public class HeliInput : MonoBehaviour
 			pitchController = -Input.GetAxis( "PitchPS4" );
 		}
 
-		if ( Input.GetAxis( "Mouse Y" ) > 0.1f )
+		if ( Input.GetAxis( "Mouse Y" ) > 0.1f && mouseControlOn )
 		{
 			currentPitchDesired += pitchDesiredChangeSpeed * Time.deltaTime;
 		}
-		else if ( Input.GetAxis( "Mouse Y" ) < -0.1f )
+		else if ( Input.GetAxis( "Mouse Y" ) < -0.1f && mouseControlOn )
 		{
 			currentPitchDesired -= pitchDesiredChangeSpeed * Time.deltaTime;
 		}
