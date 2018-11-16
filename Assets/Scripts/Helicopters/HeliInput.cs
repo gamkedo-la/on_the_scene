@@ -96,15 +96,18 @@ public class HeliInput : MonoBehaviour
 	private void HandleThrottleControls( )
 	{
 		float throttleController = -Input.GetAxis( "Throttle" );
-		if ( throttleController != 0 )
+		if ( AlmostDifferentThenZero( throttleController, analogRestError ) )
 		{
 			currentThrottle += throttleController * throttleChangeSpeed * Time.deltaTime;
-			currentThrottle = Mathf.Clamp
+
+			float correctedThrottle = Mathf.Clamp
 			(
 				currentThrottle,
 				-maxThrottle * Mathf.Abs( throttleController ),
 				maxThrottle * Mathf.Abs( throttleController )
 			);
+			if ( Mathf.Abs( correctedThrottle - currentThrottle ) < 0.5f )
+				currentThrottle = correctedThrottle;
 		}
 
 		float throttleKeyboard = Input.GetAxis( "Vertical" );
@@ -114,9 +117,9 @@ public class HeliInput : MonoBehaviour
 		}
 		else if ( AlmostEqualZero( throttleController, analogRestError ) )
 		{
-			if ( currentThrottle > 0.1f )
+			if ( currentThrottle > 0.05f )
 				currentThrottle -= throttleBackChangeSpeed * Time.deltaTime;
-			else if ( currentThrottle < -0.1f )
+			else if ( currentThrottle < -0.05f )
 				currentThrottle += throttleBackChangeSpeed * Time.deltaTime;
 			else
 				currentThrottle = 0;

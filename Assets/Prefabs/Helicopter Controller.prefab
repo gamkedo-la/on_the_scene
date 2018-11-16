@@ -2220,18 +2220,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  throttleChangeSpeed: 3
-  throttleBackChangeSpeed: 6
   throttleHitDampning: 3
-  maxThrottle: 10
-  pitchDesiredChangeSpeed: 100
-  pitchChangeSpeed: 1
-  maxPitch: 45
-  rollDesiredChangeSpeed: 100
-  rollChangeSpeed: 1
-  maxRoll: 45
-  yawChangeSpeed: 30
-  deadZone: 10
 --- !u!114 &114854262993409354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2438,6 +2427,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a82a7a7cd348f5849be27a6593b236d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentThrottle: 0
+  currentYaw: 0
+  currentPitch: 0
+  currentRoll: 0
+  currentPitchDesired: 0
+  currentRollDesired: 0
+  throttleChangeSpeed: 3
+  throttleBackChangeSpeed: 5
+  maxThrottle: 10
+  pitchDesiredChangeSpeed: 100
+  pitchChangeSpeed: 1
+  maxPitch: 45
+  rollDesiredChangeSpeed: 100
+  rollChangeSpeed: 1
+  maxRoll: 45
+  yawChangeSpeed: 30
+  deadZone: 10
 --- !u!114 &114925959013863476
 MonoBehaviour:
   m_ObjectHideFlags: 1
