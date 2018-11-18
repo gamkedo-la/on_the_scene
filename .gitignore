@@ -31,7 +31,7 @@ ExportedObj/
 .vs
 
 # Probuilder preferences
-Assets/ProBuilder Data/ProBuilderPreferences.asset
+Assets/ProBuilder*Data/ProBuilderPreferences.asset
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -65,3 +65,4 @@ Assets/FMOD/HiddenPassageway/Build/Desktop/PlatformX.bank.meta
 Assets/FMODStudioCache.asset
 Assets/FMODStudioCache.asset
 obj
+/Assets/ProBuilder Data/ProBuilderPreferences.asset
