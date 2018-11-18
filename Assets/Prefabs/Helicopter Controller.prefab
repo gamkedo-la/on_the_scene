@@ -2162,22 +2162,22 @@ MonoBehaviour:
   heliRigidbody: {fileID: 0}
   centerOfMass: {fileID: 0}
   altitudePoint: {fileID: 0}
-  speedMax: 6
+  speedMax: 3.7
   dragCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0.19821438
-      outSlope: 0.19821438
+      inSlope: 0.00022315556
+      outSlope: 0.00022315556
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.0875
+      outWeight: 0.11531527
     - serializedVersion: 3
       time: 1
-      value: 0.09843752
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -2193,29 +2193,20 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: -4.4062505
-      outSlope: -4.4062505
+      inSlope: -2.3196409
+      outSlope: -2.3196409
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.06666667
-    - serializedVersion: 3
-      time: 0.10116068
-      value: 0.4399915
-      inSlope: -1.5987619
-      outSlope: -1.5987619
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 1
-      outWeight: 0.17406972
+      outWeight: 0.079006754
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -0.3947368
-      outSlope: -0.3947368
+      inSlope: 0.028014872
+      outSlope: 0.028014872
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.26301074
+      inWeight: 0.14221239
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -2438,12 +2429,12 @@ MonoBehaviour:
   maxThrottle: 10
   pitchDesiredChangeSpeed: 100
   pitchChangeSpeed: 1
-  maxPitch: 45
+  maxPitch: 30
   rollDesiredChangeSpeed: 100
   rollChangeSpeed: 1
-  maxRoll: 45
+  maxRoll: 30
   yawChangeSpeed: 30
-  deadZone: 10
+  deadZone: 0
 --- !u!114 &114925959013863476
 MonoBehaviour:
   m_ObjectHideFlags: 1
