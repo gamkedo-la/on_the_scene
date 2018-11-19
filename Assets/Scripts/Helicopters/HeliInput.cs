@@ -26,12 +26,12 @@ public class HeliInput : MonoBehaviour
 	[Header("Pitch")]
 	[SerializeField] private float pitchDesiredChangeSpeed = 100f;
 	[SerializeField] private float pitchChangeSpeed = 1f;
-	[SerializeField] public float maxPitch = 45f;
+	[SerializeField] public float maxPitch = 30f;
 
 	[Header("Roll")]
 	[SerializeField] private float rollDesiredChangeSpeed = 100f;
 	[SerializeField] private float rollChangeSpeed = 1f;
-	[SerializeField] public float maxRoll = 45f;
+	[SerializeField] public float maxRoll = 30f;
 
 	[Header("Yaw")]
 	[SerializeField] private float yawChangeSpeed = 30f;

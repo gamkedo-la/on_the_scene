@@ -18,8 +18,12 @@ public class HeliController : MonoBehaviour
 
 	[Header("Parameters")]
 	[SerializeField] private float speedMax = 6f;
+	[SerializeField] private float speedMaxAlt = 3.7f;
 	[SerializeField] private AnimationCurve dragCurve = new AnimationCurve( new Keyframe( 0f, 0f ), new Keyframe( 1f, 0.1f ) );
 	[SerializeField] private AnimationCurve liftCurve = new AnimationCurve( new Keyframe( 0f, 1f ), new Keyframe( 1f, 0f ) );
+	[SerializeField] private AnimationCurve dragCurveAlt = new AnimationCurve( new Keyframe( 0f, 0f ), new Keyframe( 1f, 0.1f ) );
+	[SerializeField] private AnimationCurve liftCurveAlt = new AnimationCurve( new Keyframe( 0f, 1f ), new Keyframe( 1f, 0f ) );
+	[SerializeField] private bool useAltValues = true;
 
 	[SerializeField] private float throttleHitDampning = 3f;
 
@@ -137,6 +141,7 @@ public class HeliController : MonoBehaviour
 
 	private void RotateAndMove( )
 	{
+		float maximumSpeed = useAltValues ? speedMaxAlt : speedMax;
 		// Velocity
 		currentVelocity = Vector3.Distance( transform.position, lastPosition ) / Time.fixedDeltaTime;
 		lastPosition = transform.position;
@@ -166,7 +171,7 @@ public class HeliController : MonoBehaviour
 		horizontalThrottle = horizontalThrottle < 0 ? 1 : horizontalThrottle; // Always give some speed
 		horizontalThrottle = horizontalThrottle >= 0 && horizontalThrottle < 1 ? 1 : horizontalThrottle;
 
-		moveVector = moveVector * ( speedMax / worldScale ) * horizontalThrottle * Time.fixedDeltaTime;
+		moveVector = moveVector * ( maximumSpeed / worldScale ) * horizontalThrottle * Time.fixedDeltaTime;
 
 		// Rotation
 		moveVector = Quaternion.Euler( 0, heliRigidbody.rotation.eulerAngles.y, 0 ) * moveVector;
@@ -179,15 +184,17 @@ public class HeliController : MonoBehaviour
 				Mathf.Abs( rollPercent ) : Mathf.Abs( pitchPercent );
 
 			// How much each "force" contributes to vertical movement?
-			float downDrag = -input.maxThrottle * dragCurve.Evaluate( horizontalPercent );
-			float throttle = input.currentThrottle * liftCurve.Evaluate( horizontalPercent );
+			AnimationCurve drag = useAltValues ? dragCurveAlt : dragCurve;
+			AnimationCurve lift = useAltValues ? liftCurveAlt : liftCurve;
+			float downDrag = -input.maxThrottle * drag.Evaluate( horizontalPercent );
+			float throttle = input.currentThrottle * lift.Evaluate( horizontalPercent );
 
 			// Final vertical movement
-			moveVector.y = ( downDrag + throttle ) * ( speedMax / worldScale ) * Time.fixedDeltaTime;
+			moveVector.y = ( downDrag + throttle ) * ( maximumSpeed / worldScale ) * Time.fixedDeltaTime;
 		}
 		else
 		{
-			moveVector.y = input.currentThrottle * ( speedMax / worldScale ) * Time.fixedDeltaTime;
+			moveVector.y = input.currentThrottle * ( maximumSpeed / worldScale ) * Time.fixedDeltaTime;
 		}
 
 		heliRigidbody.MovePosition( heliRigidbody.position + moveVector );

@@ -2162,19 +2162,77 @@ MonoBehaviour:
   heliRigidbody: {fileID: 0}
   centerOfMass: {fileID: 0}
   altitudePoint: {fileID: 0}
-  speedMax: 3.7
+  speedMax: 6
+  speedMaxAlt: 3.7
   dragCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0.00022315556
-      outSlope: 0.00022315556
+      inSlope: 0.10277324
+      outSlope: 0.10277324
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.11531527
+      outWeight: 0.09706546
+    - serializedVersion: 3
+      time: 1
+      value: 0.09843752
+      inSlope: 0.020110728
+      outSlope: 0.020110728
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.1196388
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  liftCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -4.4062505
+      outSlope: -4.4062505
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.06666667
+    - serializedVersion: 3
+      time: 0.10116068
+      value: 0.4399915
+      inSlope: -1.5987619
+      outSlope: -1.5987619
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0.17406972
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.3947368
+      outSlope: -0.3947368
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.26301074
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  dragCurveAlt:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 0
@@ -2187,30 +2245,31 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  liftCurve:
+  liftCurveAlt:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: -2.3196409
-      outSlope: -2.3196409
+      inSlope: -2.3342772
+      outSlope: -2.3342772
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.079006754
+      outWeight: 0.069977425
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: 0.028014872
-      outSlope: 0.028014872
+      inSlope: 0.10536955
+      outSlope: 0.10536955
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.14221239
+      inWeight: 0.15124154
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  useAltValues: 1
   throttleHitDampning: 3
 --- !u!114 &114854262993409354
 MonoBehaviour:
