@@ -26,6 +26,10 @@ public class WorldState : MonoBehaviour {
             Destroy(gameObject);
         }
     }
+    private void Start()
+    {
+        SetWindDirectionAndSpeed(directions[Random.Range(0, directions.Length - 1)], Random.Range(maxWindSpeed, minWindSpeed));
+    }
     void Update()
     {
         DayTimer += Time.deltaTime;
