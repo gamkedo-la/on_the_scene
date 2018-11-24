@@ -49,7 +49,8 @@ public class HeliController : MonoBehaviour
 		Assert.IsNotNull( input );
 
 		TakeInstance( );
-	}
+        ReportToMainCamera();
+    }
 
 	void OnEnable( )
 	{
@@ -98,6 +99,10 @@ public class HeliController : MonoBehaviour
 	{
 		instance = this;
 	}
+
+    public void ReportToMainCamera() {
+        Camera.main.gameObject.GetComponentInChildren<CameraFollow>().SetTarget();
+    }
 
 	public float GetPitchPercent( )
 	{

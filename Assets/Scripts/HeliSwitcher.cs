@@ -22,8 +22,7 @@ public class HeliSwitcher : MonoBehaviour {
             if (i == currentCopterIndex) {
                 HeliController chopper = copters[i].transform.GetComponentInChildren<HeliController>();
                 chopper.TakeInstance();
-                CameraFollow cameraFollow = Camera.main.GetComponentInChildren<CameraFollow>();
-                cameraFollow.SetTarget();
+                chopper.ReportToMainCamera();
             }
         }
     }
