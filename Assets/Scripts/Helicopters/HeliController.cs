@@ -101,7 +101,12 @@ public class HeliController : MonoBehaviour
 	}
 
     public void ReportToMainCamera() {
-        Camera.main.gameObject.GetComponentInChildren<CameraFollow>().SetTarget();
+        CameraFollow cameraFollow = Camera.main.gameObject.GetComponentInChildren<CameraFollow>();
+        if (cameraFollow == null) {
+            Camera.main.gameObject.AddComponent<CameraFollow>();
+            Debug.LogError("Main Camera wasn't setup correctly.  This needs to be handled better, Jeremy!");
+        }
+        cameraFollow.SetTarget();
     }
 
 	public float GetPitchPercent( )
