@@ -9,15 +9,21 @@ public class CameraFollow : MonoBehaviour
 
 	private float lastDistance = 0;
 	private float normalDistance = 0;
+    private Transform cameraTransform;
+
+    public void SetTarget() {
+        target = HeliController.instance.GetCenterOfMass();
+    }
 
 	void Start( )
 	{
+        SetTarget();
 		Assert.IsNotNull( target );
 
-		gameObject.transform.parent = null;
+        cameraTransform = Camera.main.transform;
 
-		transform.position = target.position + offset;
-		normalDistance = Vector3.Distance( target.position, transform.position );
+        cameraTransform.position = target.position + offset;
+		normalDistance = Vector3.Distance( target.position, cameraTransform.position );
 		lastDistance = normalDistance;
 	}
 
@@ -26,14 +32,14 @@ public class CameraFollow : MonoBehaviour
 		Vector3 desiredPosition = target.position + ( target.rotation * offset );
 
 		float speed = smoothSpeed;
-		if ( Vector3.Distance( target.position, transform.position ) < lastDistance )
+		if ( Vector3.Distance( target.position, cameraTransform.position ) < lastDistance )
 			speed = smoothSpeed * 8 * ( 1.1f - lastDistance / normalDistance );
 
-		Vector3 smoothedPosition = Vector3.Lerp( transform.position, desiredPosition, speed );
+		Vector3 smoothedPosition = Vector3.Lerp(cameraTransform.position, desiredPosition, speed );
 
-		transform.position = smoothedPosition;
-		lastDistance = Vector3.Distance( target.position, transform.position );
+        cameraTransform.position = smoothedPosition;
+		lastDistance = Vector3.Distance( target.position, cameraTransform.position );
 
-		transform.LookAt( target );
+        cameraTransform.LookAt( target );
 	}
 }

@@ -139,6 +139,10 @@ public class HeliController : MonoBehaviour
 		return worldScale;
 	}
 
+    public Transform GetCenterOfMass() {
+        return centerOfMass;
+    }
+
 	private void RotateAndMove( )
 	{
 		float maximumSpeed = useAltValues ? speedMaxAlt : speedMax;
