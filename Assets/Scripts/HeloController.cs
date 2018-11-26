@@ -52,10 +52,6 @@ public class HeloController : MonoBehaviour
         float referenceFramerate = 30.0f;
         float blend = 1.0f - Mathf.Pow(1.0f - uprightTiltFactor, Time.deltaTime * referenceFramerate);
 
-        if (Input.GetKeyDown(KeyCode.P)) {
-            WorldState.instance.isDay = !WorldState.instance.isDay;
-        }
-
         Quaternion levelOrientation = Quaternion.AngleAxis(transform.rotation.eulerAngles.y, Vector3.up);
         if (Input.GetButton("Fire1"))
         {

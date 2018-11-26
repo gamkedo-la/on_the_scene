@@ -5,6 +5,13 @@ using UnityEngine;
 public class WorldState : MonoBehaviour {
     public static WorldState instance;
 
+    public Material buildingMaterial;
+    public Texture buildingTextureDay;
+    public Texture buildingTextureNight;
+    public Light sunLight;
+    public Material nightSkybox;
+    public Material daySkybox;
+
     private float DayTimer = 0;
     public bool isDay = true;
     public int CycleTime = 90;
@@ -28,7 +35,7 @@ public class WorldState : MonoBehaviour {
     }
     private void Start()
     {
-        SetWindDirectionAndSpeed(directions[Random.Range(0, directions.Length - 1)], Random.Range(maxWindSpeed, minWindSpeed));
+        ApplyNightOrDay();
     }
     void Update()
     {
@@ -47,10 +54,29 @@ public class WorldState : MonoBehaviour {
         {
             DayTimer = 0;
 
-            isDay = !isDay;
-
-            SetWindDirectionAndSpeed(directions[Random.Range(0, directions.Length - 1)], Random.Range(maxWindSpeed, minWindSpeed)); //first parameter is for direction, second parameter is for speed
+            ToggleNightOrDay();
         }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            ToggleNightOrDay();
+        }
+    }
+
+    private void ApplyNightOrDay() {
+        //first parameter is for direction, second parameter is for speed
+        SetWindDirectionAndSpeed(directions[Random.Range(0, directions.Length - 1)], Random.Range(maxWindSpeed, minWindSpeed));
+
+        sunLight.enabled = isDay;
+        buildingMaterial.SetTexture("_MainTex", (isDay ? buildingTextureDay : buildingTextureNight));
+
+        RenderSettings.skybox = (isDay ? daySkybox : nightSkybox);
+        RenderSettings.fog = !isDay;
+    }
+
+    public void ToggleNightOrDay() {
+        isDay = !isDay;
+        ApplyNightOrDay();
     }
 
     public void SetWindDirectionAndSpeed(string direction = "none", int speed = -1)
