@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LambLight : MonoBehaviour {
+public class LampLight : MonoBehaviour {
 
     // Use this for initialization
     private Transform lightCone;
