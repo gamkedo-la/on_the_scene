@@ -36,6 +36,12 @@ public class HeliInput : MonoBehaviour
 	[Header("Yaw")]
 	[SerializeField] private float yawChangeSpeed = 30f;
 
+	[Header("Cargo")]
+	[SerializeField] private float speedInfluence = 1f;
+	public float SpeedInfluence { get { return speedInfluence; } set { speedInfluence = value; } }
+	[SerializeField] private float controlInfluence = 1f;
+	public float ControlInfluence { get { return controlInfluence; } set { controlInfluence = value; } }
+
 	[Header("Other")]
 	[SerializeField] private float deadZone = 10f;
 
@@ -98,7 +104,7 @@ public class HeliInput : MonoBehaviour
 		float throttleController = -Input.GetAxis( "Throttle" );
 		if ( AlmostDifferentThenZero( throttleController, analogRestError ) )
 		{
-			currentThrottle += throttleController * throttleChangeSpeed * Time.deltaTime;
+			currentThrottle += throttleController * throttleChangeSpeed * controlInfluence * Time.deltaTime;
 
 			float correctedThrottle = Mathf.Clamp
 			(
@@ -113,7 +119,7 @@ public class HeliInput : MonoBehaviour
 		float throttleKeyboard = Input.GetAxis( "Vertical" );
 		if ( throttleKeyboard != 0 )
 		{
-			currentThrottle += throttleKeyboard * throttleChangeSpeed * Time.deltaTime;
+			currentThrottle += throttleKeyboard * throttleChangeSpeed * controlInfluence * Time.deltaTime;
 		}
 		else if ( AlmostEqualZero( throttleController, analogRestError ) )
 		{
@@ -160,7 +166,7 @@ public class HeliInput : MonoBehaviour
 
 		currentRollDesired = Mathf.Clamp( currentRollDesired, -maxRoll, maxRoll );
 		float target = currentRollDesired < deadZone && currentRollDesired > -deadZone ? 0 : currentRollDesired; // Dead Zone
-		currentRoll = Mathf.Lerp( currentRoll, target, rollChangeSpeed * Time.deltaTime );
+		currentRoll = Mathf.Lerp( currentRoll, target, rollChangeSpeed * controlInfluence * Time.deltaTime );
 		rollControllerLast = rollController;
 	}
 
@@ -196,7 +202,7 @@ public class HeliInput : MonoBehaviour
 
 		currentPitchDesired = Mathf.Clamp( currentPitchDesired, -maxPitch - deadZone, maxPitch + deadZone );
 		float target = currentPitchDesired < deadZone && currentPitchDesired > -deadZone ? 0 : currentPitchDesired; // Dead Zone
-		currentPitch = Mathf.Lerp( currentPitch, target, pitchChangeSpeed * Time.deltaTime );
+		currentPitch = Mathf.Lerp( currentPitch, target, pitchChangeSpeed * controlInfluence * Time.deltaTime );
 		pitchControllerLast = pitchController;
 	}
 
@@ -221,7 +227,7 @@ public class HeliInput : MonoBehaviour
 		float yaw = yawController + yawKeyboard;
 		yaw = Mathf.Clamp( yaw, -1, 1 );
 
-		currentYaw += yaw * yawChangeSpeed * Time.deltaTime;
+		currentYaw += yaw * yawChangeSpeed * controlInfluence * Time.deltaTime;
 		currentYaw = currentYaw > 360 ? currentYaw - 360 : currentYaw; // So it's not bigger then 360*
 		currentYaw = currentYaw < -360 ? currentYaw + 360 : currentYaw; // So it's not smaller then -360*
 	}

@@ -156,6 +156,7 @@ public class HeliController : MonoBehaviour
 	private void RotateAndMove( )
 	{
 		float maximumSpeed = useAltValues ? speedMaxAlt : speedMax;
+		maximumSpeed *= input.SpeedInfluence;
 		// Velocity
 		currentVelocity = Vector3.Distance( transform.position, lastPosition ) / Time.fixedDeltaTime;
 		lastPosition = transform.position;
