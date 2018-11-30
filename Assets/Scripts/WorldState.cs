@@ -11,6 +11,7 @@ public class WorldState : MonoBehaviour {
     public Light sunLight;
     public Material nightSkybox;
     public Material daySkybox;
+    public Transform[] buildings;
 
     private float DayTimer = 0;
     public bool isDay = true;
@@ -35,6 +36,7 @@ public class WorldState : MonoBehaviour {
     }
     private void Start()
     {
+        SetVariables();
         ApplyNightOrDay();
     }
     void Update()
@@ -76,6 +78,7 @@ public class WorldState : MonoBehaviour {
 
     public void ToggleNightOrDay() {
         isDay = !isDay;
+        SetVariables();
         ApplyNightOrDay();
     }
 
@@ -88,6 +91,20 @@ public class WorldState : MonoBehaviour {
         if (speed >= 0)
         {
             windSpeed = speed;
+        }
+    }
+
+    public void SetVariables()// is used for initializing the materials, textures and lights
+    {
+        sunLight = GameObject.FindGameObjectWithTag("SunLight").GetComponent<Light>();
+
+        GameObject tempBuildings = GameObject.FindGameObjectWithTag("Buildings");
+
+        buildings = new Transform[tempBuildings.transform.childCount];
+        for (int i = 0; i < tempBuildings.transform.childCount; i++)
+        {
+            Debug.Log(i);
+            buildings[i] = tempBuildings.transform.GetChild(i);
         }
     }
 }
