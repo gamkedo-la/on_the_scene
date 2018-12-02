@@ -6,7 +6,7 @@ public class FlightWander : MonoBehaviour {
 
     public float flightSpeed = 5f;
     public float turnSpeed = 2f;
-    //public Transform targetTransform;
+    public Transform targetTransform;
 
 	// Use this for initialization
 	void Start () {
@@ -15,6 +15,6 @@ public class FlightWander : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//targetTransform.position.x += flightSpeed * Time.deltaTime;
+		targetTransform.transform.Translate (Vector3.forward * flightSpeed * Time.deltaTime);
 	}
 }
