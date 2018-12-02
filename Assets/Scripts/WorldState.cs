@@ -78,7 +78,6 @@ public class WorldState : MonoBehaviour {
 
     public void ToggleNightOrDay() {
         isDay = !isDay;
-        SetVariables();
         ApplyNightOrDay();
     }
 
