@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SunLight
   - Buildings
+  - StreetLamp
   layers:
   - Default
   - TransparentFX

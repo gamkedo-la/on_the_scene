@@ -7,20 +7,10 @@ public class LampLight : MonoBehaviour {
     // Use this for initialization
     private Transform lightCone;
 
-	void Start () {
-        lightCone =  transform.Find("LightCone");
-
+    public void Cycle(bool isDay)
+    {
+        lightCone = transform.Find("LightCone");
+        Debug.Log(isDay);
+        lightCone.gameObject.SetActive(!isDay);
     }
-	
-	// Update is called once per frame
-	void Update () {
-        if (!WorldState.instance.isDay)
-        {
-            lightCone.gameObject.SetActive(true);
-        }
-        else
-        {
-            lightCone.gameObject.SetActive(false);
-        }
-	}
 }
