@@ -32,6 +32,7 @@ ExportedObj/
 
 # Probuilder preferences
 Assets/ProBuilder*Data/ProBuilderPreferences.asset
+Assets/ProBuilder*Data/ProBuilderPreferences.asset.meta
 
 # Unity3D generated meta files
 *.pidb.meta
