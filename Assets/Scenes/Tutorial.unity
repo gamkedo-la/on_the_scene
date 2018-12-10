@@ -812,7 +812,7 @@ MonoBehaviour:
     Keep press and hold <b>Right Mouse Button</b> and move the <b>Mouse</b> to tle
     left
 
-    or move controller''s <b>Left Stick</b> to the left
+    or move controller''s <b>Right Stick</b> to the left
 
 
     (you can go forward while doing so)'
@@ -891,11 +891,11 @@ MonoBehaviour:
     lineCount: 7
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -15850,7 +15850,7 @@ MonoBehaviour:
 
     Press and hold <b>S</b>
 
-    or move controller''s <b>Right Stick</b> back'
+    or move controller''s <b>Left Stick</b> back'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -15926,11 +15926,11 @@ MonoBehaviour:
     lineCount: 4
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -20224,7 +20224,7 @@ MonoBehaviour:
 
     Press and hold <b>W</b>
 
-    or move controller''s <b>Right Stick</b> forward '
+    or move controller''s <b>Left Stick</b> forward '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -20292,7 +20292,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 887302577}
-    characterCount: 93
+    characterCount: 92
     spriteCount: 0
     spaceCount: 17
     wordCount: 16
@@ -31673,7 +31673,7 @@ MonoBehaviour:
 
     Press and hold <b>Right Mouse Button</b> and move the <b>Mouse</b> forward
 
-    or move controller''s <b>Left Stick</b> forward
+    or move controller''s <b>Right Stick</b> forward
 
 
     Try combining it with <b>Throttle</b>'
@@ -31752,11 +31752,11 @@ MonoBehaviour:
     lineCount: 7
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
