@@ -170,7 +170,7 @@ public class HeliController : MonoBehaviour
 		float rotationControl = input.currentThrottle + input.maxThrottle + 5;
 		rotationControl *= 90 * Time.fixedDeltaTime;
 		rotorMain.transform.Rotate( Vector3.up, rotationControl );
-		rotorTail.transform.Rotate( Vector3.right, rotationControl );
+		rotorTail.transform.Rotate( Vector3.up, rotationControl );
 
 		// Move
 		Vector3 moveVector = Vector3.zero;
