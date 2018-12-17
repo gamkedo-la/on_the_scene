@@ -15,6 +15,6 @@ public class FlightWander : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		targetTransform.transform.Translate (Vector3.forward * flightSpeed * Time.deltaTime);
+		this.transform.Translate (Vector3.forward * flightSpeed * Time.deltaTime);
 	}
 }
