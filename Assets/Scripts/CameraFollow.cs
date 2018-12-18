@@ -3,43 +3,46 @@ using UnityEngine.Assertions;
 
 public class CameraFollow : MonoBehaviour
 {
-	[SerializeField] private Transform target;
-	[SerializeField] private float smoothSpeed = 0.125f;
-	[SerializeField] private Vector3 offset;
+    [SerializeField] private Transform target;
+    [SerializeField] private float smoothSpeed = 0.125f;
+    [SerializeField] private Vector3 offset;
 
-	private float lastDistance = 0;
-	private float normalDistance = 0;
+    private float lastDistance = 0;
+    private float normalDistance = 0;
     private Transform cameraTransform;
 
-    public void SetTarget() {
+    public void SetTarget()
+    {
         target = HeliController.instance.GetCenterOfMass();
     }
 
-	void Start( )
-	{
+    void Start()
+    {
         SetTarget();
-		Assert.IsNotNull( target );
+        Assert.IsNotNull(target);
 
         cameraTransform = Camera.main.transform;
 
         cameraTransform.position = target.position + offset;
-		normalDistance = Vector3.Distance( target.position, cameraTransform.position );
-		lastDistance = normalDistance;
-	}
+        normalDistance = Vector3.Distance(target.position, cameraTransform.position);
+        lastDistance = normalDistance;
+    }
 
-	void FixedUpdate( )
-	{
-		Vector3 desiredPosition = target.position + ( target.rotation * offset );
+    void FixedUpdate()
+    {
+        Quaternion flatRotation = Quaternion.AngleAxis(target.transform.eulerAngles.y, Vector3.up);
 
-		float speed = smoothSpeed;
-		if ( Vector3.Distance( target.position, cameraTransform.position ) < lastDistance )
-			speed = smoothSpeed * 8 * ( 1.1f - lastDistance / normalDistance );
+        Vector3 desiredPosition = target.position + (flatRotation * offset);
 
-		Vector3 smoothedPosition = Vector3.Lerp(cameraTransform.position, desiredPosition, speed );
+        float speed = smoothSpeed;
+        if (Vector3.Distance(target.position, cameraTransform.position) < lastDistance)
+            speed = smoothSpeed * 8 * (1.1f - lastDistance / normalDistance);
+
+        Vector3 smoothedPosition = Vector3.Lerp(cameraTransform.position, desiredPosition, speed);
 
         cameraTransform.position = smoothedPosition;
-		lastDistance = Vector3.Distance( target.position, cameraTransform.position );
+        lastDistance = Vector3.Distance(target.position, cameraTransform.position);
 
-        cameraTransform.LookAt( target );
-	}
+        cameraTransform.LookAt(target);
+    }
 }

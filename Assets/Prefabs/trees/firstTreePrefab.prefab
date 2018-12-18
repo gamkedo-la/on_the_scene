@@ -2451,6 +2451,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4699561622400586}
   - component: {fileID: 95636967066991416}
+  - component: {fileID: 114529189372746258}
   m_Layer: 0
   m_Name: firstTreePrefab
   m_TagString: Untagged
@@ -2647,6 +2648,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4415207556128962}
   - component: {fileID: 137207614707077080}
+  - component: {fileID: 114758905566565714}
   m_Layer: 0
   m_Name: tree
   m_TagString: Untagged
@@ -5591,7 +5593,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1687756919188608}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 74.44445, y: 0.8306741, z: 75.58889}
+  m_LocalPosition: {x: -143.08673, y: -38.999847, z: -4.1466064}
   m_LocalScale: {x: 0.11111112, y: 0.11111112, z: 0.11111112}
   m_Children:
   - {fileID: 4539962726022010}
@@ -6469,6 +6471,30 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114529189372746258
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1687756919188608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf13165e30c374167ac457fd8198895d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  helicopter: {fileID: 0}
+--- !u!114 &114758905566565714
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1762819510533468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf13165e30c374167ac457fd8198895d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  helicopter: {fileID: 0}
 --- !u!137 &137207614707077080
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
