@@ -4,22 +4,33 @@ using UnityEngine;
 
 public class ActivateDustClouds : MonoBehaviour {
     ParticleSystem ps;
-    public Mesh ground;
-    float distanceFromGround = 3.0f;
+    private Transform altitudePoint = null;
+    private RaycastHit objectBelow;
+    float returnControlTime = 0.75f;
+    float distanceFromGround = 1.5f;
 
     // Use this for initialization
     void Start () {
         ps = gameObject.GetComponent<ParticleSystem>();
+        StartCoroutine(checkForGround());
     }
-	
-	// Update is called once per frame
-	void Update () {
-		////var distanceFromGround = Vector3.Distance(ground.position, transform.position);
-        //Debug.Log("Distance to other: " + distanceFromGround);
-        //if (distanceFromGround < distanceCheck) {
-        //    ps.Play();
-        //} else {
-        //    ps.Stop();
-        //}
+
+    IEnumerator checkForGround ()
+    {
+        while (true) {
+            altitudePoint = HeliController.instance.GetAltitudePoint();
+            Physics.Raycast(altitudePoint.position, Vector3.down, out objectBelow);
+            yield return new WaitForSeconds(returnControlTime);
+        }
+    }
+
+    // Update is called once per fram
+    void Update () {
+        Debug.Log("Distance to other: " + objectBelow.distance);
+        if (objectBelow.distance < distanceFromGround) {
+            ps.Play();
+        } else {
+            ps.Stop();
+        }
     }
 }
