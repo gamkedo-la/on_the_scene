@@ -75,7 +75,7 @@ public class WorldState : MonoBehaviour
 
         foreach (var item in transformsToCycle)
         {
-            item.BroadcastMessage("Cycle", isDay);
+            item.BroadcastMessage("Cycle", isDay, SendMessageOptions.DontRequireReceiver);
         }
     }
 
