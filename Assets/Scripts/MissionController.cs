@@ -30,7 +30,7 @@ public class MissionController : MonoBehaviour {
     private GameObject currentMissionPanel;
     private Text currentMissionDescription;
 	
-    private MissionNode[] allMissionNodes;
+    public MissionNode[] allMissionNodes;
 	private MissionNode activeMission;
 
     private Color missionStartColor = new Color32(255, 255, 66, 255);
