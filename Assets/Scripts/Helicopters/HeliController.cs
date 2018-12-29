@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 public class HeliController : MonoBehaviour
@@ -27,11 +28,21 @@ public class HeliController : MonoBehaviour
 
 	[SerializeField] private float throttleHitDampning = 3f;
 
-	private HeliInput input = null;
+    public HelicopterType helicopterType;
+    public float timeSinceLastMove = 0.0f;
+
+    private HeliInput input = null;
 	private float currentVelocity = 0;
 	private Vector3 lastPosition;
 
-	void Start( )
+    public enum HelicopterType
+    {
+        Transport,
+        Rescue,
+        HighSpeed
+    }
+
+    void Start( )
 	{
 		Assert.IsNotNull( rotorMain );
 		Assert.IsNotNull( rotorTail );
@@ -41,6 +52,7 @@ public class HeliController : MonoBehaviour
 
 		heliRigidbody.centerOfMass = centerOfMass.localPosition;
 		lastPosition = transform.position;
+        StartCoroutine(TrackTimeSinceMove());
 	}
 
 	void Awake( )
@@ -67,7 +79,28 @@ public class HeliController : MonoBehaviour
 		RotateAndMove( );
 	}
 
-	void OnCollisionStay( Collision collision )
+    IEnumerator TrackTimeSinceMove()
+    {
+        float pauseBetweenChecks = 1.0f;
+        Vector3 recentPos = transform.position;
+        float movementPerTimeDisqualifer = 1.0f;
+        while (true)
+        {
+            recentPos = transform.position;
+            yield return new WaitForSeconds(pauseBetweenChecks);
+            if (Vector3.Distance(recentPos, transform.position) >= movementPerTimeDisqualifer)
+            {
+                timeSinceLastMove = 0.0f;
+            }
+            else
+            {
+                timeSinceLastMove += pauseBetweenChecks;
+            }
+            Debug.Log("time since: " + timeSinceLastMove);
+        }
+    }
+
+    void OnCollisionStay( Collision collision )
 	{
 		if ( input.currentThrottle > 0 )
 		{

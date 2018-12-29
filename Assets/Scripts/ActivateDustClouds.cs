@@ -26,7 +26,7 @@ public class ActivateDustClouds : MonoBehaviour {
 
     // Update is called once per fram
     void Update () {
-        Debug.Log("Distance to other: " + objectBelow.distance);
+        //Debug.Log("Distance to other: " + objectBelow.distance);
         if (objectBelow.distance < distanceFromGround) {
             ps.Play();
         } else {
