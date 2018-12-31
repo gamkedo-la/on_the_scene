@@ -30,6 +30,8 @@ public class HeliController : MonoBehaviour
 
     public HelicopterType helicopterType;
     public float timeSinceLastMove = 0.0f;
+    public GameObject arrowPrefab;
+    private GameObject arrow;
 
     private HeliInput input = null;
 	private float currentVelocity = 0;
@@ -53,6 +55,7 @@ public class HeliController : MonoBehaviour
 		heliRigidbody.centerOfMass = centerOfMass.localPosition;
 		lastPosition = transform.position;
         StartCoroutine(TrackTimeSinceMove());
+        arrow = (GameObject) GameObject.Instantiate(arrowPrefab);
 	}
 
 	void Awake( )
@@ -77,6 +80,21 @@ public class HeliController : MonoBehaviour
 	void FixedUpdate( )
 	{
 		RotateAndMove( );
+        Transform nearestObjective = MissionController.GetNearestObjective();
+        if (nearestObjective != null)
+        {
+            if (arrow.activeSelf == false)
+            {
+                arrow.SetActive(true);
+            }
+            arrow.transform.position = transform.position + Vector3.up * 2.0f;
+            arrow.transform.LookAt(nearestObjective);
+        }
+        else if (arrow.activeSelf)
+        {
+            arrow.SetActive(false);
+        }
+
 	}
 
     IEnumerator TrackTimeSinceMove()
@@ -96,7 +114,7 @@ public class HeliController : MonoBehaviour
             {
                 timeSinceLastMove += pauseBetweenChecks;
             }
-            Debug.Log("time since: " + timeSinceLastMove);
+
         }
     }
 

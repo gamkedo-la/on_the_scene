@@ -7,11 +7,10 @@ public class PhotoMissionNode : MonoBehaviour {
     HeliController player;
     public float counter = 0.0f;
     public float maxTime = 20.0f;
-    public bool pictureTaken = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        HeliController temp = other.GetComponent<HeliController>();
+        HeliController temp = other.gameObject.GetComponentInChildren<HeliController>();
         if (temp != null)
         {
             player = temp;
@@ -26,7 +25,7 @@ public class PhotoMissionNode : MonoBehaviour {
             Debug.Log("Player is in collider and staying");
             if (counter <= maxTime)
             {
-                pictureTaken = true;
+                MissionController.ObjectiveReportingComplete(gameObject);
                 StopCoroutine(UpdateCounter());
             }
         }

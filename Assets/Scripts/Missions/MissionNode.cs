@@ -6,6 +6,7 @@ public class MissionNode : MonoBehaviour {
 	
 	public MissionType type;
 	public HelicopterType idealHelicopter;
+    public List<GameObject> missionObjectives = new List<GameObject>();
 	public string missionTitle;
 	[TextArea]
 	public string missionDescription;
@@ -64,19 +65,28 @@ public class MissionNode : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		if (other.gameObject.CompareTag("Player")) {
+        HeliController temp = other.gameObject.GetComponentInChildren<HeliController>();
+		if (temp != null) {
 			canAcceptMission = true;
 			string bestTimeString = GetBestTimeString();
-			MissionController.ShowMissionAcceptPanel(missionTitle, bestTimeString, missionDescription, idealHelicopter.ToString());
+            MissionController.ShowMissionAcceptPanel(missionTitle, bestTimeString, missionDescription, idealHelicopter.ToString());
 		}
 	}
 
 	void OnTriggerExit(Collider other) {
-		if (other.gameObject.CompareTag("Player")) {
-			canAcceptMission = false;
+        HeliController temp = other.gameObject.GetComponentInChildren<HeliController>();
+        if (temp != null)
+        {
+            canAcceptMission = false;
 			MissionController.HideMissionAcceptPanel();
 		}
 	}
+
+    public List<GameObject> GetObjectives()
+    {
+        Debug.Log("I got called and my mission objectives are: " + missionObjectives);
+        return missionObjectives;
+    }
 
     void ExpandBaseParticle() {
 		if (baseParticles.transform.localScale.x < maxBaseSize) {

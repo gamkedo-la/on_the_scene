@@ -32,6 +32,7 @@ public class MissionController : MonoBehaviour {
 	
     public MissionNode[] allMissionNodes;
 	private MissionNode activeMission;
+    public List<GameObject> missionObjectiveNodes;
 
     private Color missionStartColor = new Color32(255, 255, 66, 255);
     private Color missionCompleteColor = new Color32(66, 255, 106, 255);
@@ -60,7 +61,9 @@ public class MissionController : MonoBehaviour {
         HideMissionFailedPanel();
         HideFireworkParticles();
         HideTimeToCompletePanel();
-	}
+        missionObjectiveNodes = new List<GameObject>();
+
+    }
 
     void Update () {
         if (showingFailedMessage && Input.GetKeyDown(KeyCode.C)) {
@@ -74,7 +77,20 @@ public class MissionController : MonoBehaviour {
         }
     }
 
-	void SetMissionPanelObjects () {
+    public static Transform GetNearestObjective()
+    {
+        if (instance.missionObjectiveNodes.Count == 0)
+        {
+            return null;
+        }
+        else
+        {
+            return instance.missionObjectiveNodes[0].transform;
+        }
+
+    }
+
+    void SetMissionPanelObjects () {
         instance.missionAcceptPanel = GameObject.Find("MissionAcceptPanel");
         instance.missionAcceptTitle = GameObject.Find("MissionTitle").GetComponent<Text>();
         instance.bestTimeText = GameObject.Find("BestTime").GetComponent<Text>();
@@ -106,7 +122,7 @@ public class MissionController : MonoBehaviour {
     }
 
     void GetPlayerHelicopter() {
-        HeloController[] heloControllers = GameObject.FindObjectsOfType<HeloController>();
+        HeliController[] heloControllers = GameObject.FindObjectsOfType<HeliController>();
         if (heloControllers.Length > 0) {
             instance.playerHelicopter = heloControllers[0].gameObject;
         }
@@ -139,7 +155,7 @@ public class MissionController : MonoBehaviour {
         instance.missionAcceptDescription.text = missionDescription;
 
         instance.idealHelicopterText.text = "";
-        if (HeloController.instance.helicopterType.ToString() != idealHelicopterType) {
+        if (HeliController.instance.helicopterType.ToString() != idealHelicopterType) {
             instance.idealHelicopterText.text = "A " + idealHelicopterType.ToLower() + " helicopter would be best suited for this mission.";
         }
         instance.bestTimeText.text = "Best Time: " + bestTime;
@@ -192,7 +208,10 @@ public class MissionController : MonoBehaviour {
 
 	public static void SetActiveMission (MissionNode mission) {
 		instance.activeMission = mission;
-		HideMissionAcceptPanel();
+        instance.missionObjectiveNodes = mission.GetObjectives();
+        Debug.Log("objective nodes length: " + instance.missionObjectiveNodes.Count);
+        Debug.Log("GetObjectives results: " + mission.GetObjectives().Count);
+        HideMissionAcceptPanel();
         instance.StartCoroutine(instance.HandleMissionStart());
         instance.DisableOtherMissionNodes();
 	}
@@ -266,5 +285,18 @@ public class MissionController : MonoBehaviour {
         HideMissionStatusPanel();
         instance.EnableAllMissionNodes();
         instance.activeMission.HandleMissionFailed();
+    }
+
+    public static void ObjectiveReportingComplete(GameObject objectiveNode)
+    {
+        int index = instance.missionObjectiveNodes.IndexOf(objectiveNode);
+        if (index != -1)
+        {
+            instance.missionObjectiveNodes.RemoveAt(index);
+        }
+        else
+        {
+            Debug.Log("reporting node doesn't exit? Node name: " + objectiveNode.name);
+        }
     }
 }
