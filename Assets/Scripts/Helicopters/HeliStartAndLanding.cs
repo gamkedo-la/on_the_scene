@@ -32,14 +32,14 @@ public class HeliStartAndLanding : MonoBehaviour
 
 	void Update ()
 	{
-		if ( engineState == EngineState.CanBeTurnedOn && Input.GetKeyDown( KeyCode.E ) )
+		if ( engineState == EngineState.CanBeTurnedOn && ( Input.GetKeyDown( KeyCode.E ) || Input.GetButtonDown( "Engine" ) ) )
 		{
 			engineState = EngineState.Running;
 			if ( tutorialMessage )
 				tutorialMessage.SetActive( false );
 			SetAll( true );
 		}
-		else if ( engineState == EngineState.Running && Input.GetKeyDown( KeyCode.E ) && HeliIsAlmostStill( ) )
+		else if ( engineState == EngineState.Running && ( Input.GetKeyDown( KeyCode.E ) || Input.GetButtonDown( "Engine" ) ) && HeliIsAlmostStill( ) )
 		{
 			engineState = EngineState.CanBeTurnedOn;
 			SetAll( false );
