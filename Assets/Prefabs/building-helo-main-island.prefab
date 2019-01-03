@@ -584,7 +584,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1240705246835066}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 232, y: 0.29999733, z: 936}
+  m_LocalPosition: {x: 0, y: 1.63, z: -2.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4453151008526224}
@@ -11061,6 +11061,10 @@ MonoBehaviour:
     m_RotationOrder: 4
   useAltValues: 1
   throttleHitDampning: 3
+  helicopterType: 0
+  timeSinceLastMove: 0
+  arrowPrefab: {fileID: 1625885145440576, guid: da9213f8beed544dba9f8a5ac93472c6,
+    type: 2}
 --- !u!114 &114790825317403344
 MonoBehaviour:
   m_ObjectHideFlags: 1
