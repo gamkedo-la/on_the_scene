@@ -6,8 +6,8 @@ public class FlightWander : MonoBehaviour {
 
     public AIManager manager;
 
-    public float flightSpeed = 5f;
-    public float turnSpeed = 2f;
+    [SerializeField] float flightSpeed = 5f;
+    [SerializeField] float turnSpeed = 2f;
     private Vector3 desiredPosition;
 
     // Use this for initialization
