@@ -10,7 +10,7 @@ public class LampLight : MonoBehaviour {
     public void Cycle(bool isDay)
     {
         lightCone = transform.Find("LightCone");
-        Debug.Log(isDay);
+        //Debug.Log(isDay);
         lightCone.gameObject.SetActive(!isDay);
     }
 }

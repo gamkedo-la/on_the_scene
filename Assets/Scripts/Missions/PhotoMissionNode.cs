@@ -15,6 +15,7 @@ public class PhotoMissionNode : MonoBehaviour {
         {
             player = temp;
             StartCoroutine(UpdateCounter());
+            Debug.Log("Player has been set");
         }
     }
 
@@ -25,8 +26,10 @@ public class PhotoMissionNode : MonoBehaviour {
             Debug.Log("Player is in collider and staying");
             if (counter <= maxTime)
             {
-                MissionController.ObjectiveReportingComplete(gameObject);
-                StopCoroutine(UpdateCounter());
+                Debug.Log("MaxTime has been reached");
+                //MissionController.ObjectiveReportingComplete(gameObject);
+                //StopCoroutine(UpdateCounter());
+                //Destroy(gameObject);
             }
         }
     }
@@ -34,14 +37,16 @@ public class PhotoMissionNode : MonoBehaviour {
     IEnumerator UpdateCounter()
     {
         yield return new WaitForSeconds(1);
-        if (player.timeSinceLastMove <= 0.0f)
-        {
-            counter += 1.0f;
-        }
-        else
-        {
-            counter = 0.0f;
-        }
+        //if (player.timeSinceLastMove <= 0.0f)
+        //{
+        //    counter += 1.0f;
+        //}
+        //else
+        //{
+        //    counter = 0.0f;
+        //}
+        counter += 1;
+        Debug.Log("Counter is " + counter);
     }
 
 }
