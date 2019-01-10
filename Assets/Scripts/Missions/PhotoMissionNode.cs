@@ -5,7 +5,6 @@ using UnityEngine;
 public class PhotoMissionNode : MonoBehaviour {
 
     HeliController player;
-    public float counter = 0.0f;
     public float maxTime = 20.0f;
 
     private void OnTriggerEnter(Collider other)
@@ -14,7 +13,6 @@ public class PhotoMissionNode : MonoBehaviour {
         if (temp != null)
         {
             player = temp;
-            StartCoroutine(UpdateCounter());
             Debug.Log("Player has been set");
         }
     }
@@ -24,29 +22,13 @@ public class PhotoMissionNode : MonoBehaviour {
         if (player != null)
         {
             Debug.Log("Player is in collider and staying");
-            if (counter <= maxTime)
+            if (player.timeSinceLastMove >= maxTime)
             {
-                Debug.Log("MaxTime has been reached");
-                //MissionController.ObjectiveReportingComplete(gameObject);
-                //StopCoroutine(UpdateCounter());
-                //Destroy(gameObject);
+                //Debug.Log("MaxTime has been reached");
+                MissionController.ObjectiveReportingComplete(gameObject);
+                Destroy(gameObject);
             }
         }
-    }
-
-    IEnumerator UpdateCounter()
-    {
-        yield return new WaitForSeconds(1);
-        //if (player.timeSinceLastMove <= 0.0f)
-        //{
-        //    counter += 1.0f;
-        //}
-        //else
-        //{
-        //    counter = 0.0f;
-        //}
-        counter += 1;
-        Debug.Log("Counter is " + counter);
     }
 
 }
