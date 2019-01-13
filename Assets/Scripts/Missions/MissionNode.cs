@@ -8,10 +8,15 @@ public class MissionNode : MonoBehaviour {
 	public HelicopterType idealHelicopter;
     public List<GameObject> missionObjectives = new List<GameObject>();
 	public string missionTitle;
+    public float missionMaxTime = 300.0f;
 	[TextArea]
 	public string missionDescription;
+    [TextArea]
+    public string missionFailedMessage = "Mission Failed";
+    [TextArea]
+    public string missionCompleteMessage = "Mission Completed!";
 
-	private bool missionAccepted;
+    private bool missionAccepted;
 	private bool canAcceptMission;
 	private bool missionComplete;
 	private bool missionFailed;
@@ -57,12 +62,20 @@ public class MissionNode : MonoBehaviour {
 			MissionController.HandleMissionComplete();
 		}
         if (missionAccepted && !MissionController.showingFailedMessage && Input.GetKeyDown(KeyCode.X)){
-            MissionController.HandleMissionFailed();
+            MissionController.HandleMissionFailed(missionFailedMessage);
         }
 		if (missionAccepted) {
 			timeElapsed += Time.deltaTime;
 		}
-	}
+        if (missionAccepted && missionMaxTime <= timeElapsed)
+        {
+            MissionController.HandleMissionFailed(missionFailedMessage);
+        }
+        if (missionAccepted && missionObjectives.Count == 0)
+        {
+            MissionController.HandleMissionComplete(missionCompleteMessage);
+        }
+    }
 
 	void OnTriggerEnter(Collider other) {
         HeliController temp = other.gameObject.GetComponentInChildren<HeliController>();

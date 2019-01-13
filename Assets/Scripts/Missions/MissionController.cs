@@ -216,14 +216,14 @@ public class MissionController : MonoBehaviour {
         instance.DisableOtherMissionNodes();
 	}
 
-    public static void HandleMissionComplete() {
+    public static void HandleMissionComplete(string missionCompletedMessage = "You did it!") {
         HideCurrentMissionPanel();
-        instance.StartCoroutine(instance.ShowMissionCompleteMessage());
+        instance.StartCoroutine(instance.ShowMissionCompleteMessage(missionCompletedMessage));
     }
 
-    public static void HandleMissionFailed() {
+    public static void HandleMissionFailed(string missionFailedMessage = "You failed." ) {
         HideCurrentMissionPanel();
-        instance.StartCoroutine(instance.ShowMissionFailedMessage());
+        instance.StartCoroutine(instance.ShowMissionFailedMessage(missionFailedMessage));
     }
 
     void DisableOtherMissionNodes() {
@@ -248,8 +248,8 @@ public class MissionController : MonoBehaviour {
         ShowCurrentMissionPanel();
     }
 
-    IEnumerator ShowMissionCompleteMessage() {
-        ShowMissionStatusPanel("Mission Complete", instance.missionCompleteColor);
+    IEnumerator ShowMissionCompleteMessage(string missionCompleteMessage) {
+        ShowMissionStatusPanel(missionCompleteMessage, instance.missionCompleteColor);
         ShowFireworkParticles();
 
         instance.activeMission.HandleMissionComplete();
@@ -267,9 +267,9 @@ public class MissionController : MonoBehaviour {
         HideFireworkParticles();
     }
 
-    IEnumerator ShowMissionFailedMessage() {
+    IEnumerator ShowMissionFailedMessage(string failedMessage="You failed") {
         ShowMissionStatusPanel("Mission Failed", instance.missionFailedColor);
-        ShowMissionFailedPanel("You dropped a puppy! D:<");
+        ShowMissionFailedPanel(failedMessage);
         yield return new WaitForSeconds(0.25f);
         showingFailedMessage = true;
     }
