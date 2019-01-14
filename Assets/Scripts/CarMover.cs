@@ -9,7 +9,7 @@ public class CarMover : MonoBehaviour
     public float carSpeed = 3.0f;
     private Rigidbody rb;
     public Vector3 targetVector3;
-    public float closeEnoughToSlowDown = 1.0f;
+    private float closeEnoughToSlowDown = 1.0f;
     // Use this for initialization
     void Start()
     {
@@ -18,7 +18,7 @@ public class CarMover : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 3.0f);
         float speedScaleToTurnSharp = 1.0f;
@@ -33,7 +33,14 @@ public class CarMover : MonoBehaviour
     public void TurnTowards(Vector3 pointAt)
     {
         pointAt.y = transform.position.y;
-        targetRotation = Quaternion.LookRotation(pointAt - transform.position);
-        targetVector3 = pointAt;
+        if (Vector3.Distance(pointAt, transform.position) > 0.1f)
+        {
+            targetRotation = Quaternion.LookRotation(pointAt - transform.position);
+            targetVector3 = pointAt;
+        }
+        else
+        {
+            Debug.Log("Avoided pointing at same location");
+        }
     }
 }
