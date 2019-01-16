@@ -14,7 +14,7 @@ public class SwayWhenHelicopterIsNear : MonoBehaviour {
 	void Update () {
         var treeWobbleScale = Vector3.Distance(HeliController.instance.transform.position, transform.position);
         if (treeWobbleScale < distanceCheck) {
-            Debug.Log("swaying");
+            // Debug.Log("swaying");
             transform.rotation = Quaternion.AngleAxis(Random.Range(-4.0f, 4.0f) * (distanceCheck / treeWobbleScale),
                 Vector3.up)
             * Quaternion.AngleAxis(Random.Range(-4.0f, 4.0f) * (distanceCheck / treeWobbleScale),
