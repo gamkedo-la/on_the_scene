@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Assertions;
 
 public class HeliStartAndLanding : MonoBehaviour
 {
-	private enum EngineState
+	public enum EngineState
 	{
 		CanBeTurnedOn,
 		Running,
@@ -15,10 +13,12 @@ public class HeliStartAndLanding : MonoBehaviour
 	[SerializeField] private Behaviour[] behavioursToChange = null;
 	[SerializeField] private GameObject[] gameObjectsToChange = null;
 	[SerializeField] private GameObject tutorialMessage = null;
+	[SerializeField] private LayerMask layerMask;
 	[SerializeField] private HeliController heli = null;
 	[SerializeField] private float minLandingVelocity = 1f;
 	[SerializeField] private float minLandingAltitude = 1f;
 
+	private Rigidbody heliRigidbody;
 	private EngineState engineState = EngineState.CanBeTurnedOn;
 	private RaycastHit hit;
 	private float worldScale = 1f;
@@ -27,6 +27,7 @@ public class HeliStartAndLanding : MonoBehaviour
 	{
 		Assert.IsNotNull( heli );
 
+		heliRigidbody = heli.transform.parent.GetComponent<Rigidbody>( );
 		worldScale = heli.GetWorldScale( );
 	}
 
@@ -43,8 +44,22 @@ public class HeliStartAndLanding : MonoBehaviour
 		{
 			engineState = EngineState.CanBeTurnedOn;
 			SetAll( false );
-			heli.transform.parent.GetComponent<Rigidbody>( ).velocity = Vector3.zero;
-			heli.transform.parent.GetComponent<Rigidbody>( ).angularVelocity = Vector3.zero;
+			heliRigidbody.velocity = Vector3.zero;
+			heliRigidbody.angularVelocity = Vector3.zero;
+		}
+	}
+
+	public EngineState GetEngineState()
+	{
+		return engineState;
+	}
+
+	private void FixedUpdate( )
+	{
+		if (engineState == EngineState.CanBeTurnedOn)
+		{
+			heliRigidbody.velocity = Vector3.zero;
+			heliRigidbody.angularVelocity = Vector3.zero;
 		}
 	}
 
@@ -59,7 +74,7 @@ public class HeliStartAndLanding : MonoBehaviour
 
 	private bool HeliIsAlmostStill()
 	{
-		Physics.Raycast( heli.GetAltitudePoint().position, Vector3.down, out hit );
+		Physics.Raycast( heli.GetAltitudePoint().position, Vector3.down, out hit, layerMask );
 
 		return heli.GetVelocity( ) <= minLandingVelocity && ( hit.distance * worldScale ) <= minLandingAltitude;
 	}

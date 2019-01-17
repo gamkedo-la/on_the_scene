@@ -55,7 +55,8 @@ public class HeliController : MonoBehaviour
 		heliRigidbody.centerOfMass = centerOfMass.localPosition;
 		lastPosition = transform.position;
         StartCoroutine(TrackTimeSinceMove());
-        arrow = (GameObject) GameObject.Instantiate(arrowPrefab);
+		if ( arrowPrefab )
+			arrow = (GameObject) GameObject.Instantiate(arrowPrefab);
 	}
 
 	void Awake( )
@@ -81,7 +82,7 @@ public class HeliController : MonoBehaviour
 	{
 		RotateAndMove( );
         Transform nearestObjective = MissionController.GetNearestObjective();
-        if (nearestObjective != null)
+        if (arrow && nearestObjective != null)
         {
             if (arrow.activeSelf == false)
             {
@@ -90,7 +91,7 @@ public class HeliController : MonoBehaviour
             arrow.transform.position = transform.position + Vector3.up * 2.0f;
             arrow.transform.LookAt(nearestObjective);
         }
-        else if (arrow.activeSelf)
+        else if ( arrow && arrow.activeSelf)
         {
             arrow.SetActive(false);
         }
@@ -206,6 +207,9 @@ public class HeliController : MonoBehaviour
 
 	private void RotateAndMove( )
 	{
+		heliRigidbody.velocity = Vector3.zero;
+		heliRigidbody.angularVelocity = Vector3.zero;
+
 		float maximumSpeed = useAltValues ? speedMaxAlt : speedMax;
 		maximumSpeed *= input.SpeedInfluence;
 		// Velocity

@@ -29,7 +29,7 @@ public class MissionController : MonoBehaviour {
 
     private GameObject currentMissionPanel;
     private Text currentMissionDescription;
-	
+
     public MissionNode[] allMissionNodes;
 	private MissionNode activeMission;
     public List<GameObject> missionObjectiveNodes;
@@ -79,6 +79,9 @@ public class MissionController : MonoBehaviour {
 
     public static Transform GetNearestObjective()
     {
+		if ( instance == null )
+			return null;
+
         if (instance.missionObjectiveNodes.Count == 0)
         {
             return null;
@@ -253,7 +256,7 @@ public class MissionController : MonoBehaviour {
         ShowFireworkParticles();
 
         instance.activeMission.HandleMissionComplete();
-        
+
         ShowTimeToCompletePanel();
 
         instance.activeMission.CheckTimeElapsed();
@@ -261,7 +264,7 @@ public class MissionController : MonoBehaviour {
         yield return new WaitForSeconds(secondsToShowMissionStatus);
         HideMissionStatusPanel();
         HideTimeToCompletePanel();
-        
+
         instance.EnableAllMissionNodes();
         yield return new WaitForSeconds(5f);
         HideFireworkParticles();
