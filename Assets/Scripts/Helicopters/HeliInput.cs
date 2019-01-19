@@ -145,9 +145,12 @@ public class HeliInput : MonoBehaviour
 		else
 		{
 			rollController = -Input.GetAxis( "RollPS4" );
-		}
+            #if UNITY_WEBGL
+            rollController = -Input.GetAxis("RollPS4WebGL");
+            #endif
+        }
 
-		if ( Input.GetAxis( "Mouse X" ) > 0.1f && mouseControlOn )
+        if ( Input.GetAxis( "Mouse X" ) > 0.1f && mouseControlOn )
 		{
 			currentRollDesired -= rollDesiredChangeSpeed * Time.deltaTime;
 		}
@@ -180,8 +183,11 @@ public class HeliInput : MonoBehaviour
 		}
 		else
 		{
-			pitchController = -Input.GetAxis( "PitchPS4" );
-		}
+            pitchController = -Input.GetAxis("PitchPS4");
+            #if UNITY_WEBGL
+            pitchController = -Input.GetAxis( "PitchPS4WebGL" );
+            # endif
+        }
 
 		if ( Input.GetAxis( "Mouse Y" ) > 0.1f && mouseControlOn )
 		{
