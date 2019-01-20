@@ -18,6 +18,16 @@ public class HeliController : MonoBehaviour
 	[SerializeField, Tooltip("Lowest point of the helicopter.")] private Transform altitudePoint = null;
 
 	[Header("Parameters")]
+	
+	// Flight boundaries
+	[SerializeField] private float maxFlightHeight = 110f;
+	
+	[SerializeField] private float maxPointX = 650f;
+	[SerializeField] private float minPointX = -1450f;
+
+	[SerializeField] private float maxPointZ = 1250f;
+	[SerializeField] private float minPointZ = -750f;
+
 	[SerializeField] private float speedMax = 6f;
 	[SerializeField] private float speedMaxAlt = 3.7f;
 	[SerializeField] private AnimationCurve dragCurve = new AnimationCurve( new Keyframe( 0f, 0f ), new Keyframe( 1f, 0.1f ) );
@@ -266,6 +276,24 @@ public class HeliController : MonoBehaviour
 		{
 			moveVector.y = input.currentThrottle * ( maximumSpeed / worldScale ) * Time.fixedDeltaTime;
 		}
+
+		if (heliRigidbody.position.y + moveVector.y >= maxFlightHeight) {
+			moveVector.y = 0f;
+		}
+
+		if (
+			heliRigidbody.position.x + moveVector.x >= maxPointX ||
+			heliRigidbody.position.x + moveVector.x <= minPointX
+		) {
+            moveVector.x = 0;
+		}
+
+        if (
+            heliRigidbody.position.z + moveVector.z >= maxPointZ ||
+            heliRigidbody.position.z + moveVector.z <= minPointZ
+        ) {
+            moveVector.z = 0;
+        }
 
 		heliRigidbody.MovePosition( heliRigidbody.position + moveVector );
 	}
