@@ -13,7 +13,7 @@ public class PhotoMissionNode : MonoBehaviour {
         if (temp != null)
         {
             player = temp;
-            Debug.Log("Player has been set");
+            player.IndicatorUpdate(IndicatorManager.signState.StopSign);
         }
     }
 
@@ -21,11 +21,11 @@ public class PhotoMissionNode : MonoBehaviour {
     {
         if (player != null)
         {
-            Debug.Log("Player is in collider and staying");
             if (player.timeSinceLastMove >= maxTime)
             {
                 //Debug.Log("MaxTime has been reached");
                 MissionController.ObjectiveReportingComplete(gameObject);
+                player.IndicatorUpdate(IndicatorManager.signState.None);
                 Destroy(gameObject);
             }
         }

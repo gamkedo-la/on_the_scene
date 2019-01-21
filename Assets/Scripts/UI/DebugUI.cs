@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DebugUI : MonoBehaviour {
+public class DebugUI : MonoBehaviour
+{
 
     public static DebugUI instance;
     private Text debugOutput;
@@ -15,12 +16,14 @@ public class DebugUI : MonoBehaviour {
         debugOutput = transform.GetComponentInChildren<Text>();
     }
 
-    public void SetDebugText(string textToSet) {
+    public void SetDebugText(string textToSet)
+    {
         debugOutput.text = textToSet;
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 }
