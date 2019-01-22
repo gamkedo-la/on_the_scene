@@ -5,7 +5,7 @@ using UnityEngine;
 public class StopSignManager : MonoBehaviour
 {
     // Update is called once per frame
-    void LateUpdate()
+    void Update()
     {
         transform.LookAt(Camera.main.transform.position);
     }

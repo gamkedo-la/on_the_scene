@@ -64,6 +64,11 @@ public class HeliController : MonoBehaviour
         heliRigidbody.centerOfMass = centerOfMass.localPosition;
         lastPosition = transform.position;
         StartCoroutine(TrackTimeSinceMove());
+        instance.indicator = GameObject.Find("Indicator").GetComponent<IndicatorManager>();
+        if (instance.indicator == null)
+        {
+            Debug.LogError("Indicator is missing from scene.");
+        }
     }
 
     void Awake()

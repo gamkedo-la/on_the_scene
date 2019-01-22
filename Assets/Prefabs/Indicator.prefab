@@ -23,13 +23,13 @@ GameObject:
   - component: {fileID: 23346217455815510}
   - component: {fileID: 33826643131880040}
   - component: {fileID: 114742028716554180}
-  - component: {fileID: 64173909563395224}
+  - component: {fileID: 114770655924556542}
   m_Layer: 0
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 127
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1611418910794670
 GameObject:
@@ -59,13 +59,12 @@ GameObject:
   - component: {fileID: 23414931590826054}
   - component: {fileID: 33812388542359002}
   - component: {fileID: 114670236419313638}
-  - component: {fileID: 64466730451137866}
   m_Layer: 0
   m_Name: StopSign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 127
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4166660058635016
 Transform:
@@ -192,34 +191,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1566278427607752}
   m_Mesh: {fileID: 0}
---- !u!64 &64173909563395224
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1566278427607752}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 0}
---- !u!64 &64466730451137866
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1824206065023940}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 0}
 --- !u!114 &114011077730834130
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -233,6 +204,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arrow: {fileID: 1566278427607752}
   stopSign: {fileID: 1824206065023940}
+  nearestObjective: {fileID: 0}
+  currentState: 0
 --- !u!114 &114496995518359266
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1360,6 +1333,18 @@ MonoBehaviour:
   m_selectedFaces: 
   m_SelectedEdges: []
   m_selectedTriangles: 
+--- !u!114 &114770655924556542
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1566278427607752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c88ed17b41ddb4049a70e1af95da9815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nearestObjective: {fileID: 0}
 --- !u!114 &114931877424490716
 MonoBehaviour:
   m_ObjectHideFlags: 1
