@@ -45,8 +45,9 @@ public class HeliController : MonoBehaviour
     private HeliInput input = null;
     private float currentVelocity = 0;
     private Vector3 lastPosition;
+	private Vector3 moveVector = Vector3.zero;
 
-    public enum HelicopterType
+	public enum HelicopterType
     {
         Transport,
         Rescue,
@@ -195,7 +196,12 @@ public class HeliController : MonoBehaviour
         return currentVelocity * worldScale;
     }
 
-    public Transform GetAltitudePoint()
+	public Vector3 GetVelocityVector( )
+	{
+		return moveVector;
+	}
+
+	public Transform GetAltitudePoint()
     {
         return altitudePoint;
     }
@@ -233,7 +239,6 @@ public class HeliController : MonoBehaviour
         rotorTail.transform.Rotate(Vector3.up, rotationControl);
 
         // Move
-        Vector3 moveVector = Vector3.zero;
 
         // Starting Roll and Pitch
         moveVector.x = -rollPercent;
