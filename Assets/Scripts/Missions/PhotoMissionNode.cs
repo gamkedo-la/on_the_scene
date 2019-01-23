@@ -27,6 +27,7 @@ public class PhotoMissionNode : MonoBehaviour {
                 MissionController.ObjectiveReportingComplete(gameObject);
                 player.IndicatorUpdate(IndicatorManager.signState.None);
                 Destroy(gameObject);
+                MissionController.GetNearestObjective();
             }
         }
     }
