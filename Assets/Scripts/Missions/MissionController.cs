@@ -99,7 +99,22 @@ public class MissionController : MonoBehaviour
         }
         else
         {
-            return instance.missionObjectiveNodes[0].transform;
+            float ShortestDistanceBetween = Mathf.Infinity;
+            float DistanceBetween;
+            Vector3 PlayerPosition = instance.playerHelicopter.transform.position;
+            int ShortestDistanceIndex = 0;
+            for (int i = 0; i < instance.missionObjectiveNodes.Count; i++)
+            {
+                Vector3 CurrentNodePosition = instance.missionObjectiveNodes[i].transform.position;
+                DistanceBetween = Vector3.Distance(CurrentNodePosition, PlayerPosition);
+
+                if (DistanceBetween < ShortestDistanceBetween)
+                {
+                    ShortestDistanceBetween = DistanceBetween;
+                    ShortestDistanceIndex = i;
+                }
+            }
+            return instance.missionObjectiveNodes[ShortestDistanceIndex].transform;
         }
 
     }
@@ -131,6 +146,19 @@ public class MissionController : MonoBehaviour
     void GetMissionNodes()
     {
         instance.allMissionNodes = GameObject.FindObjectsOfType<MissionNode>();
+    }
+
+    public static int GetMissionObjectives()
+    {
+        int AllObjectives = 0;
+        if (instance == null)
+        {
+            Debug.Log("No instance found");
+            return AllObjectives;
+        }
+
+        AllObjectives = instance.missionObjectiveNodes.Count;
+        return AllObjectives;
     }
 
     void GetFireworkParticles()

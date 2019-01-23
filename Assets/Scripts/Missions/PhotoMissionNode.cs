@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PhotoMissionNode : MonoBehaviour {
+public class PhotoMissionNode : MonoBehaviour
+{
 
     HeliController player;
     public float maxTime = 20.0f;
@@ -25,11 +26,19 @@ public class PhotoMissionNode : MonoBehaviour {
             {
                 //Debug.Log("MaxTime has been reached");
                 MissionController.ObjectiveReportingComplete(gameObject);
-                player.IndicatorUpdate(IndicatorManager.signState.None);
+                int objectivesLeft = MissionController.GetMissionObjectives();
+                if (objectivesLeft == 0)
+                {
+                    player.IndicatorUpdate(IndicatorManager.signState.None);
+                }
+                else
+                {
+                    player.IndicatorUpdate(IndicatorManager.signState.Arrow);
+                }
                 Destroy(gameObject);
-                MissionController.GetNearestObjective();
+
             }
         }
-    }
+    } // end of OnTriggerStay
 
 }
