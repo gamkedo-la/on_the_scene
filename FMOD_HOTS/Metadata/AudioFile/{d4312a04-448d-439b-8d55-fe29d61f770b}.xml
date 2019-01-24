@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{d4312a04-448d-439b-8d55-fe29d61f770b}">
+        <property name="assetPath">
+            <value>MAIN_CHOPPER_DECELLERATE_01.wav</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>3.6244671201814058</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{85cfaff4-0dd2-4799-8676-4568346cb1b6}</destination>
+        </relationship>
+    </object>
+</objects>
