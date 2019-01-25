@@ -20,8 +20,8 @@ public class SpeedDisplay : MonoBehaviour
 
 	private void UpdateUI( )
 	{
-		float velecity = heli.GetVelocity( );
+		float velocity = heli.GetVelocity( );
 
-		label.text = ( (int)( velecity * 3.6f ) ).ToString( ) + " km/h"; // m/s -> km/h
+		label.text = ( (int)( velocity * 3.6f ) ).ToString( ) + " km/h"; // m/s -> km/h
 	}
 }
