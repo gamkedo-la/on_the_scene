@@ -404,7 +404,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: '<b>Roll</b> to move sidways
+  m_text: '<b>Roll</b> to move sideways
 
 
     Move the <b>Mouse</b> to the left
@@ -1393,7 +1393,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 'Land down by using <b>Throttle down</b>
+  m_text: 'Land by using <b>Throttle down</b>
 
 
     Press and hold <b>S</b>
@@ -3848,7 +3848,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 'If you''re to heigh try <b>Throttle down</b>
+  m_text: 'If you''re too high, try <b>Throttle down</b>
 
 
     Press and hold <b>S</b>
@@ -13770,7 +13770,7 @@ MonoBehaviour:
   m_text: '<b>Pitch</b> to move forward or back
 
 
-    Press and hold <b>Right Mouse Button</b> and move the <b>Mouse</b> forward
+    Press and hold <b>Left Mouse Button</b> and move the <b>Mouse</b> forward
 
     or move controller''s <b>Right Stick</b> forward
 
