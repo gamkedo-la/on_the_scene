@@ -18,6 +18,16 @@ public class PhotoMissionNode : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        HeliController temp = other.gameObject.GetComponentInChildren<HeliController>();
+        if (temp != null)
+        {
+            player = temp;
+            player.IndicatorUpdate(IndicatorManager.signState.Arrow);
+        }
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (player != null)
