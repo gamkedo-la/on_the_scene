@@ -88,22 +88,20 @@ public class MissionController : MonoBehaviour
         }
     }
 
-    public static Transform GetNearestObjective()
+    public static GameObject GetNearestObjective()
     {
-        if (instance == null)
-            return null;
-
-        if (instance.missionObjectiveNodes.Count == 0)
+        if (instance == null || instance.missionObjectiveNodes.Count == 0) 
         {
             return null;
         }
-        else
+            
+        float ShortestDistanceBetween = Mathf.Infinity;
+        float DistanceBetween;
+        Vector3 PlayerPosition = instance.playerHelicopter.transform.position;
+        int ShortestDistanceIndex = 0;
+        for (int i = 0; i < instance.missionObjectiveNodes.Count; i++)
         {
-            float ShortestDistanceBetween = Mathf.Infinity;
-            float DistanceBetween;
-            Vector3 PlayerPosition = instance.playerHelicopter.transform.position;
-            int ShortestDistanceIndex = 0;
-            for (int i = 0; i < instance.missionObjectiveNodes.Count; i++)
+            if (instance.missionObjectiveNodes[i].activeInHierarchy)
             {
                 Vector3 CurrentNodePosition = instance.missionObjectiveNodes[i].transform.position;
                 DistanceBetween = Vector3.Distance(CurrentNodePosition, PlayerPosition);
@@ -114,9 +112,8 @@ public class MissionController : MonoBehaviour
                     ShortestDistanceIndex = i;
                 }
             }
-            return instance.missionObjectiveNodes[ShortestDistanceIndex].transform;
         }
-
+        return instance.missionObjectiveNodes[ShortestDistanceIndex];
     }
 
     void SetMissionPanelObjects()
@@ -157,7 +154,13 @@ public class MissionController : MonoBehaviour
             return AllObjectives;
         }
 
-        AllObjectives = instance.missionObjectiveNodes.Count;
+        for (int i = 0; i < instance.missionObjectiveNodes.Count; i++) 
+        {
+            if (instance.missionObjectiveNodes[i].activeInHierarchy)
+            {
+                AllObjectives++;
+            }
+        }
         return AllObjectives;
     }
 
@@ -278,6 +281,7 @@ public class MissionController : MonoBehaviour
         HideMissionAcceptPanel();
         instance.StartCoroutine(instance.HandleMissionStart());
         instance.DisableOtherMissionNodes();
+        instance.EnableAllMissionObjectives();
         instance.indicator.SwitchIndicator(IndicatorManager.signState.Arrow);
     }
 
@@ -309,6 +313,14 @@ public class MissionController : MonoBehaviour
         for (int i = 0; i < instance.allMissionNodes.Length; i++)
         {
             instance.allMissionNodes[i].gameObject.SetActive(true);
+        }
+    }
+
+    void EnableAllMissionObjectives()
+    {
+        for (int i = 0; i < instance.missionObjectiveNodes.Count; i++)
+        {
+            instance.missionObjectiveNodes[i].gameObject.SetActive(true);
         }
     }
 
@@ -369,7 +381,8 @@ public class MissionController : MonoBehaviour
         int index = instance.missionObjectiveNodes.IndexOf(objectiveNode);
         if (index != -1)
         {
-            instance.missionObjectiveNodes.RemoveAt(index);
+            instance.missionObjectiveNodes[index].SetActive(false);
+            //instance.missionObjectiveNodes.Remove(index);
         }
         else
         {

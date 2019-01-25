@@ -9,6 +9,7 @@ public class IndicatorManager : MonoBehaviour
     public GameObject stopSign;
     public enum signState { None, StopSign, Arrow };
     public Transform nearestObjective;
+    public bool nearestObjectiveActive;
     public signState currentState = signState.None;
 
     // Use this for initialization
@@ -27,14 +28,21 @@ public class IndicatorManager : MonoBehaviour
 
     void Update()
     {
-        nearestObjective = MissionController.GetNearestObjective();
-        if (nearestObjective != null)
+        if (MissionController.GetMissionObjectives() <= 0)
+        {
+            return;
+        }
+        nearestObjective = MissionController.GetNearestObjective().transform;
+        nearestObjectiveActive = MissionController.GetNearestObjective().activeInHierarchy;
+        if (nearestObjective != null && nearestObjectiveActive)
         {
             if (currentState == signState.None)
             {
                 currentState = signState.Arrow;
             }
             transform.position = HeliController.instance.transform.position + Vector3.up * 2.0f;
+            return;
         }
+        currentState = signState.None;
     }
 }

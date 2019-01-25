@@ -79,10 +79,22 @@ public class MissionNode : MonoBehaviour
         {
             MissionController.HandleMissionFailed(missionFailedMessage);
         }
-        if (missionAccepted && missionObjectives.Count == 0)
+        if (missionAccepted && CheckAcitveObjectives())
         {
             MissionController.HandleMissionComplete(missionCompleteMessage);
         }
+    }
+
+    private bool CheckAcitveObjectives()
+    {
+        for (int o = 0; o < missionObjectives.Count; o++)
+        {
+            if (missionObjectives[o].activeInHierarchy)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     void OnTriggerEnter(Collider other)
@@ -108,6 +120,7 @@ public class MissionNode : MonoBehaviour
 
     public List<GameObject> GetObjectives()
     {
+
         Debug.Log("I got called and my mission objectives are: " + missionObjectives);
         return missionObjectives;
     }

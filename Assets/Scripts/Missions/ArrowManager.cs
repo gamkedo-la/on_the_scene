@@ -8,7 +8,11 @@ public class ArrowManager : MonoBehaviour
 
     private void Update()
     {
-        nearestObjective = MissionController.GetNearestObjective();
+        if (MissionController.GetMissionObjectives() <= 0)
+        {
+            return;
+        }
+        nearestObjective = MissionController.GetNearestObjective().transform;
         if (nearestObjective != null)
         {
             transform.LookAt(nearestObjective);
@@ -21,7 +25,11 @@ public class ArrowManager : MonoBehaviour
 
     private void LateUpate()
     {
-        nearestObjective = MissionController.GetNearestObjective();
+        if (MissionController.GetMissionObjectives() <= 0)
+        {
+            return;
+        }
+        nearestObjective = MissionController.GetNearestObjective().transform;
         Debug.Log("Late Update happened and nearestObjective is: " + nearestObjective);
         if (nearestObjective != null)
         {
