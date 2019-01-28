@@ -59,8 +59,8 @@ public class HeliInput : MonoBehaviour
     FMOD.Studio.EventInstance accellerate;
 
     [FMODUnity.EventRef]
-    public string DeaccellerateEvent;
-    FMOD.Studio.EventInstance deaccellerate;
+    public string DecelerateEvent;
+    FMOD.Studio.EventInstance decelerate;
 
     [FMODUnity.EventRef]
     public string HoverEvent;
@@ -81,12 +81,12 @@ public class HeliInput : MonoBehaviour
         //Assert.IsNotNull(  );
         cachedRigidBody = GetComponent<Rigidbody>();
         accellerate = FMODUnity.RuntimeManager.CreateInstance(AccellerateEvent);
-        deaccellerate = FMODUnity.RuntimeManager.CreateInstance(DeaccellerateEvent);
+        decelerate = FMODUnity.RuntimeManager.CreateInstance(DecelerateEvent);
         hover = FMODUnity.RuntimeManager.CreateInstance(HoverEvent);
         fullSpeed = FMODUnity.RuntimeManager.CreateInstance(FullSpeedEvent);
 
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(accellerate, GetComponent<Transform>(), GetComponent<Rigidbody>());
-        FMODUnity.RuntimeManager.AttachInstanceToGameObject(deaccellerate, GetComponent<Transform>(), GetComponent<Rigidbody>());
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(decelerate, GetComponent<Transform>(), GetComponent<Rigidbody>());
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(hover, GetComponent<Transform>(), GetComponent<Rigidbody>());
     }
 
@@ -169,20 +169,20 @@ public class HeliInput : MonoBehaviour
             accellerate.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject, cachedRigidBody));
             if (accelleratePlaybackState != FMOD.Studio.PLAYBACK_STATE.PLAYING)
             {
-                deaccellerate.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+                decelerate.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                 hover.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                 accellerate.start();
             }
         }
         else if (currentThrottle < 0)
         {
-            deaccellerate.getPlaybackState(out deaccelleratePlaybackState);
-            deaccellerate.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject, cachedRigidBody));
+            decelerate.getPlaybackState(out deaccelleratePlaybackState);
+            decelerate.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject, cachedRigidBody));
             if (deaccelleratePlaybackState != FMOD.Studio.PLAYBACK_STATE.PLAYING)
             {
                 accellerate.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                 hover.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-                deaccellerate.start();
+                decelerate.start();
             }
         }
         else
@@ -192,7 +192,7 @@ public class HeliInput : MonoBehaviour
             if (hoverPlaybackState != FMOD.Studio.PLAYBACK_STATE.PLAYING)
             {
                 accellerate.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-                deaccellerate.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+                decelerate.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                 hover.start();
             }
         }
