@@ -83,6 +83,7 @@ public class HeliInput : MonoBehaviour
         accellerate = FMODUnity.RuntimeManager.CreateInstance(AccellerateEvent);
         deaccellerate = FMODUnity.RuntimeManager.CreateInstance(DeaccellerateEvent);
         hover = FMODUnity.RuntimeManager.CreateInstance(HoverEvent);
+        fullSpeed = FMODUnity.RuntimeManager.CreateInstance(FullSpeedEvent);
 
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(accellerate, GetComponent<Transform>(), GetComponent<Rigidbody>());
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(deaccellerate, GetComponent<Transform>(), GetComponent<Rigidbody>());

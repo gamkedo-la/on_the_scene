@@ -258,7 +258,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1714542154583958
 GameObject:
   m_ObjectHideFlags: 1
@@ -3940,6 +3940,10 @@ MonoBehaviour:
   speedInfluence: 1
   controlInfluence: 1
   deadZone: 10
+  AccellerateEvent: event:/Chopper/Accellerate
+  DeaccellerateEvent: event:/Chopper/Deaccelerate
+  HoverEvent: event:/Chopper/Hover
+  FullSpeedEvent: event:/Chopper/FullSpeed
 --- !u!114 &114300760551838810
 MonoBehaviour:
   m_ObjectHideFlags: 1
