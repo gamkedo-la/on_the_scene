@@ -3941,7 +3941,7 @@ MonoBehaviour:
   controlInfluence: 1
   deadZone: 10
   AccellerateEvent: event:/Chopper/Accellerate
-  DeaccellerateEvent: event:/Chopper/Deaccelerate
+  DecelerateEvent: event:/Chopper/Deaccelerate
   HoverEvent: event:/Chopper/Hover
   FullSpeedEvent: event:/Chopper/FullSpeed
 --- !u!114 &114300760551838810
