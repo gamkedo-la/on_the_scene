@@ -14,10 +14,10 @@ public class ActivateDustClouds : MonoBehaviour {
     void Start () {
         ps = gameObject.GetComponent<ParticleSystem>();
         HelicopterTransform = HeliController.instance.transform;
-        StartCoroutine(checkForGround());
+        StartCoroutine(CheckForGround());
     }
 
-    IEnumerator checkForGround ()
+    IEnumerator CheckForGround ()
     {
         while (true) {
             altitudePoint = HeliController.instance.GetAltitudePoint();
@@ -33,11 +33,11 @@ public class ActivateDustClouds : MonoBehaviour {
     void Update () {
         //Debug.Log("Distance to other: " + objectBelow.distance);
         if (objectBelow.distance < distanceFromGround) {
-            StopCoroutine(checkForGround());
+            StopCoroutine(CheckForGround());
             ps.Play();
         } else {
             ps.Stop();
-            StartCoroutine(checkForGround());
+            StartCoroutine(CheckForGround());
         }
     }
 }
