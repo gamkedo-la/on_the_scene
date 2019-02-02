@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{adc178d9-0523-4b0b-8d80-936f61baa617}">
+        <property name="assetPath">
+            <value>Duty Calls [on the scene].mp3</value>
+        </property>
+        <property name="isStreaming">
+            <value>true</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>117.4465306122449</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{85cfaff4-0dd2-4799-8676-4568346cb1b6}</destination>
+        </relationship>
+    </object>
+</objects>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{49c9cb25-4a4b-4f23-afcd-a80be03d4b16}">
+        <property name="assetPath">
+            <value>stebs_hella_song_2.ogg</value>
+        </property>
+        <property name="isStreaming">
+            <value>true</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>105.71755102040817</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{85cfaff4-0dd2-4799-8676-4568346cb1b6}</destination>
+        </relationship>
+    </object>
+</objects>

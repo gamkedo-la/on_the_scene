@@ -80,14 +80,16 @@ public class HeliInput : MonoBehaviour
     {
         //Assert.IsNotNull(  );
         cachedRigidBody = GetComponent<Rigidbody>();
-        accellerate = FMODUnity.RuntimeManager.CreateInstance(AccellerateEvent);
-        decelerate = FMODUnity.RuntimeManager.CreateInstance(DecelerateEvent);
+        //accellerate = FMODUnity.RuntimeManager.CreateInstance(AccellerateEvent);
+        //decelerate = FMODUnity.RuntimeManager.CreateInstance(DecelerateEvent);
         hover = FMODUnity.RuntimeManager.CreateInstance(HoverEvent);
-        fullSpeed = FMODUnity.RuntimeManager.CreateInstance(FullSpeedEvent);
+        //fullSpeed = FMODUnity.RuntimeManager.CreateInstance(FullSpeedEvent);
 
-        FMODUnity.RuntimeManager.AttachInstanceToGameObject(accellerate, GetComponent<Transform>(), GetComponent<Rigidbody>());
-        FMODUnity.RuntimeManager.AttachInstanceToGameObject(decelerate, GetComponent<Transform>(), GetComponent<Rigidbody>());
+        //FMODUnity.RuntimeManager.AttachInstanceToGameObject(accellerate, GetComponent<Transform>(), GetComponent<Rigidbody>());
+        //FMODUnity.RuntimeManager.AttachInstanceToGameObject(decelerate, GetComponent<Transform>(), GetComponent<Rigidbody>());
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(hover, GetComponent<Transform>(), GetComponent<Rigidbody>());
+        hover.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject, cachedRigidBody));
+        hover.start();
     }
 
     void Update()
@@ -97,6 +99,8 @@ public class HeliInput : MonoBehaviour
         HandleRollControls();
         HandlePitchControls();
         HandleYawControls();
+        hover.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject, cachedRigidBody));
+
     }
 
     void FixedUpdate()
@@ -163,39 +167,42 @@ public class HeliInput : MonoBehaviour
         }
 
         currentThrottle = Mathf.Clamp(currentThrottle, -maxThrottle, maxThrottle);
-        if (currentThrottle > 0)
-        {
-            accellerate.getPlaybackState(out accelleratePlaybackState);
-            accellerate.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject, cachedRigidBody));
-            if (accelleratePlaybackState != FMOD.Studio.PLAYBACK_STATE.PLAYING)
-            {
-                decelerate.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-                hover.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-                accellerate.start();
-            }
-        }
-        else if (currentThrottle < 0)
-        {
-            decelerate.getPlaybackState(out deaccelleratePlaybackState);
-            decelerate.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject, cachedRigidBody));
-            if (deaccelleratePlaybackState != FMOD.Studio.PLAYBACK_STATE.PLAYING)
-            {
-                accellerate.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-                hover.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-                decelerate.start();
-            }
-        }
-        else
-        {
-            hover.getPlaybackState(out hoverPlaybackState);
-            hover.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject, cachedRigidBody));
-            if (hoverPlaybackState != FMOD.Studio.PLAYBACK_STATE.PLAYING)
-            {
-                accellerate.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-                decelerate.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-                hover.start();
-            }
-        }
+
+        hover.setParameterValue("Turn", currentThrottle);
+
+        //if (currentThrottle > 0)
+        //{
+        //    accellerate.getPlaybackState(out accelleratePlaybackState);
+        //    accellerate.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject, cachedRigidBody));
+        //    if (accelleratePlaybackState != FMOD.Studio.PLAYBACK_STATE.PLAYING)
+        //    {
+        //        decelerate.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        //        hover.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        //        accellerate.start();
+        //    }
+        //}
+        //else if (currentThrottle < 0)
+        //{
+        //    decelerate.getPlaybackState(out deaccelleratePlaybackState);
+        //    decelerate.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject, cachedRigidBody));
+        //    if (deaccelleratePlaybackState != FMOD.Studio.PLAYBACK_STATE.PLAYING)
+        //    {
+        //        accellerate.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        //        hover.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        //        decelerate.start();
+        //    }
+        //}
+        //else
+        //{
+        //    hover.getPlaybackState(out hoverPlaybackState);
+        //    hover.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject, cachedRigidBody));
+        //    if (hoverPlaybackState != FMOD.Studio.PLAYBACK_STATE.PLAYING)
+        //    {
+        //        accellerate.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        //        decelerate.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        //        hover.start();
+        //    }
+        //}
     }
 
     private void HandleRollControls()
