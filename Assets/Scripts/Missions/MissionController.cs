@@ -52,6 +52,10 @@ public class MissionController : MonoBehaviour
     public string MissionFailEvent;
     private FMOD.Studio.EventInstance missionFailSound;
 
+    [FMODUnity.EventRef]
+    public string MissionSuccessEvent;
+    private FMOD.Studio.EventInstance missionSuccessSound;
+
     private Rigidbody cachedRigidBody;
 
     void Awake()
@@ -114,6 +118,10 @@ public class MissionController : MonoBehaviour
         missionFailSound = FMODUnity.RuntimeManager.CreateInstance(MissionFailEvent);
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(missionFailSound, GetComponent<Transform>(), GetComponent<Rigidbody>());
         missionFailSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject, cachedRigidBody));
+
+        missionSuccessSound = FMODUnity.RuntimeManager.CreateInstance(MissionSuccessEvent);
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(missionSuccessSound, GetComponent<Transform>(), GetComponent<Rigidbody>());
+        missionSuccessSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject, cachedRigidBody));
     }
 
     public static GameObject GetNearestObjective()
@@ -316,6 +324,7 @@ public class MissionController : MonoBehaviour
     public static void HandleMissionComplete(string missionCompletedMessage = "You did it!")
     {
         HideCurrentMissionPanel();
+        instance.missionSuccessSound.start();
         instance.StartCoroutine(instance.ShowMissionCompleteMessage(missionCompletedMessage));
     }
 

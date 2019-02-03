@@ -8,6 +8,24 @@ public class PhotoMissionObjective : MonoBehaviour
     HeliController player;
     public float maxTime = 20.0f;
 
+    [FMODUnity.EventRef]
+    public string ObjectiveSuccessEvent = "event:/Missions/MissionObjectiveComplete";
+    private FMOD.Studio.EventInstance objectiveSuccessSound;
+    private Rigidbody cachedRigidBody;
+
+    private void Start()
+    {
+        cachedRigidBody = HeliController.instance.GetComponentInParent<Rigidbody>();
+        if (cachedRigidBody == null)
+        {
+            Debug.Log("Unable to get rigidbody from HeliController");
+        }
+
+        objectiveSuccessSound = FMODUnity.RuntimeManager.CreateInstance(ObjectiveSuccessEvent);
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(objectiveSuccessSound, GetComponent<Transform>(), GetComponent<Rigidbody>());
+        objectiveSuccessSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject, cachedRigidBody));
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         HeliController temp = other.gameObject.GetComponentInChildren<HeliController>();
@@ -35,6 +53,7 @@ public class PhotoMissionObjective : MonoBehaviour
             if (player.timeSinceLastMove >= maxTime)
             {
                 //Debug.Log("MaxTime has been reached");
+                objectiveSuccessSound.start();
                 MissionController.ObjectiveReportingComplete(gameObject);
                 int objectivesLeft = MissionController.GetMissionObjectives();
                 if (objectivesLeft <= 0)

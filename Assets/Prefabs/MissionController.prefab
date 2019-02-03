@@ -53,3 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allMissionNodes: []
   missionObjectiveNodes: []
+  indicator: {fileID: 0}
+  MissionStartEvent: event:/Missions/MissionStart
+  MissionFailEvent: event:/Missions/MissionFail
+  MissionSuccessEvent: event:/Missions/MissionSuccess
