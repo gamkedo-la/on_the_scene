@@ -45,6 +45,8 @@ public class MissionNode : MonoBehaviour
 
         missionTimeKey = "BestTime" + missionTitle;
         bestTime = PlayerPrefs.GetFloat(missionTimeKey, 0);
+
+        DisableObjectives();
     }
 
     // Update is called once per frame
@@ -95,6 +97,17 @@ public class MissionNode : MonoBehaviour
             }
         }
         return true;
+    }
+
+    void DisableObjectives()
+    {
+        for (int o = 0; o < missionObjectives.Count; o++)
+        {
+            if (missionObjectives[o].activeInHierarchy)
+            {
+                missionObjectives[o].SetActive(false);
+            }
+        }
     }
 
     void OnTriggerEnter(Collider other)
