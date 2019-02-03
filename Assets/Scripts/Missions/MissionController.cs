@@ -44,6 +44,16 @@ public class MissionController : MonoBehaviour
     private bool showingFireworks = true;
     public IndicatorManager indicator;
 
+    [FMODUnity.EventRef]
+    public string MissionStartEvent;
+    private FMOD.Studio.EventInstance missionStartSound;
+
+    [FMODUnity.EventRef]
+    public string MissionFailEvent;
+    private FMOD.Studio.EventInstance missionFailSound;
+
+    private Rigidbody cachedRigidBody;
+
     void Awake()
     {
         if (!instance)
@@ -69,6 +79,7 @@ public class MissionController : MonoBehaviour
         HideFireworkParticles();
         HideTimeToCompletePanel();
         missionObjectiveNodes = new List<GameObject>();
+        SetupSounds();
 
     }
 
@@ -88,13 +99,30 @@ public class MissionController : MonoBehaviour
         }
     }
 
+    private void SetupSounds()
+    {
+        cachedRigidBody = HeliController.instance.GetComponentInParent<Rigidbody>();
+        if (cachedRigidBody == null)
+        {
+            Debug.Log("Unable to get rigidbody from HeliController");
+        }
+
+        missionStartSound = FMODUnity.RuntimeManager.CreateInstance(MissionStartEvent);
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(missionStartSound, GetComponent<Transform>(), GetComponent<Rigidbody>());
+        missionStartSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject, cachedRigidBody));
+
+        missionFailSound = FMODUnity.RuntimeManager.CreateInstance(MissionFailEvent);
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(missionFailSound, GetComponent<Transform>(), GetComponent<Rigidbody>());
+        missionFailSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject, cachedRigidBody));
+    }
+
     public static GameObject GetNearestObjective()
     {
-        if (instance == null || instance.missionObjectiveNodes.Count == 0) 
+        if (instance == null || instance.missionObjectiveNodes.Count == 0)
         {
             return null;
         }
-            
+
         float ShortestDistanceBetween = Mathf.Infinity;
         float DistanceBetween;
         Vector3 PlayerPosition = instance.playerHelicopter.transform.position;
@@ -154,7 +182,7 @@ public class MissionController : MonoBehaviour
             return AllObjectives;
         }
 
-        for (int i = 0; i < instance.missionObjectiveNodes.Count; i++) 
+        for (int i = 0; i < instance.missionObjectiveNodes.Count; i++)
         {
             if (instance.missionObjectiveNodes[i].activeInHierarchy)
             {
@@ -294,6 +322,7 @@ public class MissionController : MonoBehaviour
     public static void HandleMissionFailed(string missionFailedMessage = "You failed.")
     {
         HideCurrentMissionPanel();
+        instance.missionFailSound.start();
         instance.StartCoroutine(instance.ShowMissionFailedMessage(missionFailedMessage));
     }
 
@@ -328,6 +357,7 @@ public class MissionController : MonoBehaviour
     {
         instance.activeMission.SetTimeElapsed();
         ShowMissionStatusPanel("Mission Start", instance.missionStartColor);
+        instance.missionStartSound.start();
         yield return new WaitForSeconds(secondsToShowMissionStatus);
         HideMissionStatusPanel();
         ShowCurrentMissionPanel();

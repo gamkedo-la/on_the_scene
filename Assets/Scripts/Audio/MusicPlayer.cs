@@ -10,7 +10,6 @@ public class MusicPlayer : MonoBehaviour
     private FMOD.Studio.EventInstance music;
 
     private Rigidbody cachedRigidBody;
-    private Transform heliTransform;
 
     void Start()
     {

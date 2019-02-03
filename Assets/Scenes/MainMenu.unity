@@ -8097,6 +8097,7 @@ GameObject:
   - component: {fileID: 1668779884}
   - component: {fileID: 1668779883}
   - component: {fileID: 1668779886}
+  - component: {fileID: 1668779887}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -8182,6 +8183,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MenuMusicEvent: event:/Music/MenuSong
+--- !u!114 &1668779887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1668779882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0d6d7bb6cc6448e0b31fc8eb6fba43b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1680760663
 Mesh:
   m_ObjectHideFlags: 0
