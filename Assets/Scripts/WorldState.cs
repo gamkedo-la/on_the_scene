@@ -57,7 +57,7 @@ public class WorldState : MonoBehaviour
             ToggleNightOrDay();
         }
 
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.O))
         {
             ToggleNightOrDay();
         }
