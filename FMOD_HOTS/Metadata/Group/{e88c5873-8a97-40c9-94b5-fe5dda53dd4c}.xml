@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="MixerGroup" id="{e88c5873-8a97-40c9-94b5-fe5dda53dd4c}">
+        <property name="name">
+            <value>NotChopper</value>
+        </property>
+        <relationship name="effectChain">
+            <destination>{0d08a584-7f44-4248-93d5-ac48932efc00}</destination>
+        </relationship>
+        <relationship name="panner">
+            <destination>{0eb2b7dc-d4d8-4187-863d-ab772ec7da66}</destination>
+        </relationship>
+        <relationship name="output">
+            <destination>{31bb2837-2129-4e00-bb23-4660382cf40f}</destination>
+        </relationship>
+    </object>
+    <object class="MixerBusEffectChain" id="{0d08a584-7f44-4248-93d5-ac48932efc00}">
+        <relationship name="effects">
+            <destination>{7461e3ed-65e2-4aee-afe6-16d0adff7a6b}</destination>
+        </relationship>
+    </object>
+    <object class="MixerBusPanner" id="{0eb2b7dc-d4d8-4187-863d-ab772ec7da66}"/>
+    <object class="MixerBusFader" id="{7461e3ed-65e2-4aee-afe6-16d0adff7a6b}"/>
+</objects>
