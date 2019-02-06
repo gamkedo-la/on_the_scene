@@ -17,4 +17,10 @@ public class MainMenuAudioManager : MonoBehaviour
         music.setVolume(0.5f);
         music.start();
     }
+
+    void OnDestroy()
+    {
+        music.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        music.release();
+    }
 }
