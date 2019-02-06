@@ -23,7 +23,6 @@ public class PhotoMissionObjective : MonoBehaviour
 
         objectiveSuccessSound = FMODUnity.RuntimeManager.CreateInstance(ObjectiveSuccessEvent);
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(objectiveSuccessSound, GetComponent<Transform>(), GetComponent<Rigidbody>());
-        objectiveSuccessSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject, cachedRigidBody));
     }
 
     private void OnTriggerEnter(Collider other)

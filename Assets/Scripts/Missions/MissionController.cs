@@ -113,15 +113,12 @@ public class MissionController : MonoBehaviour
 
         missionStartSound = FMODUnity.RuntimeManager.CreateInstance(MissionStartEvent);
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(missionStartSound, GetComponent<Transform>(), GetComponent<Rigidbody>());
-        missionStartSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject, cachedRigidBody));
 
         missionFailSound = FMODUnity.RuntimeManager.CreateInstance(MissionFailEvent);
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(missionFailSound, GetComponent<Transform>(), GetComponent<Rigidbody>());
-        missionFailSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject, cachedRigidBody));
 
         missionSuccessSound = FMODUnity.RuntimeManager.CreateInstance(MissionSuccessEvent);
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(missionSuccessSound, GetComponent<Transform>(), GetComponent<Rigidbody>());
-        missionSuccessSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject, cachedRigidBody));
     }
 
     public static GameObject GetNearestObjective()
