@@ -8,6 +8,7 @@ public class PauseMenuController : MonoBehaviour {
     public string mainMenuScene;
     public GameObject pauseMenu;
     public GameObject soundMenu;
+    public GameObject toPauseText;
     public bool isPaused;
 
 	// Use this for initialization
@@ -15,6 +16,7 @@ public class PauseMenuController : MonoBehaviour {
         isPaused = false;
         pauseMenu.SetActive(false);
         soundMenu.SetActive(false);
+        toPauseText.SetActive(true);
         Time.timeScale = 1f;
     }
 	
@@ -29,6 +31,7 @@ public class PauseMenuController : MonoBehaviour {
             }
             isPaused = true;
             pauseMenu.SetActive(true);
+            toPauseText.SetActive(false);
             Time.timeScale = 0f;
         }
     }
@@ -37,6 +40,8 @@ public class PauseMenuController : MonoBehaviour {
     {
         isPaused = false;
         pauseMenu.SetActive(false);
+        soundMenu.SetActive(false);
+        toPauseText.SetActive(true);
         Time.timeScale = 1f;
     }
 
