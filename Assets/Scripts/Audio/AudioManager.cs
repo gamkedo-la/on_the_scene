@@ -28,19 +28,30 @@ public class AudioManager : MonoBehaviour
         SFX = FMODUnity.RuntimeManager.GetBus("bus:/Master/SFX");
         chopperSFX = FMODUnity.RuntimeManager.GetBus("bus:/Master/SFX/Chopper");
         notChopperSFX = FMODUnity.RuntimeManager.GetBus("bus:/Master/SFX/NotChopper");
-        master.setVolume(1.0f);
-        music.setVolume(0.5f);
-        SFX.setVolume(0.5f);
-        chopperSFX.setVolume(0.05f);
-        notChopperSFX.setVolume(1.0f);
+
+        InitializeVolumeLevels();
 
         SFXTest = FMODUnity.RuntimeManager.CreateInstance("event:/Missions/MissionObjectiveComplete");
         MusicTest = FMODUnity.RuntimeManager.CreateInstance("event:/Music/MenuSong");
-        ChopperSFXTest = FMODUnity.RuntimeManager.CreateInstance("event:/Chopper/Accellerate");
+        ChopperSFXTest = FMODUnity.RuntimeManager.CreateInstance("event:/Chopper/Accelerate");
 
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(SFXTest, GetComponent<Transform>(), GetComponent<Rigidbody>());
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(MusicTest, GetComponent<Transform>(), GetComponent<Rigidbody>());
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(ChopperSFXTest, GetComponent<Transform>(), GetComponent<Rigidbody>());
+    }
+
+    void InitializeVolumeLevels() {
+        float masterVolume = PlayerPrefs.GetFloat("masterVolume", 1f);
+        float musicVolume = PlayerPrefs.GetFloat("musicVolume", 0.5f);
+        float sfxVolume = PlayerPrefs.GetFloat("sfxVolume", 0.5f);
+        float chopperSfxVolume = PlayerPrefs.GetFloat("chopperSfxVolume", 0.05f);
+        float notChopperSfxVolume = PlayerPrefs.GetFloat("notChopperSfxVolume", 1f);
+
+        master.setVolume(masterVolume);
+        music.setVolume(musicVolume);
+        SFX.setVolume(sfxVolume);
+        chopperSFX.setVolume(chopperSfxVolume);
+        notChopperSFX.setVolume(notChopperSfxVolume);
     }
 
     public void SetVolume(Slider volume)
@@ -48,6 +59,7 @@ public class AudioManager : MonoBehaviour
         playing = true;
         MusicTest.setVolume(volume.value);
         master.setVolume(volume.value);
+        PlayerPrefs.SetFloat("masterVolume", volume.value);
         StartCoroutine(TestSound(MusicTest));
     }
 
@@ -56,6 +68,7 @@ public class AudioManager : MonoBehaviour
         playing = true;
         MusicTest.setVolume(volume.value);
         music.setVolume(volume.value);
+        PlayerPrefs.SetFloat("musicVolume", volume.value);
         StartCoroutine(TestSound(MusicTest));
     }
 
@@ -64,6 +77,7 @@ public class AudioManager : MonoBehaviour
         playing = true;
         SFXTest.setVolume(volume.value);
         SFX.setVolume(volume.value);
+        PlayerPrefs.SetFloat("sfxVolume", volume.value);
         StartCoroutine(TestSound(SFXTest));
     }
 
@@ -72,6 +86,7 @@ public class AudioManager : MonoBehaviour
         playing = true;
         ChopperSFXTest.setVolume(volume.value);
         chopperSFX.setVolume(volume.value);
+        PlayerPrefs.SetFloat("chopperSfxVolume", volume.value);
         StartCoroutine(TestSound(ChopperSFXTest));
     }
 
@@ -80,6 +95,7 @@ public class AudioManager : MonoBehaviour
         playing = true;
         SFXTest.setVolume(volume.value);
         notChopperSFX.setVolume(volume.value);
+        PlayerPrefs.SetFloat("notChopperSfxVolume", volume.value);
         StartCoroutine(TestSound(SFXTest));
     }
 

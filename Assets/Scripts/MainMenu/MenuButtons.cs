@@ -19,11 +19,15 @@ public class MenuButtons : MonoBehaviour {
         float masterVolume = PlayerPrefs.GetFloat("masterVolume", 1f);
         float musicVolume = PlayerPrefs.GetFloat("musicVolume", 0.5f);
         float sfxVolume = PlayerPrefs.GetFloat("sfxVolume", 0.5f);
+        float chopperSfxVolume = PlayerPrefs.GetFloat("chopperSfxVolume", 0.05f);
+        float notChopperSfxVolume = PlayerPrefs.GetFloat("notChopperSfxVolume", 1f);
         
         PlayerPrefs.DeleteAll();
 
         PlayerPrefs.SetFloat("masterVolume", masterVolume);
         PlayerPrefs.SetFloat("musicVolume", musicVolume);
         PlayerPrefs.SetFloat("sfxVolume", sfxVolume);
+        PlayerPrefs.SetFloat("chopperSfxVolume", chopperSfxVolume);
+        PlayerPrefs.SetFloat("notChopperSfxVolume", notChopperSfxVolume);
     }
 }

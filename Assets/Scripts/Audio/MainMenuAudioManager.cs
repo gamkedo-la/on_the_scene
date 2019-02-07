@@ -14,7 +14,10 @@ public class MainMenuAudioManager : MonoBehaviour
         music = FMODUnity.RuntimeManager.CreateInstance(MenuMusicEvent);
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(music, GetComponent<Transform>(), GetComponent<Rigidbody>());
         music.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject, GetComponent<Rigidbody>()));
-        music.setVolume(0.5f);
+
+        float musicVolume = PlayerPrefs.GetFloat("musicVolume", 0.5f);
+
+        music.setVolume(musicVolume);
         music.start();
     }
 
