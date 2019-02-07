@@ -55,24 +55,8 @@ public class HeliInput : MonoBehaviour
     private ConnectedController connectedController = ConnectedController.None;
 
     [FMODUnity.EventRef]
-    public string AccellerateEvent;
-    FMOD.Studio.EventInstance accellerate;
-
-    [FMODUnity.EventRef]
-    public string DecelerateEvent;
-    FMOD.Studio.EventInstance decelerate;
-
-    [FMODUnity.EventRef]
     public string HoverEvent;
     FMOD.Studio.EventInstance hover;
-
-    [FMODUnity.EventRef]
-    public string FullSpeedEvent;
-    FMOD.Studio.EventInstance fullSpeed;
-
-    private FMOD.Studio.PLAYBACK_STATE accelleratePlaybackState;
-    private FMOD.Studio.PLAYBACK_STATE deaccelleratePlaybackState;
-    private FMOD.Studio.PLAYBACK_STATE hoverPlaybackState;
 
     private Rigidbody cachedRigidBody;
 
