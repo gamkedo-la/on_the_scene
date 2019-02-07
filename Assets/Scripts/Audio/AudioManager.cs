@@ -48,7 +48,7 @@ public class AudioManager : MonoBehaviour
         playing = true;
         MusicTest.setVolume(volume.value);
         master.setVolume(volume.value);
-        TestSound(MusicTest);
+        StartCoroutine(TestSound(MusicTest));
     }
 
     public void SetMusicVolume(Slider volume)
@@ -56,7 +56,7 @@ public class AudioManager : MonoBehaviour
         playing = true;
         MusicTest.setVolume(volume.value);
         music.setVolume(volume.value);
-        TestSound(MusicTest);
+        StartCoroutine(TestSound(MusicTest));
     }
 
     public void SetSFXVolume(Slider volume)
@@ -64,7 +64,7 @@ public class AudioManager : MonoBehaviour
         playing = true;
         SFXTest.setVolume(volume.value);
         SFX.setVolume(volume.value);
-        TestSound(SFXTest);
+        StartCoroutine(TestSound(SFXTest));
     }
 
     public void SetChopperSFXVolume(Slider volume)
@@ -72,7 +72,7 @@ public class AudioManager : MonoBehaviour
         playing = true;
         ChopperSFXTest.setVolume(volume.value);
         chopperSFX.setVolume(volume.value);
-        TestSound(ChopperSFXTest);
+        StartCoroutine(TestSound(ChopperSFXTest));
     }
 
     public void SetNotChopperSFXVolume(Slider volume)
@@ -80,7 +80,7 @@ public class AudioManager : MonoBehaviour
         playing = true;
         SFXTest.setVolume(volume.value);
         notChopperSFX.setVolume(volume.value);
-        TestSound(SFXTest);
+        StartCoroutine(TestSound(SFXTest));
     }
 
     IEnumerator TestSound(FMOD.Studio.EventInstance instance)
@@ -88,8 +88,8 @@ public class AudioManager : MonoBehaviour
         while (playing)
         {
             instance.start();
-            yield return new WaitForSeconds(0.5f);
-            instance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            yield return new WaitForSecondsRealtime(1.8f);
+            instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             playing = false;
         }
     }

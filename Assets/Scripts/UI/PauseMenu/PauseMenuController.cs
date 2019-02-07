@@ -11,12 +11,15 @@ public class PauseMenuController : MonoBehaviour {
     public GameObject toPauseText;
     public bool isPaused;
 
-	// Use this for initialization
-	void Start () {
+    private FMOD.Studio.Bus master;
+
+    // Use this for initialization
+    void Start () {
         isPaused = false;
         pauseMenu.SetActive(false);
         soundMenu.SetActive(false);
         toPauseText.SetActive(true);
+        master = FMODUnity.RuntimeManager.GetBus("bus:/Master");
         Time.timeScale = 1f;
     }
 	
@@ -32,8 +35,14 @@ public class PauseMenuController : MonoBehaviour {
             isPaused = true;
             pauseMenu.SetActive(true);
             toPauseText.SetActive(false);
+            master.stopAllEvents(FMOD.Studio.STOP_MODE.IMMEDIATE);
             Time.timeScale = 0f;
         }
+    }
+
+    public bool GetPaused()
+    {
+        return isPaused;
     }
 
     public void ResumeGame()
@@ -42,6 +51,7 @@ public class PauseMenuController : MonoBehaviour {
         pauseMenu.SetActive(false);
         soundMenu.SetActive(false);
         toPauseText.SetActive(true);
+        master.setPaused(false);
         Time.timeScale = 1f;
     }
 
@@ -49,12 +59,14 @@ public class PauseMenuController : MonoBehaviour {
     {
         pauseMenu.SetActive(false);
         soundMenu.SetActive(true);
+        master.setPaused(false);
     }
 
     public void BackToPauseMenu()
     {
         pauseMenu.SetActive(true);
         soundMenu.SetActive(false);
+        master.setPaused(true);
     }
 
     public void ReturnToMain()

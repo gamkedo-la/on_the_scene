@@ -8,6 +8,8 @@ public class MusicPlayer : MonoBehaviour
     [FMODUnity.EventRef]
     public string MusicEvent;
     private FMOD.Studio.EventInstance music;
+    public PauseMenuController PMC;
+    private bool stopMusic;
 
     private Rigidbody cachedRigidBody;
 
@@ -30,9 +32,14 @@ public class MusicPlayer : MonoBehaviour
         music.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject, cachedRigidBody));
         FMOD.Studio.PLAYBACK_STATE PBState;
         music.getPlaybackState(out PBState);
+        stopMusic = PMC.GetPaused();
         if (PBState != FMOD.Studio.PLAYBACK_STATE.PLAYING)
         {
             music.start();
+            if (stopMusic)
+            {
+                music.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            }
         }
     }
 }
