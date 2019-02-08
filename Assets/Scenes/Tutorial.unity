@@ -2886,6 +2886,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114302291512088076, guid: 09bcb4be2a6db07469bab060a1632a3f,
+        type: 2}
+      propertyPath: HoverEvent
+      value: event:/Chopper/Hover
+      objectReference: {fileID: 0}
+    - target: {fileID: 114327160038773086, guid: 09bcb4be2a6db07469bab060a1632a3f,
+        type: 2}
+      propertyPath: polyEditMode
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09bcb4be2a6db07469bab060a1632a3f, type: 2}
   m_IsPrefabAsset: 0
@@ -15070,7 +15080,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh-226198
+  m_Name: pb_Mesh-50348
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
