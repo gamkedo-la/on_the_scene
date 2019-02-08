@@ -3970,10 +3970,7 @@ MonoBehaviour:
   speedInfluence: 1
   controlInfluence: 1
   deadZone: 10
-  AccellerateEvent: event:/Chopper/Accellerate
-  DecelerateEvent: event:/Chopper/Deaccelerate
   HoverEvent: event:/Chopper/Hover
-  FullSpeedEvent: event:/Chopper/FullSpeed
 --- !u!114 &114300760551838810
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4814,6 +4811,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MusicEvent: event:/Music/Music
+  PMC: {fileID: 0}
 --- !u!114 &114388817762504676
 MonoBehaviour:
   m_ObjectHideFlags: 1
