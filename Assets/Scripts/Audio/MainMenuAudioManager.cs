@@ -8,6 +8,18 @@ public class MainMenuAudioManager : MonoBehaviour
     public string MenuMusicEvent;
     private FMOD.Studio.EventInstance music;
 
+    private GameObject menuPanel;
+    private GameObject settingsPanel;
+
+    void Awake()
+    {
+        menuPanel = GameObject.Find("MenuPanel");
+        settingsPanel = GameObject.Find("SettingsPanel");
+        if (settingsPanel) {
+            settingsPanel.SetActive(false);
+        }
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -19,6 +31,12 @@ public class MainMenuAudioManager : MonoBehaviour
 
         music.setVolume(musicVolume);
         music.start();
+    }
+
+    public void ToggleSettings()
+    {
+        menuPanel.SetActive(settingsPanel.activeSelf);
+        settingsPanel.SetActive(!settingsPanel.activeSelf);
     }
 
     void OnDestroy()

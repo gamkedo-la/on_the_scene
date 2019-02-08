@@ -29,8 +29,6 @@ public class AudioManager : MonoBehaviour
         chopperSFX = FMODUnity.RuntimeManager.GetBus("bus:/Master/SFX/Chopper");
         notChopperSFX = FMODUnity.RuntimeManager.GetBus("bus:/Master/SFX/NotChopper");
 
-        InitializeVolumeLevels();
-
         SFXTest = FMODUnity.RuntimeManager.CreateInstance("event:/Missions/MissionObjectiveComplete");
         MusicTest = FMODUnity.RuntimeManager.CreateInstance("event:/Music/MenuSong");
         ChopperSFXTest = FMODUnity.RuntimeManager.CreateInstance("event:/Chopper/Accelerate");
@@ -38,6 +36,8 @@ public class AudioManager : MonoBehaviour
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(SFXTest, GetComponent<Transform>(), GetComponent<Rigidbody>());
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(MusicTest, GetComponent<Transform>(), GetComponent<Rigidbody>());
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(ChopperSFXTest, GetComponent<Transform>(), GetComponent<Rigidbody>());
+
+        InitializeVolumeLevels();
     }
 
     void InitializeVolumeLevels() {
@@ -56,6 +56,7 @@ public class AudioManager : MonoBehaviour
 
     public void SetVolume(Slider volume)
     {
+        Debug.Log(volume);
         playing = true;
         MusicTest.setVolume(volume.value);
         master.setVolume(volume.value);

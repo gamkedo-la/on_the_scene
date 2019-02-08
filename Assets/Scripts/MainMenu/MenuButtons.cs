@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MenuButtons : MonoBehaviour {
-
     public string sceneToLoad;
+
     public void ClickAction()
     {
         if (transform.parent.gameObject.name == "New Game") {
