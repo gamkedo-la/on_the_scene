@@ -57,6 +57,7 @@ public class AudioManager : MonoBehaviour
     public void SetVolume(Slider volume)
     {
         Debug.Log(volume);
+        StopAllCoroutines();
         playing = true;
         MusicTest.setVolume(volume.value);
         master.setVolume(volume.value);
@@ -66,6 +67,7 @@ public class AudioManager : MonoBehaviour
 
     public void SetMusicVolume(Slider volume)
     {
+        StopAllCoroutines();
         playing = true;
         MusicTest.setVolume(volume.value);
         music.setVolume(volume.value);
@@ -75,6 +77,7 @@ public class AudioManager : MonoBehaviour
 
     public void SetSFXVolume(Slider volume)
     {
+        StopAllCoroutines();
         playing = true;
         SFXTest.setVolume(volume.value);
         SFX.setVolume(volume.value);
@@ -84,6 +87,7 @@ public class AudioManager : MonoBehaviour
 
     public void SetChopperSFXVolume(Slider volume)
     {
+        StopAllCoroutines();
         playing = true;
         ChopperSFXTest.setVolume(volume.value);
         chopperSFX.setVolume(volume.value);
@@ -93,6 +97,7 @@ public class AudioManager : MonoBehaviour
 
     public void SetNotChopperSFXVolume(Slider volume)
     {
+        StopAllCoroutines();
         playing = true;
         SFXTest.setVolume(volume.value);
         notChopperSFX.setVolume(volume.value);
