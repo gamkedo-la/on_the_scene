@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311926, g: 0.38073996, b: 0.35872698, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074, b: 0.35872698, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -232,15 +232,15 @@ RectTransform:
   m_GameObject: {fileID: 208459356}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95, y: 0.95, z: 1}
   m_Children: []
   m_Father: {fileID: 409741768}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 2.199997}
+  m_SizeDelta: {x: 0, y: -41.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &208459358
 MonoBehaviour:
@@ -262,21 +262,48 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 20
+    m_Font: {fileID: 12800000, guid: ce23c738378cc774e8b20c679b071ddd, type: 3}
+    m_FontSize: 6
     m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 2
+    m_BestFit: 1
+    m_MinSize: 1
     m_MaxSize: 40
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '<b><size=20>Jeremy Kenyon</size></b> Project lead
-
-    <b><size=20>Jeremy Kenyon</size></b> Project lead'
+  m_Text: "Project lead, core gameplay (prototype flight control), camera tracking,
+    voxel building, world map and terrain mesh, hospital model, gamepad improvements,
+    bat particles, office building textures, groudn vehicle scripting, photo mission,
+    objective arrow, sound integration, forest mesh, residential models: <b>Jeremy
+    Kenyon</b>\nRoof texturing, assorted office and residential building models (7+),
+    tree sway script (prototyped), dust cloud particles, volcano model and eruption
+    particles, scrolling lava texture, tour mission and billboard, ocean shader, boat
+    scripting, pause menu: <b>Terrence McDonnell</b>\nNew helicopter steering system
+    and related tuning, follow camera script, landing mechanic, postprocessing, vehicle
+    stability improvements, majority of initial city design, tutorial, speed particles,
+    response to load (prototype): <b>Kornel</b>\nMission system and related UI, mission-related
+    particles (including fireworks), best times storage/reset, boundary limits, credits
+    scene, menu volume sliders: <b>Jeremy Jackson</b>\nModels for yachts (2), raft,
+    speedboat, coast guard ship, crashed ship, docks (3), cargo ship, sampan boat,
+    car, truck: <b>Charlene A.</b>\nTransport helicopter model, scene organization:
+    <b>Dan Lazar</b>\nBlade motion blur, rescue helicopter model and texture, rope
+    physics (prototyped), gamepad controls, seagull particles, cloud particles, ground
+    crowd: <b>Christer \"McFunkypants\" Kaitila</b>\nPlane AI model and plane scripting:
+    <b>Cameron Button</b>\nRadio song (2 of 5, also used as title): <b>Stebs</b>\nRadio
+    song (1 of 5): <b>Avery Pratt</b>\nRadio song (1 of 5): <b>Cecilia Borges</b>\nRadio
+    song (1 of 5): <b>Klaim (A. Jo\xEBl Lamotte)</b>\nSounds for helicopter, mission
+    updates, and crashes: <b>Shaun Lindsley</b>\nDay and night functionality and related
+    lamp script: <b>Bar\u0131\u015F K\xF6kl\xFC</b>\nOuthouse and warehouse models:
+    <b>Marcelo Gon\xE7alves</b>\nInitial car traffic waypoint scripting (prototyped):
+    <b>R\xE9my Lapointe</b>\nZ-fighting fixes, smoothed helicopter deceleration: <b>Brandon</b>\nTree
+    model: <b>Miles Robson (Confirm4Crit)</b>\nTV tower model, sports stadium model,
+    song/radio tuner, ground texture: <b>Chris DeLeon</b>\nMenu sound effects: <b>Jaime
+    Rivas</b>\nFMOD Integration, base chopper sound: <b>Chris Markle</b>\nCleanup
+    of tutorial text: <b>Caspar \"SpadXIII\" Dunant</b>\nAdded README.md: <b>Vaan
+    Hope Khani</b>\n\n<b>Game developed in Gamkedo Club find our more at gamkedo.com</b>"
 --- !u!222 &208459359
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4844,7 +4871,7 @@ RectTransform:
   m_GameObject: {fileID: 1072135884}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children:
   - {fileID: 1428175161}
   - {fileID: 2127844731}
@@ -7441,7 +7468,7 @@ RectTransform:
   m_GameObject: {fileID: 1583844693}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 409741768}
   m_RootOrder: 0
