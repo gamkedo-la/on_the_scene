@@ -122,13 +122,10 @@ public class AudioManager : MonoBehaviour
 
     IEnumerator TestSound(FMOD.Studio.EventInstance instance)
     {
-        while (playing)
-        {
-            instance.start();
-            yield return new WaitForSecondsRealtime(1.8f);
-            instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-            playing = false;
-        }
+        instance.start();
+        yield return new WaitForSecondsRealtime(1.8f);
+        instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+
     }
 
     // Update is called once per frame
