@@ -56,7 +56,7 @@ public class HeliInput : MonoBehaviour
 
     [FMODUnity.EventRef]
     public string HoverEvent;
-    FMOD.Studio.EventInstance hover;
+    public FMOD.Studio.EventInstance hover;
 
     private Rigidbody cachedRigidBody;
 

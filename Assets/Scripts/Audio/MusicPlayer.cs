@@ -19,23 +19,23 @@ public class MusicPlayer : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("object: " + name);
         cachedRigidBody = GetComponentInParent<Rigidbody>();
         if (cachedRigidBody == null)
         {
             Debug.Log("Unable to get rigidbody off helicontroller");
         }
-        songNum = Random.Range(0,MusicEventList.Length);
+        songNum = Random.Range(0, MusicEventList.Length);
         music = FMODUnity.RuntimeManager.CreateInstance(MusicEventList[songNum]);
         UpdateSongCredits();
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(music, GetComponent<Transform>(), GetComponent<Rigidbody>());
-        music.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject, cachedRigidBody));
         music.start();
     }
 
     void UpdateSongCredits()
     {
         radioCredits.text =
-            "[ and ] change radio\nSong by "+MusicCreditsText[songNum];
+            "[ and ] change radio\nSong by " + MusicCreditsText[songNum];
     }
 
     void ChangeSong()
@@ -45,14 +45,13 @@ public class MusicPlayer : MonoBehaviour
         music = FMODUnity.RuntimeManager.CreateInstance(MusicEventList[songNum]);
         UpdateSongCredits();
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(music, GetComponent<Transform>(), GetComponent<Rigidbody>());
-        music.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject, cachedRigidBody));
         music.start();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(PMC.GetPaused() == false) // avoid cycling song event instance while it's paused
+        if (PMC.GetPaused() == false) // avoid cycling song event instance while it's paused
         {
             if (Input.GetKeyDown(KeyCode.LeftBracket))
             {
@@ -74,7 +73,6 @@ public class MusicPlayer : MonoBehaviour
             }
         }
 
-        music.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject, cachedRigidBody));
         FMOD.Studio.PLAYBACK_STATE PBState;
         music.getPlaybackState(out PBState);
         stopMusic = PMC.GetPaused();

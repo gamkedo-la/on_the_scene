@@ -20,6 +20,8 @@ public class AudioManager : MonoBehaviour
     [FMODUnity.EventRef]
     private FMOD.Studio.EventInstance ChopperSFXTest;
 
+    HeliInput currentInput;
+
     // Use this for initialization
     void Start()
     {
@@ -40,7 +42,20 @@ public class AudioManager : MonoBehaviour
         InitializeVolumeLevels();
     }
 
-    void InitializeVolumeLevels() {
+    HeliInput GetCurrentInput()
+    {
+        currentInput = HeliController.instance.gameObject.GetComponent<HeliInput>();
+        return currentInput;
+    }
+
+    public void StartChopperSounds()
+    {
+        currentInput = GetCurrentInput();
+        currentInput.hover.start();
+    }
+
+    void InitializeVolumeLevels()
+    {
         float masterVolume = PlayerPrefs.GetFloat("masterVolume", 1f);
         float musicVolume = PlayerPrefs.GetFloat("musicVolume", 0.5f);
         float sfxVolume = PlayerPrefs.GetFloat("sfxVolume", 0.5f);
