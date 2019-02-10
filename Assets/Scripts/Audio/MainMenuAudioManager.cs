@@ -15,7 +15,8 @@ public class MainMenuAudioManager : MonoBehaviour
     {
         menuPanel = GameObject.Find("MenuPanel");
         settingsPanel = GameObject.Find("SettingsPanel");
-        if (settingsPanel) {
+        if (settingsPanel)
+        {
             settingsPanel.SetActive(false);
         }
     }
@@ -25,7 +26,6 @@ public class MainMenuAudioManager : MonoBehaviour
     {
         music = FMODUnity.RuntimeManager.CreateInstance(MenuMusicEvent);
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(music, GetComponent<Transform>(), GetComponent<Rigidbody>());
-        music.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject, GetComponent<Rigidbody>()));
 
         float musicVolume = PlayerPrefs.GetFloat("musicVolume", 0.5f);
 
