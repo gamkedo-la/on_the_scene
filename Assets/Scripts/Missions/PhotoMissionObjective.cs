@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PhotoMissionObjective : MonoBehaviour
 {
@@ -11,16 +12,12 @@ public class PhotoMissionObjective : MonoBehaviour
     [FMODUnity.EventRef]
     public string ObjectiveSuccessEvent = "event:/Missions/MissionObjectiveComplete";
     private FMOD.Studio.EventInstance objectiveSuccessSound;
-    private Rigidbody cachedRigidBody;
+
+    public TextMeshProUGUI countDownText;
 
     private void Start()
     {
-        cachedRigidBody = HeliController.instance.GetComponentInParent<Rigidbody>();
-        if (cachedRigidBody == null)
-        {
-            Debug.Log("Unable to get rigidbody from HeliController");
-        }
-
+        countDownText.text = "";
         objectiveSuccessSound = FMODUnity.RuntimeManager.CreateInstance(ObjectiveSuccessEvent);
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(objectiveSuccessSound, GetComponent<Transform>(), GetComponent<Rigidbody>());
     }
@@ -49,11 +46,13 @@ public class PhotoMissionObjective : MonoBehaviour
     {
         if (player != null)
         {
+            countDownText.text = "Time remaining: " + ((int)maxTime - (int)player.timeSinceLastMove);
             if (player.timeSinceLastMove >= maxTime)
             {
                 //Debug.Log("MaxTime has been reached");
                 objectiveSuccessSound.start();
                 MissionController.ObjectiveReportingComplete(gameObject);
+                countDownText.text = "";
                 int objectivesLeft = MissionController.GetMissionObjectives();
                 if (objectivesLeft <= 0)
                 {
