@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class MusicPlayer : MonoBehaviour
 {
+    [HideInInspector] public static MusicPlayer instance;
+
     [FMODUnity.EventRef]
     public string[] MusicEventList;
     public string[] MusicCreditsText;
@@ -12,18 +14,13 @@ public class MusicPlayer : MonoBehaviour
     public PauseMenuController PMC;
     public Text radioCredits;
     private bool stopMusic;
+    private bool manuallyStoppedMusic = false;
 
     private int songNum = 0;
 
-    private Rigidbody cachedRigidBody;
-
     void Start()
     {
-        cachedRigidBody = GetComponentInParent<Rigidbody>();
-        if (cachedRigidBody == null)
-        {
-            Debug.Log("Unable to get rigidbody off helicontroller");
-        }
+        instance = this;
         songNum = Random.Range(0, MusicEventList.Length);
         music = FMODUnity.RuntimeManager.CreateInstance(MusicEventList[songNum]);
         UpdateSongCredits();
@@ -44,6 +41,18 @@ public class MusicPlayer : MonoBehaviour
         music = FMODUnity.RuntimeManager.CreateInstance(MusicEventList[songNum]);
         UpdateSongCredits();
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(music, GetComponent<Transform>(), GetComponent<Rigidbody>());
+        music.start();
+    }
+
+    public void StopMusic()
+    {
+        music.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        manuallyStoppedMusic = true;
+    }
+
+    public void StartMusic()
+    {
+        manuallyStoppedMusic = false;
         music.start();
     }
 
@@ -75,7 +84,7 @@ public class MusicPlayer : MonoBehaviour
         FMOD.Studio.PLAYBACK_STATE PBState;
         music.getPlaybackState(out PBState);
         stopMusic = PMC.GetPaused();
-        if (PBState != FMOD.Studio.PLAYBACK_STATE.PLAYING)
+        if (PBState != FMOD.Studio.PLAYBACK_STATE.PLAYING && manuallyStoppedMusic == false)
         {
             music.start();
             if (stopMusic)
