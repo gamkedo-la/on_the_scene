@@ -239,7 +239,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 2.199997}
+  m_AnchoredPosition: {x: 0, y: 2.2000122}
   m_SizeDelta: {x: 0, y: -41.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &208459358
@@ -303,7 +303,8 @@ MonoBehaviour:
     song/radio tuner, ground texture: <b>Chris DeLeon</b>\nMenu sound effects: <b>Jaime
     Rivas</b>\nFMOD Integration, base chopper sound: <b>Chris Markle</b>\nCleanup
     of tutorial text: <b>Caspar \"SpadXIII\" Dunant</b>\nAdded README.md: <b>Vaan
-    Hope Khani</b>\n\n<b>Game developed in Gamkedo Club find our more at gamkedo.com</b>"
+    Hope Khani</b>\nLogo Font: <b>Chequered Ink fonts</b> \n\n<b>Game developed in
+    Gamkedo Club find our more at gamkedo.com</b>"
 --- !u!222 &208459359
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -19,7 +19,6 @@ public class MusicPlayer : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("object: " + name);
         cachedRigidBody = GetComponentInParent<Rigidbody>();
         if (cachedRigidBody == null)
         {
