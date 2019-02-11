@@ -10,11 +10,13 @@ public class MainMenuAudioManager : MonoBehaviour
 
     private GameObject menuPanel;
     private GameObject settingsPanel;
+    private GameObject logo;
 
     void Awake()
     {
         menuPanel = GameObject.Find("MenuPanel");
         settingsPanel = GameObject.Find("SettingsPanel");
+        logo = GameObject.Find("Logo");
         if (settingsPanel)
         {
             settingsPanel.SetActive(false);
@@ -37,6 +39,7 @@ public class MainMenuAudioManager : MonoBehaviour
     {
         menuPanel.SetActive(settingsPanel.activeSelf);
         settingsPanel.SetActive(!settingsPanel.activeSelf);
+        logo.SetActive(!logo.activeSelf);
     }
 
     void OnDestroy()
