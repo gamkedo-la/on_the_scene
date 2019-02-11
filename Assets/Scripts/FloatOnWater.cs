@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FloatOnWater : MonoBehaviour {
+public class FloatOnWater : MonoBehaviour
+{
     public Transform waterLevel;
     Rigidbody rb;
     public float waterLevelY;
@@ -14,13 +15,15 @@ public class FloatOnWater : MonoBehaviour {
     private Vector3 upLift;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         rb = GetComponent<Rigidbody>();
         waterLevelY = waterLevel.position.y;
     }
 
     // Update is called once per frame
-    void Update () {
+    void FixedUpdate()
+    {
         actionPoint = transform.position + transform.TransformDirection(bouyancyCenterOffset);
         forceFactor = 1.0f - ((actionPoint.y - waterLevelY) / MaxHeight);
 
@@ -29,7 +32,7 @@ public class FloatOnWater : MonoBehaviour {
             upLift = -Physics.gravity * (forceFactor - rb.velocity.y * bounceDamp);
 
             rb.AddForceAtPosition(upLift, actionPoint);
-            
+
         }
     }
 }

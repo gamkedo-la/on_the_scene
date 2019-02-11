@@ -7857,19 +7857,19 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1668779882}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63ec167efba1246e4bed8d85cfc6d80a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuMusicEvent: event:/Music/MenuSong
+  MenuMusicEvent: event:/Music/Song-Hots1-Avery
 --- !u!114 &1668779887
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1668779882}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c0d6d7bb6cc6448e0b31fc8eb6fba43b, type: 3}
   m_Name: 
