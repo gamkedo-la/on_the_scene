@@ -81,6 +81,11 @@ public class HeliInput : MonoBehaviour
 
     }
 
+    public void ZeroSpeed()
+    {
+        currentThrottle = 0.0f;
+    }
+
     void FixedUpdate()
     {
         CheckConnectedControllers(); // Or do we only check on start?

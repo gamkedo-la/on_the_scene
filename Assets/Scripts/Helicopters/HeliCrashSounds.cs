@@ -40,11 +40,17 @@ public class HeliCrashSounds : MonoBehaviour
         sounds.Add(crashThreeSound);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision coll)
     {
-        HeliController tempHC = other.gameObject.GetComponentInChildren<HeliController>();
+        HeliController tempHC = coll.collider.gameObject.GetComponentInChildren<HeliController>();
         if (tempHC != null)
         {
+            Debug.Log("tempHC before " + tempHC.transform.position);
+            coll.collider.transform.position += coll.contacts[0].normal * -20.0f;
+            Rigidbody rb = tempHC.GetComponentInParent<Rigidbody>();
+            tempHC.GetComponent<HeliInput>().ZeroSpeed();
+            rb.velocity = Vector3.zero;
+            Debug.Log("tempHC after " + tempHC.transform.position);
             FMOD.Studio.EventInstance randomSound = SoundPicker();
             randomSound.start();
         }
