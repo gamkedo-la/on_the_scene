@@ -31,7 +31,7 @@ public class MusicPlayer : MonoBehaviour
     void UpdateSongCredits()
     {
         radioCredits.text =
-            "[ and ] change radio\nSong by " + MusicCreditsText[songNum];
+            "[ and ] change radio\n< and > change helicopter\nSong by \n" + MusicCreditsText[songNum];
     }
 
     void ChangeSong()
